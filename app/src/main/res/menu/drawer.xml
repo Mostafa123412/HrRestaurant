@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/primary"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/aboutRestaurantFragment"
+            android:checkable="true"
+            android:icon="@drawable/about"
+            android:title="About Restaurant" />
+        <item
+            android:id="@+id/aboutDeveloperFragment"
+            android:checkable="true"
+            android:icon="@drawable/about"
+            android:title="About Developers" />
+        <item
+            android:id="@+id/youtubeFragment"
+            android:checkable="true"
+            android:icon="@drawable/video"
+            android:title="Restaurant Video" />
+        <item
+            android:id="@+id/locationFragment"
+            android:checkable="true"
+            android:icon="@drawable/ic_baseline_location_on_24"
+            android:title="Restaurant Location" />
+    </group>
+</menu>

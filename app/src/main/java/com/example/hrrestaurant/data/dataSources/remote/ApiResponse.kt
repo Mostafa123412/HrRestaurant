@@ -1,0 +1,10 @@
+package com.example.hrrestaurant.data.dataSources.remote
+
+import com.example.hrrestaurant.data.dataSources.local.MealDto
+import com.google.gson.annotations.SerializedName
+
+data class ApiResponse(
+    @SerializedName("breakfast")
+    val items:List<MealDto?>,
+
+    )

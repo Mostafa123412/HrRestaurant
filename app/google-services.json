@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "948305678686",
+    "project_id": "hr-restaurant",
+    "storage_bucket": "hr-restaurant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948305678686:android:e7d87c12c4b2c237ec3fcf",
+        "android_client_info": {
+          "package_name": "com.example.hrrestaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948305678686-chlmje70qesr2jun03usij0pdqell58p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hrrestaurant",
+            "certificate_hash": "a8aeebd37a3cb4bcabeb70c9f43913b6c247840f"
+          }
+        },
+        {
+          "client_id": "948305678686-aunm7mg16kt3ahtdo8bpi9hmmipmbtih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLwCJVoUq1Pkv0Eg2LvMIUyoYiAMjam1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948305678686-aunm7mg16kt3ahtdo8bpi9hmmipmbtih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

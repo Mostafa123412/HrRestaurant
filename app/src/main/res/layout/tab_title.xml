@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/text1"
+    android:padding="@dimen/_8sdp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:text="Title"
+    android:gravity="center"
+    android:background="@drawable/tab_selected_background"
+    android:textColor="@color/teb_text_selector"
+    >
+
+
+</TextView>

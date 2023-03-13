@@ -1,0 +1,48 @@
+package com.example.hrrestaurant.ui.base
+
+import androidx.lifecycle.*
+import com.example.hrrestaurant.data.repositories.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+
+@HiltViewModel
+open class SharedViewModel @Inject constructor(private val repository: Repository) :
+    ViewModel() {
+    private val _result = MutableLiveData<String>()
+    val result: LiveData<String>
+        get() = _result
+
+    fun addItemToFavorite(id: Int) {
+        viewModelScope.launch {
+            repository.addItemToFavourite(id)
+        }
+    }
+
+    fun removeItemFromFavorite(id: Int) {
+        viewModelScope.launch {
+            repository.removeItemFromFavourite(id)
+        }
+    }
+
+    /***
+     * withContext(Dispatchers.Default) makes the suspend function do something on
+     * a background thread and resumes the calling thread (usually the main thread)
+     * when the result is ready
+     */
+//    fun rateItem(id: Int?, rate: Float?) {
+//        //aync , await
+//        viewModelScope.launch {
+//            val result = withContext(Dispatchers.Default) {
+//                repository.postItemRate(id, rate)
+//            }
+//            _result.postValue(result)
+//        }
+//    }
+
+    fun addItemToCart(id:Int) = viewModelScope.launch {
+        repository.addItemToCart(id)
+    }
+    fun removeItemFromCart(id:Int) = viewModelScope.launch { repository.removeItemFromCart(id) }
+}

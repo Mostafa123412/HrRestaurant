@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/aboutRestaurantFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.drawer.AboutRestaurantFragment"
+        android:label="AboutRestaurantFragment" />
+    <fragment
+        android:id="@+id/aboutDeveloperFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.drawer.AboutDeveloperFragment"
+        android:label="AboutDeveloperFragment" />
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.drawer.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" />
+    <fragment
+        android:id="@+id/youtubeFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.drawer.YoutubeFragment"
+        android:label="fragment_youtube"
+        tools:layout="@layout/fragment_youtube" />
+    <fragment
+        android:id="@+id/lunchFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.lunch.LunchFragment"
+        android:label="Lunch"
+        tools:layout="@layout/fragment_lunch"/>
+    <fragment
+        android:id="@+id/breakfastFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.breakfast.BreakfastFragment"
+        android:label="Breakfast"
+        tools:layout="@layout/fragment_breakfast">
+        <action
+            android:id="@+id/action_breakfastFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/drinksFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.drinks.DrinksFragment"
+        android:label="Drinks"
+        tools:layout="@layout/fragment_drinks"/>
+    <fragment
+        android:id="@+id/sweetsFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.sweets.SweetsFragment"
+        android:label="Desserts"
+        tools:layout="@layout/fragment_sweets"/>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.search.SearchFragment"
+        android:label="Search" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_lunchFragment"
+            app:destination="@id/lunchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_breakfastFragment"
+            app:destination="@id/breakfastFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_drinksFragment"
+            app:destination="@id/drinksFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_sweetsFragment"
+            app:destination="@id/sweetsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_sweetsFragment2"
+            app:destination="@id/sweetsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.favourite.FavouriteFragment"
+        android:label="Favourite" >
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true" />
+        <argument android:name="description"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="price"
+            app:argType="float" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.cart.CartFragment"
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart" />
+
+</navigation>
