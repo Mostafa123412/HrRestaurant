@@ -3,6 +3,7 @@ package com.example.hrrestaurant.ui.adapter
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -30,16 +31,19 @@ class HorizentalAdapter(
         holder.binding.apply {
             favCheckBox.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
-                    listener.addItemToFavourite(item.id!!)
+                    listener.addItemToFavourite(item.id)
                 } else {
-                    listener.removeItemFromFavourite(item.id!!)
+                    listener.removeItemFromFavourite(item.id)
                 }
             }
             shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
-                    listener.addItemToCart(item.id!!)
+                    listener.addItemToCart(item.id)
+                    item.count = 1
+                    shoppingCart.visibility = View.GONE
+
                 } else {
-                    listener.removeItemFromCart(item.id!!)
+                    listener.removeItemFromCart(item.id)
                 }
             }
             mealImg.load(item.itemImage)

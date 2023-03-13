@@ -15,7 +15,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     private val bindingInflater: (inflater: LayoutInflater, container: ViewGroup?, boolean: Boolean) -> VB
 ) : Fragment(), ItemListener {
 
-    private val baseViewModel: SharedViewModel by activityViewModels()
+    val sharedViewModel: SharedViewModel by activityViewModels()
 
     private var _binding: VB? = null
     val binding: VB
@@ -36,30 +36,30 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     override fun addItemToFavourite(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            baseViewModel.addItemToFavorite(id)
+            sharedViewModel.addItemToFavorite(id)
         }
     }
 
     override fun removeItemFromFavourite(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            baseViewModel.removeItemFromFavorite(id)
+            sharedViewModel.removeItemFromFavorite(id)
         }
     }
 
 //    override fun rateItem(id: Int?, rate: Float?): String {
 //        var result = ""
-//        baseViewModel.result.observe(viewLifecycleOwner) {
+//        sharedViewModel.result.observe(viewLifecycleOwner) {
 //            result = it
 //        }
 //        return result
 //    }
 
     override fun addItemToCart(id: Int) {
-        CoroutineScope(Dispatchers.IO).launch { baseViewModel.addItemToCart(id) }
+        CoroutineScope(Dispatchers.IO).launch { sharedViewModel.addItemToCart(id) }
     }
 
     override fun removeItemFromCart(id: Int) {
-        lifecycleScope.launch { baseViewModel.removeItemFromCart(id) }
+        lifecycleScope.launch { sharedViewModel.removeItemFromCart(id) }
     }
 
 

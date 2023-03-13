@@ -31,13 +31,10 @@ class BreakfastFragment :
             )
 
         val listOfHorizentalAdapters = AdaptersCreator.createListOfHorizentalAdapters(
-            tabs.size,
-            this@BreakfastFragment,
+            tabs.size, this@BreakfastFragment,
             requireContext()
         )
-        breakfastPagerAdapter = HorizentalPagerAdapter(
-            listOfHorizentalAdapters
-        )
+        breakfastPagerAdapter = HorizentalPagerAdapter(listOfHorizentalAdapters)
         binding.viewPager.adapter = breakfastPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabs[position]
@@ -65,6 +62,11 @@ class BreakfastFragment :
                     listOfHorizentalAdapters[2].setNewData(it)
                 }
                 Log.d("Repository", "Recieved ${it}")
+            }
+        }
+        sharedViewModel.isAddedToCart.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.
             }
         }
 

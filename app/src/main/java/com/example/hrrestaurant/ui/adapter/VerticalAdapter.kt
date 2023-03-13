@@ -3,6 +3,7 @@ package com.example.hrrestaurant.ui.adapter
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -44,19 +45,21 @@ class VerticalAdapter(
                 favCheckBox.setOnCheckedChangeListener { checkBox, isChecked ->
                     if (isChecked) {
                         Log.d("Repository", "Adding ${item.id} to favourite....")
-                        listener.addItemToFavourite(item.id!!)
+                        listener.addItemToFavourite(item.id)
                     } else {
                         Log.d("Repository", "Removing ${item.id} to favourite....")
-                        listener.removeItemFromFavourite(item.id!!)
+                        listener.removeItemFromFavourite(item.id)
                     }
                 }
                 shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                     if (isChecked) {
-                        Log.d("Repository", "Adding ${item.id} to favourite....")
-                        listener.addItemToCart(item.id!!)
+                        shoppingCart.visibility = View.GONE
+                        Log.d("Repository", "Adding ${item.id} to Cart....")
+                        listener.addItemToCart(item.id)
+                        item.count = 1
                     } else {
-                        Log.d("Repository", "Removing ${item.id} to favourite....")
-                        listener.removeItemFromCart(item.id!!)
+                        Log.d("Repository", "Removing ${item.id} to Cart....")
+                        listener.removeItemFromCart(item.id)
                     }
                 }
                 itemImg.load(item.itemImage)
