@@ -21,15 +21,29 @@ class SweetsFragment : BaseFragment<FragmentSweetsBinding>(FragmentSweetsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val listOfHorizentalAdapter = AdaptersCreator.createListOfHorizentalAdapters(tabs.size , this@SweetsFragment,requireContext())
+        val listOfVerticalAdapter = AdaptersCreator.createListOfVerticalAdapters(
+            tabs.size,
+            this@SweetsFragment,
+            requireContext()
+        )
 
         pagerAdapter = VerticalPagerAdapter(
-            listOfHorizentalAdapter
+            listOfVerticalAdapter
         )
         binding.viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabs[position]
         }.attach()
+
+        sweetsViewModel.iceCream.observe(viewLifecycleOwner) {
+            it.let {
+                listOfVerticalAdapter[2].apply {
+                    setNewData(it!!)
+                    notifyDataSetChanged()
+                }
+
+            }
+        }
 
     }
 

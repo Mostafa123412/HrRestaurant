@@ -40,7 +40,31 @@ class VerticalAdapter(
             holder.binding.apply {
                 item.apply {
                     if (isChecked) favCheckBox.isChecked = true
-                    if (isAddedToChart) shoppingCart.isChecked = true
+                    if (isAddedToChart) {
+                        shoppingCart.isChecked = true
+                        currentCount.text = item.count.toString()
+                        increase.visibility = View.VISIBLE
+                        decrease.visibility = View.VISIBLE
+                        currentCount.visibility = View.VISIBLE
+                    }
+                }
+                increase.setOnClickListener {
+                    listener.incrementItemCount(item.id)
+                    currentCount.text = item.count.toString()
+                }
+                decrease.setOnClickListener {
+                    if (item.count == 1) {
+                        listener.decrementItemCount(item.id)
+                        listener.removeItemFromCart(item.id)
+                        shoppingCart.isChecked = false
+                        increase.visibility = View.GONE
+                        decrease.visibility = View.GONE
+                        currentCount.visibility = View.GONE
+                        currentCount.text = "1"
+                    } else {
+                        listener.decrementItemCount(item.id)
+                        currentCount.text = item.count.toString()
+                    }
                 }
                 favCheckBox.setOnCheckedChangeListener { checkBox, isChecked ->
                     if (isChecked) {
@@ -53,20 +77,27 @@ class VerticalAdapter(
                 }
                 shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                     if (isChecked) {
-                        shoppingCart.visibility = View.GONE
-                        Log.d("Repository", "Adding ${item.id} to Cart....")
                         listener.addItemToCart(item.id)
-                        item.count = 1
+                        listener.incrementItemCount(item.id)
+                        Log.d("Repository", "Adding ${item.id} to Cart....")
+                        currentCount.text = "1"
+                        increase.visibility = View.VISIBLE
+                        decrease.visibility = View.VISIBLE
+                        currentCount.visibility = View.VISIBLE
                     } else {
-                        Log.d("Repository", "Removing ${item.id} to Cart....")
+                        increase.visibility = View.GONE
+                        decrease.visibility = View.GONE
+                        currentCount.visibility = View.GONE
+                        currentCount.text = "1"
+                        listener.setItemCountToZero(item.id)
                         listener.removeItemFromCart(item.id)
                     }
                 }
                 itemImg.load(item.itemImage)
-                priceValue.text = item.price.toString()
-                itemTitle.text = item?.title
-                description.text = item?.description
-                estimatedTimeValue.text = item?.estimatedTime.toString()
+                priceValue.text = item.price.toInt().toString()
+                itemTitle.text = item.title
+                description.text = item.description
+                estimatedTimeValue.text = item.estimatedTime.toString()
             }
         }
     }

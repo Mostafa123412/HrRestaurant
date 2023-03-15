@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_8sdp"
+    app:cardElevation="@dimen/_32sdp"
+    app:cardCornerRadius="@dimen/_16sdp"
+    android:layout_margin="@dimen/_4sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/orderTitle"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2 Pizza - 3 Soups - 1 Salade - 4 Ice Cream"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:maxLines="5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/orderTotalPrice"/>
+        <TextView
+            android:id="@+id/orderTotalPrice"
+            android:paddingStart="@dimen/_8sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Total Price : "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderTitle"
+            app:layout_constraintBottom_toTopOf="@id/orderEstimatedTime_tv"/>
+        <TextView
+            android:id="@+id/orderTotalPriceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="170 P"
+            app:layout_constraintStart_toEndOf="@id/orderTotalPrice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderTitle"
+            app:layout_constraintBottom_toTopOf="@id/orderTotalTimeValue"
+            />
+        <TextView
+            android:id="@+id/orderEstimatedTime_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_8sdp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Total Estimated Time : "
+            app:layout_constraintBottom_toTopOf="@id/orderStatus_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderTotalPrice"
+           />
+        <TextView
+            android:id="@+id/orderTotalTimeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="40 Min"
+            app:layout_constraintBottom_toTopOf="@id/orderStatusValue"
+            app:layout_constraintStart_toEndOf="@id/orderTotalPrice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderTotalPriceValue"/>
+        <TextView
+            android:id="@+id/orderStatus_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_8sdp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Order Status : "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderEstimatedTime_tv"
+           />
+        <TextView
+            android:id="@+id/orderStatusValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Deliverd To Restaurant"
+            app:layout_constraintStart_toEndOf="@id/orderStatus_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderTotalTimeValue"/>
+        <TextView
+            android:id="@+id/orderDateAndTime_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_8sdp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Order Date And Time : "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderStatus_tv"
+            app:layout_constraintBottom_toTopOf="@id/cancelOrderBtn"
+           />
+
+        <TextView
+            android:id="@+id/orderDateAndTimeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="2023 - "
+            app:layout_constraintStart_toEndOf="@id/orderDateAndTime_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderStatusValue"
+            app:layout_constraintBottom_toTopOf="@id/orderMoreDetails_btn"/>
+        <Button
+            android:id="@+id/cancelOrderBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/orderDateAndTime_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/orderAgainBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="@dimen/_2sdp"
+            />
+        <Button
+            android:id="@+id/orderAgainBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Again"
+            app:layout_constraintTop_toBottomOf="@id/orderDateAndTimeValue"
+            app:layout_constraintStart_toEndOf="@id/cancelOrderBtn"
+            app:layout_constraintEnd_toStartOf="@id/orderMoreDetails_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/darkYellow"
+            android:layout_margin="@dimen/_2sdp"
+            />
+        <Button
+            android:id="@+id/orderMoreDetails_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details"
+            android:layout_margin="@dimen/_2sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/orderDateAndTimeValue"
+            app:layout_constraintStart_toEndOf="@id/orderAgainBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

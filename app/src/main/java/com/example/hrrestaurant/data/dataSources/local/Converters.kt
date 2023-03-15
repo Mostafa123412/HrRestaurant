@@ -29,6 +29,15 @@ class Converters {
     fun fromByteArrayToBitmap(byteArray: ByteArray): Bitmap {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
+    @TypeConverter
+    fun stringToMap(value: String): HashMap<String, Int> {
+        return Gson().fromJson(value,  object : TypeToken<HashMap<String, Int>>() {}.type)
+    }
+
+    @TypeConverter
+    fun mapToString(value: HashMap<String, Int>): String {
+        return Gson().toJson(value)
+    }
 
 //    @TypeConverter
 //    fun toCroissantList(value: String): List<Meal> {

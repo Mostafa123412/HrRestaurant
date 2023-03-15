@@ -68,6 +68,35 @@ class MainActivity : AppCompatActivity() {
         // drawer layout to change Burger icon into a back button
         setupActionBarWithNavController(navController, appBarConfiguration)
         setUpNavigationMenu(navController)
+        mainActivityViewModel.isRoomEmpty.observe(this) {
+            if (it) {
+                mainActivityViewModel.getDataFromInternet()
+                mainActivityViewModel.status.observe(this) { uiState ->
+                    when (uiState) {
+                        is UiState.Error -> {
+                            hideLoading()
+                            hideFragmentContainerView()
+                            hideSearch()
+                            showErrorLayout(uiState.errorMessage)
+                        }
+                        is UiState.Loading -> {
+                            Log.d("Repository", "Loading ............")
+                            hideErrorLayout()
+                            hideSearch()
+                            hideFragmentContainerView()
+                            showLoading()
+                        }
+                        is UiState.Success -> {
+                            Log.d("Repository", "Successful  ............")
+                            hideErrorLayout()
+                            hideLoading()
+                            showSearch()
+                            showFragmentContainerView()
+                        }
+                    }
+                }
+            } else showFragmentContainerView()
+        }
         binding.searchTe.setOnClickListener {
             hideViews()
             navController.navigate(R.id.searchFragment)
@@ -127,6 +156,11 @@ class MainActivity : AppCompatActivity() {
                     binding.drawerlayout.close()
                     navController.navigate(R.id.locationFragment)
                 }
+                R.id.ordersHistoryFragment -> {
+                    hideViews()
+                    binding.drawerlayout.close()
+                    navController.navigate(R.id.ordersHistoryFragment)
+                }
             }
             true
         }
@@ -148,33 +182,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("Repository", "Retrying ............")
             mainActivityViewModel.getDataFromInternet()
         }
-        if (mainActivityViewModel.isRoomEmpty) {
-            mainActivityViewModel.getDataFromInternet()
-            mainActivityViewModel.status.observe(this) { uiState ->
-                when (uiState) {
-                    is UiState.Error -> {
-                        hideLoading()
-                        hideFragmentContainerView()
-                        hideSearch()
-                        showErrorLayout(uiState.errorMessage)
-                    }
-                    is UiState.Loading -> {
-                        Log.d("Repository", "Loading ............")
-                        hideErrorLayout()
-                        hideSearch()
-                        hideFragmentContainerView()
-                        showLoading()
-                    }
-                    is UiState.Success -> {
-                        Log.d("Repository", "Successful  ............")
-                        hideErrorLayout()
-                        hideLoading()
-                        showSearch()
-                        showFragmentContainerView()
-                    }
-                }
-            }
-        }
+
     }
 
     private fun showSearch() {

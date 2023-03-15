@@ -119,19 +119,19 @@ android:layout_margin="@dimen/_2sdp">
         android:button="@drawable/shopping_cart"
         app:layout_constraintBottom_toTopOf="@id/fav_checkBox"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/_35sdp"
         app:layout_constraintStart_toEndOf="@id/estimated_time_value"
         app:layout_constraintTop_toBottomOf="@id/description" />
     <!--            app:useMaterialThemeColor="false"-->
     <Button
         android:id="@+id/decrease"
         android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_height="@dimen/_35sdp"
         android:text="-"
         app:layout_constraintStart_toEndOf="@id/estimated_time_value"
         app:layout_constraintBottom_toTopOf="@id/fav_checkBox"
         app:layout_constraintEnd_toStartOf="@id/currentCount"
         app:layout_constraintTop_toBottomOf="@id/description"
-        android:visibility="gone"
 
         />
 
@@ -145,20 +145,18 @@ android:layout_margin="@dimen/_2sdp">
         app:layout_constraintStart_toEndOf="@id/decrease"
         app:layout_constraintBottom_toTopOf="@id/fav_checkBox"
         app:layout_constraintTop_toBottomOf="@id/description"
-        android:visibility="gone"
         />
 
     <Button
         android:id="@+id/increase"
         android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_height="@dimen/_35sdp"
         android:text="+"
         android:layout_marginEnd="@dimen/_6sdp"
         app:layout_constraintStart_toEndOf="@+id/currentCount"
         app:layout_constraintBottom_toTopOf="@id/fav_checkBox"
         app:layout_constraintTop_toBottomOf="@id/description"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
         />
 
 

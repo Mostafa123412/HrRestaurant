@@ -13,3 +13,10 @@ sealed interface UiState {
     object Loading : UiState
     data class Error(val errorMessage: String) : UiState
 }
+sealed interface OrderState {
+    object DeliveredToRestaurant : OrderState
+    object DeliveredToDelivery : OrderState
+    object DeliveredToClient : OrderState
+    object InProgress : OrderState
+    data class Cancelled(val message: String) : OrderState
+}

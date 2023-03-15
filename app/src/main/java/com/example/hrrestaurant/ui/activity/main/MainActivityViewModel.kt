@@ -6,6 +6,8 @@ import androidx.lifecycle.*
 import com.example.hrrestaurant.data.repositories.Repository
 import com.example.hrrestaurant.ui.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,13 +21,21 @@ class MainActivityViewModel @Inject constructor(
     val status: LiveData<UiState>
         get() = _status
     private val _status = MutableLiveData<UiState>()
-    val isRoomEmpty = repository.isRoomEmpty().isEmpty()
+    var isRoomEmpty: MutableLiveData<Boolean> = MutableLiveData()
 
     // will it cause memory leak
     private val context = getApplication<Application>().applicationContext
 
     init {
-        isRoomEmpty
+        viewModelScope.launch {
+            async {
+                repository.isRoomEmpty().collect{
+                    isRoomEmpty.postValue(it)
+                    Log.d("Repository", "isRoom Empty = $isRoomEmpty")
+
+                }
+            }.await()
+        }
     }
 
     fun getDataFromInternet() {

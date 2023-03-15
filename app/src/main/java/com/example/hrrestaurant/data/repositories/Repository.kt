@@ -10,15 +10,14 @@ import coil.request.SuccessResult
 import com.example.hrrestaurant.data.dataSources.local.Meal
 import com.example.hrrestaurant.data.dataSources.local.LocalDataSource
 import com.example.hrrestaurant.data.dataSources.local.MealMapper
+import com.example.hrrestaurant.data.dataSources.local.Order
 import com.example.hrrestaurant.data.dataSources.remote.RemoteDataSource
 import com.example.hrrestaurant.data.dataSources.remote.User
 import com.example.hrrestaurant.ui.util.NetworkResponse
 import com.example.hrrestaurant.ui.util.UiState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
 import okhttp3.internal.cache.CacheInterceptor
 import javax.inject.Inject
 
@@ -27,8 +26,35 @@ class Repository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val mealMapper: MealMapper
 ) {
+    //Orders
+    fun changeOrderStatus(orderStatus: String, orderRemoteId: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            localDataSource.changeOrderStatus(orderStatus, orderRemoteId)
+        }
+    }
 
-    fun isRoomEmpty(): List<Meal> = localDataSource.isRoomEmpty()
+    suspend fun getMealTitleByMealId(mealId: Int): String =
+        localDataSource.getMealTitleByMealId(mealId)
+
+    suspend fun insertOrder(order: Order) {
+        localDataSource.insertOrder(order)
+    }
+
+    fun getAllOrders(): Flow<List<Order>> = flow {
+        localDataSource.getAllOrders()
+    }
+
+    fun getOrdersByUserId(userId: String): Flow<List<Order>> = flow {
+        localDataSource.getOrdersByUserId(userId)
+    }
+
+
+    fun isRoomEmpty(): Flow<Boolean> = flow {
+        localDataSource.isRoomEmpty().collect {
+            Log.d("Repository", "Room status = $it")
+            if (it == null || it == 0) emit(true) else emit(false)
+        }
+    }
 
     fun getItemBySearchText(searchText: String): Flow<List<Meal?>> =
         localDataSource.getItemBySearchText(searchText)
@@ -104,28 +130,26 @@ class Repository @Inject constructor(
     }
 
     fun getPancake(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("pancake")
-//
-//    //Lunch Fragment
-//    fun getSoup(): Flow<List<Meal>> = localDataSource.getItemByCategory("soup")
-//    fun getAppetizers(): Flow<List<Meal>> = localDataSource.getItemByCategory("appetizers")
-//    fun getSalades(): Flow<List<Meal>> = localDataSource.getItemByCategory("salade")
-//    fun getBurger(): Flow<List<Meal>> = localDataSource.getItemByCategory("burger")
-//    fun getSandwiches(): Flow<List<Meal>> = localDataSource.getItemByCategory("sandwiches")
-//    fun getPasta(): Flow<List<Meal>> = localDataSource.getItemByCategory("pasta")
-//    fun getPizza(): Flow<List<Meal>> = localDataSource.getItemByCategory("pizza")
-//    fun getChicken(): Flow<List<Meal>> = localDataSource.getItemByCategory("chicken")
-//    fun getBeef(): Flow<List<Meal>> = localDataSource.getItemByCategory("beef")
-//    fun getMixDishes(): Flow<List<Meal>> = localDataSource.getItemByCategory("mixDishes")
-//    fun getSeaFood(): Flow<List<Meal>> = localDataSource.getItemByCategory("seaFood")
-//    fun getSauces(): Flow<List<Meal>> = localDataSource.getItemByCategory("sauces")
-//    fun getRibEyeSteak(): Flow<List<Meal>> = localDataSource.getItemByCategory("ribEyeSteak")
-//    fun getFajitaDishes(): Flow<List<Meal>> =
-//        localDataSource.getItemByCategory("fajitaDishes")
-//
-//    fun getSideDishes(): Flow<List<Meal>> = localDataSource.getItemByCategory("sideDishes")
 
-    // Favourite Fragment
-//    fun getFavouriteItems(): Flow<List<Meal>?> = localDataSource.getFavouriteItems()
+    //Lunch Fragment
+    fun getSoup(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("soup")
+    fun getAppetizers(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("appetizers")
+    fun getSalades(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("salade")
+    fun getBurger(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("burger")
+    fun getSandwiches(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("sandwiches")
+    fun getPasta(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("pasta")
+    fun getPizza(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("pizza")
+    fun getChicken(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("chicken")
+    fun getBeef(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("beef")
+    fun getMixDishes(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("mixDishes")
+    fun getSeaFood(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("seaFood")
+    fun getSauces(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("sauces")
+    fun getRibEyeSteak(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("ribEyeSteak")
+    fun getFajitaDishes(): Flow<List<Meal?>?> =
+        localDataSource.getItemByCategory("fajitaDishes")
+
+    fun getSideDishes(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("sideDishes")
+
 
     suspend fun addItemToFavourite(id: Int) {
         coroutineScope { localDataSource.addItemToFavourite(id) }
@@ -147,6 +171,15 @@ class Repository @Inject constructor(
         }
     }
 
+    suspend fun incrementItemCount(id: Int) {
+        coroutineScope { localDataSource.incrementItemCount(id) }
+    }
+
+    suspend fun decrementItemCount(id: Int) {
+        coroutineScope { localDataSource.decrementItemCount(id) }
+    }
+
+
     fun getFavouriteItems(): Flow<List<Meal?>> = localDataSource.getFavouriteItems()
 
     // Desserts
@@ -165,6 +198,12 @@ class Repository @Inject constructor(
         remoteDataSource.notifyServerWithUserLogin(user)
     }
 
+    fun getIceCream(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("iceCream")
+
+    //should i here change the scope to IO ?
+    suspend fun setItemCountToZero(id: Int) {
+        coroutineScope { localDataSource.setItemCountToZero(id) }
+    }
 
 //    suspend fun postItemRate(id: Int?, rate: Float?): String {
 //        val postRateResult = remoteDataSource.postItemRate(id, rate)

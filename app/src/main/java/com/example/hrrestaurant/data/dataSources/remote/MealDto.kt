@@ -1,4 +1,4 @@
-package com.example.hrrestaurant.data.dataSources.local
+package com.example.hrrestaurant.data.dataSources.remote
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

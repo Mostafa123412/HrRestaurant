@@ -3,16 +3,19 @@ package com.example.hrrestaurant.ui.base
 import androidx.lifecycle.*
 import com.example.hrrestaurant.data.repositories.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
 @HiltViewModel
 open class SharedViewModel @Inject constructor(private val repository: Repository) :
     ViewModel() {
-    private var _isAddedToCart:MutableLiveData<Boolean> = MutableLiveData(false)
-    val isAddedToCart:LiveData<Boolean>
-        get() = isAddedToCart
+//    private var _isAddedToCart:MutableLiveData<Boolean> = MutableLiveData(false)
+//    val isAddedToCart:LiveData<Boolean>
+//        get() = isAddedToCart
 
     private val _result = MutableLiveData<String>()
     val result: LiveData<String>
@@ -45,14 +48,39 @@ open class SharedViewModel @Inject constructor(private val repository: Repositor
 //        }
 //    }
 
-    fun addItemToCart(id:Int) = viewModelScope.launch {
+    fun addItemToCart(id: Int) = viewModelScope.launch {
         repository.addItemToCart(id)
         // does we need to change to MAIN thread to access this ?
-        _isAddedToCart.postValue(true)
+//        _isAddedToCart.postValue(true)
     }
-    fun removeItemFromCart(id:Int) = viewModelScope.launch {
-        repository.removeItemFromCart(id)
-        _isAddedToCart.postValue(false)
 
+    fun removeItemFromCart(id: Int) = viewModelScope.launch {
+        repository.removeItemFromCart(id)
+//        _isAddedToCart.postValue(false)
     }
+
+    fun incrementItemCount(id: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.incrementItemCount(id)
+            }
+        }
+    }
+
+    fun decrementItemCount(id: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.decrementItemCount(id)
+            }
+        }
+    }
+
+    fun setItemCountToZero(id: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.setItemCountToZero(id)
+            }
+        }
+    }
+
 }

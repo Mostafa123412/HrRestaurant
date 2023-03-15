@@ -19,4 +19,4 @@ data class Meal(
     var isAddedToChart: Boolean,
     var rate:Float? = 0F,
     var count:Int = 0,
-) : java.io.Serializable
+)

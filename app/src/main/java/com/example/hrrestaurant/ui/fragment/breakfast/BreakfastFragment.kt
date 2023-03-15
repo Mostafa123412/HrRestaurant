@@ -64,14 +64,7 @@ class BreakfastFragment :
                 Log.d("Repository", "Recieved ${it}")
             }
         }
-        sharedViewModel.isAddedToCart.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.
-            }
         }
-
-    }
-
 
     private fun showLoading() {
         binding.loading.progressBar.visibility = View.VISIBLE

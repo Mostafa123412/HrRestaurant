@@ -1,14 +1,11 @@
 package com.example.hrrestaurant.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bumptech.glide.Glide
 import com.example.hrrestaurant.data.dataSources.local.Meal
 import com.example.hrrestaurant.databinding.HorizentalItemBinding
 import com.example.hrrestaurant.ui.base.PolyMorphism
@@ -40,8 +37,6 @@ class HorizentalAdapter(
                 if (isChecked) {
                     listener.addItemToCart(item.id)
                     item.count = 1
-                    shoppingCart.visibility = View.GONE
-
                 } else {
                     listener.removeItemFromCart(item.id)
                 }
@@ -50,7 +45,7 @@ class HorizentalAdapter(
             mealTitle.text = item.title
             description.text = item.description
             estimatedTimeValue.text = item.estimatedTime.toString()
-            priceValue.text = item.price.toString()
+            priceValue.text = item.price.toInt().toString()
             ratingBar.rating = item.rate!!
 
         }

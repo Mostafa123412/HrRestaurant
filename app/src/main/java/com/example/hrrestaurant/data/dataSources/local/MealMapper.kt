@@ -1,18 +1,13 @@
 package com.example.hrrestaurant.data.dataSources.local
 
 import android.content.Context
-import android.content.SyncResult
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import coil.ImageLoader
 import coil.request.ImageRequest
-import coil.request.ImageResult
 import coil.request.SuccessResult
 import com.example.hrrestaurant.data.dataSources.Mapper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import com.example.hrrestaurant.data.dataSources.remote.MealDto
 import java.text.DecimalFormat
 
 class MealMapper : Mapper<MealDto, Meal> {

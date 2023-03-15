@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.isEmpty
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -30,6 +31,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,7 +40,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-//
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
     companion object {
         private const val TAG = "MAHMOUD"
@@ -50,6 +52,8 @@ class LoginFragment : Fragment() {
     private val loginViewModel: LoginActivityViewModel by activityViewModels()
     private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var googleSignInClient: GoogleSignInClient
+    lateinit var email: String
+    lateinit var password: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,16 +75,34 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.emailEt.addTextChangedListener { userEmail ->
+            if (userEmail!!.isEmpty()) binding.email.error = "Enter email address"
+            else email = userEmail.toString()
+        }
+        binding.passwordEt.addTextChangedListener { userPassword ->
+            if (userPassword!!.isEmpty()) binding.email.error = "Enter Password"
+            else password = userPassword.toString()
+        }
         binding.loginBtn.setOnClickListener {
+            showProgressBar()
             checkLogin()
         }
         binding.googleImg.setOnClickListener {
+            showProgressBar()
             signIn()
         }
         binding.continueAsGuestBtn.setOnClickListener {
-            val intent = Intent(requireContext() , MainActivity::class.java)
+            val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
+            activity?.finish()
         }
+    }
+
+    private fun showProgressBar() {
+        activity?.findViewById<View>(R.id.progressBar)?.visibility = View.VISIBLE
+    }
+    private fun hideProgressBar() {
+        activity?.findViewById<View>(R.id.progressBar)?.visibility = View.GONE
     }
 
     // [START onactivityresult]
@@ -96,6 +118,7 @@ class LoginFragment : Fragment() {
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
+                hideProgressBar()
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
                 Toast.makeText(
@@ -105,6 +128,7 @@ class LoginFragment : Fragment() {
                 ).show()
 
             } catch (internetException: ApiException) {
+                hideProgressBar()
                 Toast.makeText(
                     requireContext(),
                     "Login Failed, No Internet connection",
@@ -133,12 +157,14 @@ class LoginFragment : Fragment() {
                         }
                     }
             } catch (internetException: IOException) {
+                hideProgressBar()
                 Toast.makeText(
                     requireContext(),
                     "Login Failed, No Internet Connection",
                     Toast.LENGTH_LONG
                 ).show()
             } catch (e: Exception) {
+                hideProgressBar()
                 Toast.makeText(
                     requireContext(),
                     "SomeThing went wrong.",
@@ -158,33 +184,28 @@ class LoginFragment : Fragment() {
 
 
     private fun checkLogin() {
-        val email = binding.emailEt.text.toString().trim()
-        val password = binding.passwordEt.text.toString().trim()
-        if (email.isEmpty()) binding.email.error = "Enter email address"
-        else if (password.isEmpty()) binding.password.error = "Enter Password"
-        else {
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            val currentUser = auth.currentUser
-                            Log.d("Mahmoud", "Current User = $currentUser")
-                            if (currentUser != null) {
-                                if (auth.currentUser!!.isEmailVerified) {
-                                    Log.d("Mahmoud", "Email Verified")
-                                    loginViewModel.apply {
-                                        changeLoginStatus(true)
-                                    }
-                                } else {
-                                    Log.d("Mahmoud", "Email Not Verified")
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Login Failed, Please Verify Your Email and try again",
-                                        Toast.LENGTH_LONG
-                                    ).show()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val currentUser = auth.currentUser
+                        Log.d("Mahmoud", "Current User = $currentUser")
+                        if (currentUser != null) {
+                            if (auth.currentUser!!.isEmailVerified) {
+                                Log.d("Mahmoud", "Email Verified")
+                                loginViewModel.apply {
+                                    changeLoginStatus(true)
                                 }
+                            } else {
+                                Log.d("Mahmoud", "Email Not Verified")
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Login Failed, Please Verify Your Email and try again",
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                         }
+                    }
 //                            else {
 //                                Toast.makeText(
 //                                    requireContext(),
@@ -192,52 +213,58 @@ class LoginFragment : Fragment() {
 //                                    Toast.LENGTH_LONG
 //                                ).show()
 //                            }
-                    }.await()
-                } catch (e: FirebaseAuthInvalidUserException) {
-                    Log.d("Mahmoud", "Exception Email Not Found")
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Login Failed, This Account is not Found",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                } catch (badlyFormattedEmail: FirebaseAuthInvalidCredentialsException) {
-                    withContext((Dispatchers.Main)) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Login Failed, Badly Formatted email",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                } catch (internetException: IOException) {
+                }.await()
+            } catch (e: FirebaseAuthInvalidUserException) {
+                hideProgressBar()
+                Log.d("Mahmoud", "Exception Email Not Found")
+                withContext(Dispatchers.Main) {
                     Toast.makeText(
                         requireContext(),
-                        "Error : No Internet Connection",
+                        "Login Failed, This Account is not Found",
                         Toast.LENGTH_LONG
                     ).show()
-                } catch (httpException: HttpException) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error : Error : HTTP Exception",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } catch (reAuthenticate: FirebaseAuthRecentLoginRequiredException) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error,Please reAuthenticate Your email address",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                } catch (e: Exception) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error : Something went wrong",
-                        Toast.LENGTH_LONG
-                    )
-                        .show()
                 }
+            } catch (badlyFormattedEmail: FirebaseAuthInvalidCredentialsException) {
+                hideProgressBar()
+                withContext((Dispatchers.Main)) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Login Failed, Badly Formatted email",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (internetException: IOException) {
+                hideProgressBar()
+                Toast.makeText(
+                    requireContext(),
+                    "Error : No Internet Connection",
+                    Toast.LENGTH_LONG
+                ).show()
+            } catch (httpException: HttpException) {
+                hideProgressBar()
+                Toast.makeText(
+                    requireContext(),
+                    "Error : Error : HTTP Exception",
+                    Toast.LENGTH_LONG
+                ).show()
+            } catch (reAuthenticate: FirebaseAuthRecentLoginRequiredException) {
+                hideProgressBar()
+                Toast.makeText(
+                    requireContext(),
+                    "Error,Please reAuthenticate Your email address",
+                    Toast.LENGTH_LONG
+                ).show()
+
+            } catch (e: Exception) {
+                hideProgressBar()
+                Toast.makeText(
+                    requireContext(),
+                    "Error : Something went wrong",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
             }
         }
     }
 }
+

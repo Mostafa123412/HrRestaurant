@@ -4,6 +4,7 @@ import com.example.hrrestaurant.databinding.CartItemBinding
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +21,13 @@ class CartAdapter(
         val item = oldList[position]!!
         holder.binding.apply {
             if (item.isChecked) favCheckBox.isChecked = true
-            if (item.isAddedToChart) shoppingCart.isChecked = true
+            if (item.isAddedToChart) {
+                currentCount.text = item.count.toString()
+                shoppingCart.isChecked = true
+                increase.visibility = View.VISIBLE
+                currentCount.visibility = View.VISIBLE
+                decrease.visibility = View.VISIBLE
+            }
             itemTitle.text = item.title
             description.text = item.description
             estimatedTimeValue.text = item.estimatedTime.toString()
@@ -30,30 +37,35 @@ class CartAdapter(
             shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
                 } else {
-                    listener.removeItemFromCart(item.id!!)
+                    listener.setItemCountToZero(item.id)
+                    listener.removeItemFromCart(item.id)
                 }
             }
             favCheckBox.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
                     Log.d("Repository", "Adding ${item.id} to favourite....")
-                    listener.addItemToFavourite(item.id!!)
+                    listener.addItemToFavourite(item.id)
                 } else {
                     Log.d("Repository", "Removing ${item.id} to favourite....")
-                    listener.removeItemFromFavourite(item.id!!)
+                    listener.removeItemFromFavourite(item.id)
                 }
             }
             decrease.setOnClickListener {
-                if ("${currentCount.text}".toInt() == 1) item.count = 1 else {
-                    currentCount.text = "${currentCount.text}".toInt().dec().toString()
-                    item.count = "${currentCount.text}".toInt()
+                if (item.count == 1) {
+                    listener.decrementItemCount(item.id)
+                    currentCount.text = item.count.toString()
+                    listener.removeItemFromCart(item.id)
+                } else {
+                    listener.decrementItemCount(item.id)
+                    currentCount.text = item.count.toString()
                 }
             }
             increase.setOnClickListener {
-                currentCount.text = "${currentCount.text}".toInt().inc().toString()
-                item.count = "${currentCount.text}".toInt()
-            }
-//            Glide.with(context).load(item?.itemImage).into(mealImg)
+                listener.incrementItemCount(item.id)
+                notifyDataSetChanged()
+                currentCount.text = item.count.toString()
 
+            }
         }
     }
 

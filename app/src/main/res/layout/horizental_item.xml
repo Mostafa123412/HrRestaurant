@@ -138,6 +138,41 @@
             app:layout_constraintEnd_toStartOf="@id/meal_img"
             app:layout_constraintStart_toEndOf="@id/fav_checkBox"
             />
+        <Button
+            android:id="@+id/decrease"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:text="-"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintStart_toEndOf="@id/estimated_time_value"
+            app:layout_constraintBottom_toTopOf="@id/shopping_cart"
+            app:layout_constraintEnd_toStartOf="@id/currentCount"
+            android:visibility="gone"
+            />
+        <TextView
+            android:id="@+id/currentCount"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:text="1"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintEnd_toStartOf="@id/increase"
+            app:layout_constraintStart_toEndOf="@id/decrease"
+            app:layout_constraintBottom_toTopOf="@id/shopping_cart"
+            android:visibility="gone"
+            />
+        <Button
+            android:id="@+id/increase"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:text="+"
+            android:layout_marginEnd="@dimen/_6sdp"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/currentCount"
+            app:layout_constraintBottom_toTopOf="@id/shopping_cart"
+            android:visibility="gone"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

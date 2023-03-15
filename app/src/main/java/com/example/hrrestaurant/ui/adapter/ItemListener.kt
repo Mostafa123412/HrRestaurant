@@ -1,12 +1,14 @@
 package com.example.hrrestaurant.ui.adapter
 
-import com.example.hrrestaurant.ui.base.BaseListener
-
-interface ItemListener : BaseListener {
+interface ItemListener {
     fun addItemToFavourite(id: Int)
     fun removeItemFromFavourite(id: Int)
     fun addItemToCart(id:Int)
     fun removeItemFromCart(id:Int)
+    fun incrementItemCount(id:Int)
+    fun decrementItemCount(id:Int)
+    fun setItemCountToZero(id: Int)
+
 //    fun rateItem(id: Int?, rate: Float?): String
 
 }

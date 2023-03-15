@@ -15,7 +15,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     private val bindingInflater: (inflater: LayoutInflater, container: ViewGroup?, boolean: Boolean) -> VB
 ) : Fragment(), ItemListener {
 
-    val sharedViewModel: SharedViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private var _binding: VB? = null
     val binding: VB
@@ -60,6 +60,25 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     override fun removeItemFromCart(id: Int) {
         lifecycleScope.launch { sharedViewModel.removeItemFromCart(id) }
+    }
+
+    // should i call non-suspend function in lifecycle scope?
+    override fun incrementItemCount(id: Int) {
+        lifecycleScope.launch{
+            sharedViewModel.incrementItemCount(id)
+        }
+    }
+
+    override fun decrementItemCount(id: Int) {
+        lifecycleScope.launch {
+            sharedViewModel.decrementItemCount(id)
+        }
+    }
+
+    override fun setItemCountToZero(id: Int) {
+        lifecycleScope.launch{
+            sharedViewModel.setItemCountToZero(id)
+        }
     }
 
 

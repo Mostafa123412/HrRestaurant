@@ -116,7 +116,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_te"
-            app:navGraph="@navigation/navigation" />
+            app:navGraph="@navigation/navigation"
+            android:visibility="invisible"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"

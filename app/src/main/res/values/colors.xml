@@ -12,5 +12,7 @@
     <color name="red">#E40C0C</color>
     <color name="textColor">#356859</color>
     <color name="background">#FFFBE6</color>
+    <color name="darkYellow">#ea900d</color>
     <color name="teb_text_selector">#AC9E56</color>
+    <color name="darkRed">#5e090c</color>
 </resources>

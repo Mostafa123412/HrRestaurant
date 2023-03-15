@@ -92,5 +92,10 @@
         android:name="com.example.hrrestaurant.ui.fragment.cart.CartFragment"
         android:label="Cart"
         tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/ordersHistoryFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.ordersHistory.OrdersHistoryFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_orders_history" />
 
 </navigation>

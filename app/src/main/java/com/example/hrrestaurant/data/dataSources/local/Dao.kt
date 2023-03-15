@@ -1,16 +1,24 @@
 package com.example.hrrestaurant.data.dataSources.local
 
+import androidx.room.*
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface Dao {
 
+    @Query("UPDATE orderTable SET orderStatus = :orderStatus WHERE orderRemoteId = :orderRemoteId")
+    fun changeOrderStatus(orderStatus:String , orderRemoteId: String)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrder(order:Order)
+    @Query("Select * From orderTable Where orderRemoteId = :orderId")
+    fun getOrdersByUserId(orderId:String):Flow<List<Order>>
+    @Query("SELECT * FROM orderTable")
+    fun getAllOrders():Flow<List<Order>>
     @Query("Select * From meal WHERE category = :category")
     fun fetchItemsByCategory(category: String): Flow<List<Meal?>?>
+    @Query("SELECT title FROM meal WHERE id = :mealId")
+    fun getMealTitleByMealId(mealId:Int):String
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(item: Meal?)
@@ -18,8 +26,8 @@ interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItems(list: List<Meal?>)
 
-    @Query("Select * from meal")
-    fun getAllItems(): List<Meal>
+    @Query("Select COUNT(*) from meal")
+    fun getAllItems(): Flow<Int?>
 
     @Query("SELECT (SELECT COUNT(*) FROM meal) == 0")
     suspend fun isRoomEmpty(): Boolean?
@@ -41,9 +49,12 @@ interface Dao {
 
     @Query("UPDATE meal SET isAddedToChart = 0 WHERE id = :id")
     suspend fun removeItemFromCart(id: Int?)
-
-    @Query("DELETE FROM meal")
-    suspend fun deleteItems()
+    @Query("UPDATE meal SET count = count + 1 WHERE id = :id")
+    suspend fun incrementItemCount(id: Int)
+    @Query("UPDATE meal SET count = count - 1 WHERE id = :id")
+    suspend fun decrementItemCount(id: Int)
+    @Query("UPDATE meal SET count = 0 WHERE id = :id")
+    fun setItemCountToZero(id: Int)
 
     @Query("SELECT * FROM meal WHERE isChecked = 1")
     fun getFavouriteItems(): Flow<List<Meal?>>
@@ -56,6 +67,9 @@ interface Dao {
     // https://stackoverflow.com/questions/44184769/android-room-select-query-with-like
     @Query("Select * from meal where category Like '%' || :searchText || '%' OR title LIKE '%' || :searchText || '%' OR description LIKE '%' || :searchText || '%' ")
     fun getItemsBySearchText(searchText:String):Flow<List<Meal?>>
+
+
+
 
 //    @Query("DELETE FROM Tasks WHERE completed = 1")
 //    suspend fun deleteCompletedTasks(): Int
