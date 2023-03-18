@@ -75,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
             false
         } else {
             loginViewModel.changeLoginStatus(true)
-            loginViewModel.userLoggedIn(auth.currentUser!!.uid , auth.currentUser!!.email!!)
+            loginViewModel.userLoggedIn(auth.currentUser!!.uid , auth.currentUser!!.email!! , auth.currentUser!!.phoneNumber)
             true
         }
     }

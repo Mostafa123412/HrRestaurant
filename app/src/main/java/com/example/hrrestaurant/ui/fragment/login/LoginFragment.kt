@@ -80,11 +80,11 @@ class LoginFragment : Fragment() {
             else email = userEmail.toString()
         }
         binding.passwordEt.addTextChangedListener { userPassword ->
-            if (userPassword!!.isEmpty()) binding.email.error = "Enter Password"
+            if (userPassword!!.isEmpty()) binding.password.error = "Enter Password"
             else password = userPassword.toString()
         }
         binding.loginBtn.setOnClickListener {
-            showProgressBar()
+//            showProgressBar()
             checkLogin()
         }
         binding.googleImg.setOnClickListener {
@@ -96,11 +96,34 @@ class LoginFragment : Fragment() {
             startActivity(intent)
             activity?.finish()
         }
+        binding.passwordResetBtn.setOnClickListener {
+            sendPasswordReset()
+        }
+    }
+
+    private fun sendPasswordReset() {
+        // [START send_password_reset]
+        val emailAddress = binding.emailEt.text.toString()
+        if (emailAddress.isEmpty()) {
+            binding.email.error = "Enter Email Address."
+        } else {
+            Firebase.auth.sendPasswordResetEmail(emailAddress)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(requireContext(),"Check Your Inbox",Toast.LENGTH_LONG)
+                            .show()
+                    }else {
+                        Toast.makeText(requireContext(),"Failed to send Password reset"
+                            ,Toast.LENGTH_LONG).show()
+                    }
+                }
+        }
     }
 
     private fun showProgressBar() {
         activity?.findViewById<View>(R.id.progressBar)?.visibility = View.VISIBLE
     }
+
     private fun hideProgressBar() {
         activity?.findViewById<View>(R.id.progressBar)?.visibility = View.GONE
     }
@@ -215,9 +238,9 @@ class LoginFragment : Fragment() {
 //                            }
                 }.await()
             } catch (e: FirebaseAuthInvalidUserException) {
-                hideProgressBar()
-                Log.d("Mahmoud", "Exception Email Not Found")
                 withContext(Dispatchers.Main) {
+                    hideProgressBar()
+                    Log.d("Mahmoud", "Exception Email Not Found")
                     Toast.makeText(
                         requireContext(),
                         "Login Failed, This Account is not Found",
@@ -225,8 +248,8 @@ class LoginFragment : Fragment() {
                     ).show()
                 }
             } catch (badlyFormattedEmail: FirebaseAuthInvalidCredentialsException) {
-                hideProgressBar()
                 withContext((Dispatchers.Main)) {
+                    hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         "Login Failed, Badly Formatted email",
@@ -234,35 +257,43 @@ class LoginFragment : Fragment() {
                     ).show()
                 }
             } catch (internetException: IOException) {
-                hideProgressBar()
-                Toast.makeText(
-                    requireContext(),
-                    "Error : No Internet Connection",
-                    Toast.LENGTH_LONG
-                ).show()
+                withContext(Dispatchers.Main) {
+                    hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error : No Internet Connection",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             } catch (httpException: HttpException) {
-                hideProgressBar()
-                Toast.makeText(
-                    requireContext(),
-                    "Error : Error : HTTP Exception",
-                    Toast.LENGTH_LONG
-                ).show()
+                withContext(Dispatchers.Main) {
+                    hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error : Error : HTTP Exception",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             } catch (reAuthenticate: FirebaseAuthRecentLoginRequiredException) {
-                hideProgressBar()
-                Toast.makeText(
-                    requireContext(),
-                    "Error,Please reAuthenticate Your email address",
-                    Toast.LENGTH_LONG
-                ).show()
+                withContext(Dispatchers.Main) {
+                    hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error,Please reAuthenticate Your email address",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
 
             } catch (e: Exception) {
-                hideProgressBar()
-                Toast.makeText(
-                    requireContext(),
-                    "Error : Something went wrong",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
+                withContext(Dispatchers.Main) {
+                    hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error : Something went wrong",
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                }
             }
         }
     }

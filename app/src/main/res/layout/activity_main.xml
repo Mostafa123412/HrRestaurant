@@ -25,10 +25,10 @@
             android:id="@+id/retrying_progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
@@ -49,20 +49,51 @@
             app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/myToolar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:background="@color/yellow"
-            android:elevation="@dimen/_8sdp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:liftOnScroll="true">
+
+<!--            <com.google.android.material.appbar.CollapsingToolbarLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:expandedTitleMarginBottom="28dp"-->
+<!--                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"-->
+<!--                app:statusBarScrim="?attr/colorPrimaryVariant">-->
+<!--                &lt;!&ndash;                app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"&ndash;&gt;-->
+<!--                &lt;!&ndash;                app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"&ndash;&gt;-->
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/myToolar"
+                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                    android:layout_width="match_parent"
+                    app:titleCentered="true"
+                    android:layout_height="?attr/actionBarSize"
+                    app:collapsedTitleGravity="bottom|center_horizontal">
+                    <!--                    app:titleCentered="true"-->
+
+                    <!--                    app:layout_collapseMode="pin"-->
+                </com.google.android.material.appbar.MaterialToolbar>
+<!--            </com.google.android.material.appbar.CollapsingToolbarLayout>-->
+        </com.google.android.material.appbar.AppBarLayout>
+        <!--        <androidx.appcompat.widget.Toolbar-->
+        <!--            android:id="@+id/myToolar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="@dimen/_40sdp"-->
+        <!--            android:background="@color/darkYellow"-->
+        <!--            android:elevation="@dimen/_8sdp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_te"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
@@ -73,7 +104,7 @@
             app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
             app:layout_constraintEnd_toStartOf="@id/darkMode"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/myToolar">
+            app:layout_constraintTop_toBottomOf="@id/appBar">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
@@ -93,7 +124,7 @@
             app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/search_te"
-            app:layout_constraintTop_toBottomOf="@id/myToolar" />
+            app:layout_constraintTop_toBottomOf="@id/appBar" />
 
         <ImageView
             android:id="@+id/lightMode"
@@ -104,20 +135,20 @@
             app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/search_te"
-            app:layout_constraintTop_toBottomOf="@id/myToolar" />
+            app:layout_constraintTop_toBottomOf="@id/appBar" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="invisible"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_te"
-            app:navGraph="@navigation/navigation"
-            android:visibility="invisible"/>
+            app:navGraph="@navigation/navigation" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"

@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hrrestaurant.data.dataSources.local.Order
 import com.example.hrrestaurant.databinding.OrderItemBinding
 import com.example.hrrestaurant.ui.base.OrderListener
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class OrderHistoryAdapter(private val orderListener: OrderListener) :
     RecyclerView.Adapter<OrderHistoryAdapter.ItemViewHolder>() {
@@ -32,27 +30,32 @@ class OrderHistoryAdapter(private val orderListener: OrderListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val order = oldList[position]
+        val orderKeys = order.orderList.keys.map { it.toInt() }.toList()
         holder.binding.apply {
             var orderTotalTitle = ""
-            var oneMealTitle = ""
+            addOrderItemsToCart.setOnCheckedChangeListener { checkBox, isChecked ->
+                if (isChecked) orderListener.addItemsToCartAgain(orderKeys)
+                else orderListener.removeAllItemsFromCart(orderKeys)
+
+            }
             order.orderList.keys.forEach { mealId ->
-                val mealCount = order.orderList.get(mealId)
-                CoroutineScope(Dispatchers.Default).launch {
-                    orderListener.getMealTitleByMealId(mealId.toInt()) {
-                        oneMealTitle = it
-                        Log.d("OrderAdapter", "Meal title inside listener is $oneMealTitle")
+                val mealCount = order.orderList[mealId]
+                CoroutineScope(Dispatchers.IO).launch {
+                    val oneMealTitle = async {
+                        orderListener.getMealTitleByMealId(mealId.toInt())
                     }
-                    Log.d("OrderAdapter", "Meal title after listener is $oneMealTitle")
-                    orderTotalTitle += " $mealCount -> $oneMealTitle ,"
-                    orderTitle.text = orderTotalTitle.trim(',')
+                    withContext(Dispatchers.Main) {
+                        orderTotalTitle += " $mealCount -> ${oneMealTitle.await()} ,"
+                        orderTitle.text = orderTotalTitle.trim(',')
+                    }
                 }
             }
             orderStatusValue.text = order.orderStatus
             orderTotalPriceValue.text = order.orderPrice.toString().plus(" P")
             orderTotalTimeValue.text = order.orderTotalEstimatedTime.toString().plus(" Min")
-            orderDateAndTimeTv.text = order.orderDateAndTime
+            orderDateAndTimeValue.text = order.orderDateAndTime
             cancelOrderBtn.setOnClickListener { orderListener.cancelOrder(order.orderRemoteId) }
-            orderAgainBtn.setOnClickListener { orderListener.orderAgain(order.orderRemoteId) }
+            orderAgainBtn.setOnClickListener { orderListener.orderAgain(order) }
             orderMoreDetailsBtn.setOnClickListener { orderListener.moreDetails(order.orderRemoteId) }
         }
     }

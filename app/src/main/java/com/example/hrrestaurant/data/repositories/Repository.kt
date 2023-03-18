@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
+import androidx.lifecycle.LiveData
 import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
@@ -24,29 +25,28 @@ import javax.inject.Inject
 class Repository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
-    private val mealMapper: MealMapper
+    private val mealMapper: MealMapper,
 ) {
+
+
+    fun orderTableRowNumbers(): Flow<Int?> = localDataSource.orderTableRowNumbers()
+
     //Orders
-    fun changeOrderStatus(orderStatus: String, orderRemoteId: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            localDataSource.changeOrderStatus(orderStatus, orderRemoteId)
-        }
+    suspend fun changeOrderStatus(orderStatus: String, orderRemoteId: String) {
+        localDataSource.changeOrderStatus(orderStatus, orderRemoteId)
+        Log.d("Firebase", "state is $orderStatus in Repository")
     }
+
 
     suspend fun getMealTitleByMealId(mealId: Int): String =
         localDataSource.getMealTitleByMealId(mealId)
 
     suspend fun insertOrder(order: Order) {
-        localDataSource.insertOrder(order)
+        coroutineScope { localDataSource.insertOrder(order) }
     }
 
-    fun getAllOrders(): Flow<List<Order>> = flow {
-        localDataSource.getAllOrders()
-    }
-
-    fun getOrdersByUserId(userId: String): Flow<List<Order>> = flow {
+    fun getOrdersByUserId(userId: String): Flow<List<Order>> =
         localDataSource.getOrdersByUserId(userId)
-    }
 
 
     fun isRoomEmpty(): Flow<Boolean> = flow {
@@ -164,6 +164,8 @@ class Repository @Inject constructor(
     }
 
     fun getAllCartItems(): Flow<List<Meal?>> = localDataSource.getAllCartItems()
+
+    suspend fun getUsersOrdersId(): List<String> = localDataSource.getUsersOrdersId()
 
     suspend fun removeItemFromCart(id: Int) {
         coroutineScope {

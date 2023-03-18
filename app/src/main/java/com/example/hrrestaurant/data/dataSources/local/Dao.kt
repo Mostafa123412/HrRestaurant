@@ -1,24 +1,32 @@
 package com.example.hrrestaurant.data.dataSources.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface Dao {
+    @Query(
+        "UPDATE orderTable SET orderStatus = :orderStatus WHERE orderRemoteId = :orderId"
+    )
+    suspend fun changeOrderStatus(orderStatus: String, orderId: String)
 
-    @Query("UPDATE orderTable SET orderStatus = :orderStatus WHERE orderRemoteId = :orderRemoteId")
-    fun changeOrderStatus(orderStatus:String , orderRemoteId: String)
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrder(order:Order)
-    @Query("Select * From orderTable Where orderRemoteId = :orderId")
-    fun getOrdersByUserId(orderId:String):Flow<List<Order>>
-    @Query("SELECT * FROM orderTable")
-    fun getAllOrders():Flow<List<Order>>
+    //    @Query("ALTER TABLE orderIdTable ADD orderId :orderId")
+
+    @Query("SELECT orderRemoteId From orderTable")
+    suspend fun getUsersOrdersId(): List<String>
+    @Insert(onConflict = OnConflictStrategy.REPLACE , entity = Order::class)
+    fun insertOrder(order: Order)
+
+    @Query("Select * From orderTable Where userId = :userId")
+    fun getOrdersByUserId(userId: String): Flow<List<Order>>
+
     @Query("Select * From meal WHERE category = :category")
     fun fetchItemsByCategory(category: String): Flow<List<Meal?>?>
+
     @Query("SELECT title FROM meal WHERE id = :mealId")
-    fun getMealTitleByMealId(mealId:Int):String
+    fun getMealTitleByMealId(mealId: Int): String
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(item: Meal?)
@@ -31,6 +39,9 @@ interface Dao {
 
     @Query("SELECT (SELECT COUNT(*) FROM meal) == 0")
     suspend fun isRoomEmpty(): Boolean?
+
+    @Query("SELECT COUNT(*) FROM meal")
+    fun orderTableRowNumbers(): Flow<Int?>
 
     @Query("Select * from meal where topRated = 1")
     fun getTopRatedMeals(): Flow<List<Meal?>?>
@@ -49,10 +60,13 @@ interface Dao {
 
     @Query("UPDATE meal SET isAddedToChart = 0 WHERE id = :id")
     suspend fun removeItemFromCart(id: Int?)
+
     @Query("UPDATE meal SET count = count + 1 WHERE id = :id")
     suspend fun incrementItemCount(id: Int)
+
     @Query("UPDATE meal SET count = count - 1 WHERE id = :id")
     suspend fun decrementItemCount(id: Int)
+
     @Query("UPDATE meal SET count = 0 WHERE id = :id")
     fun setItemCountToZero(id: Int)
 
@@ -66,9 +80,7 @@ interface Dao {
     // SQLite uses single quotation marks to represent string literals
     // https://stackoverflow.com/questions/44184769/android-room-select-query-with-like
     @Query("Select * from meal where category Like '%' || :searchText || '%' OR title LIKE '%' || :searchText || '%' OR description LIKE '%' || :searchText || '%' ")
-    fun getItemsBySearchText(searchText:String):Flow<List<Meal?>>
-
-
+    fun getItemsBySearchText(searchText: String): Flow<List<Meal?>>
 
 
 //    @Query("DELETE FROM Tasks WHERE completed = 1")

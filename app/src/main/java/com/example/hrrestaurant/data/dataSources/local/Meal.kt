@@ -11,7 +11,7 @@ data class Meal(
     val title: String?,
     val description: String?,
     var itemImage: Bitmap?,
-    val estimatedTime: Double,
+    val estimatedTime: String,
     var price: Double,
     val category: String?,
     val topRated: Int?,

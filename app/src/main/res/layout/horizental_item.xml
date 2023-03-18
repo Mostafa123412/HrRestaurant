@@ -133,7 +133,7 @@
             android:id="@+id/shopping_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/shopping_cart"
+            android:button="@drawable/selector_shopping_cart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/meal_img"
             app:layout_constraintStart_toEndOf="@id/fav_checkBox"

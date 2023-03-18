@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -35,12 +37,13 @@ class SignUpFragment : Fragment() {
     private lateinit var userEmail: String
     private lateinit var userPassword: String
     private var emailPattern = Regex("[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+")
-    private lateinit var user: User
+    private lateinit var fireStoreDb: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        fireStoreDb = Firebase.firestore
         // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,7 +52,6 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = Firebase.auth
-        user = User()
         binding.nameEt.addTextChangedListener { text ->
             if (text.toString().isEmpty()) {
                 binding.name.error = "Invalid Name."
@@ -70,7 +72,6 @@ class SignUpFragment : Fragment() {
         binding.secondaryPhoneNumberEt.addTextChangedListener { text ->
             if (text.toString().isEmpty()) {
                 binding.password.error = "Optional , used when making order"
-                user.userSecondaryPhoneNumber = -1
             } else loginViewModel.addSecondaryPhoneNumber("$text".toInt())
         }
         binding.passwordEt.addTextChangedListener { text ->
@@ -111,14 +112,14 @@ class SignUpFragment : Fragment() {
                             binding.primaryPhoneNumberEt.setText("")
                             binding.nameEt.setText("")
                         }
-//                            else {
-//                                Log.d("Mahmoud", "Email Verified Failed to sent")
-//                                Toast.makeText(
-//                                    requireContext(),
-//                                    "Error : ${it.exception?.message}",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            }
+                            else {
+                                Log.d("Firebase", "Email Verified Failed to sent")
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error : ${it.exception?.message}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                     }?.await()
                 } catch (badlyFormattedEmail: FirebaseAuthInvalidCredentialsException) {
                     withContext(Dispatchers.Main) {
@@ -145,24 +146,31 @@ class SignUpFragment : Fragment() {
                         ).show()
                     }
                 } catch (internetException: IOException) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error : No Internet Connection",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error : No Internet Connection",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 } catch (httpException: HttpException) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error : Error : HTTP Exception",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error : Error : HTTP Exception",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 } catch (e: Exception) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error : Something went wrong",
-                        Toast.LENGTH_LONG
-                    )
-                        .show()
+                    withContext(Dispatchers.Main) {
+                        Log.d("Firebase", "error ${e.message}}")
+                        Toast.makeText(
+                            requireContext(),
+                            e.message,
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
                 }
             }
         }

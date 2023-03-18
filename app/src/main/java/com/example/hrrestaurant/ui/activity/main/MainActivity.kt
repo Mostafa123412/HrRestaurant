@@ -1,21 +1,27 @@
 package com.example.hrrestaurant.ui.activity.main
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.hrrestaurant.R
 import com.example.hrrestaurant.databinding.ActivityMainBinding
+import com.example.hrrestaurant.ui.activity.loginActivity.LoginActivity
 import com.example.hrrestaurant.ui.util.UiState
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 const val TAG = "MainActivity"
@@ -23,6 +29,8 @@ const val TAG = "MainActivity"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private val mainActivityViewModel: MainActivityViewModel by viewModels()
@@ -30,104 +38,55 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private var darkMode = false
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var auth: FirebaseAuth
 
     // is used by the navigation drive to manage the behaviour of the navigation button in the upper left corner , this changees behavior depending on the destination level
     private lateinit var appBarConfiguration: AppBarConfiguration
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = Firebase.auth
+        if (!checkUserLogin()) hideLogOutButton() else showLogOutButton()
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
         mainActivityViewModel
         toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerlayout,
-            binding.myToolar,
-            R.string.open,
-            R.string.close
-        )
+            this, binding.drawerlayout, binding.myToolar, R.string.open, R.string.close)
         binding.drawerlayout.addDrawerListener(toggle)
         toggle.syncState()
+
         setUpNavigationMenu(navController)
         setUpBottomNavMenu(navController)
         setSupportActionBar(binding.myToolar)
-//        toggle.setToolbarNavigationClickListener {
-//            toggle.isDrawerIndicatorEnabled = false
-//        }
         // defining the top level destinations , no back button is shown for these destinations
-        appBarConfiguration = AppBarConfiguration(
-//            navController.graph
-            setOf(
-                R.id.homeFragment,
-                R.id.favouriteFragment,
-            ), binding.drawerlayout
-        )
+        appBarConfiguration = setUpAppBarConfiguration()
         // drawer layout to change Burger icon into a back button
         setupActionBarWithNavController(navController, appBarConfiguration)
-        setUpNavigationMenu(navController)
+
+
         mainActivityViewModel.isRoomEmpty.observe(this) {
             if (it) {
-                mainActivityViewModel.getDataFromInternet()
-                mainActivityViewModel.status.observe(this) { uiState ->
-                    when (uiState) {
-                        is UiState.Error -> {
-                            hideLoading()
-                            hideFragmentContainerView()
-                            hideSearch()
-                            showErrorLayout(uiState.errorMessage)
-                        }
-                        is UiState.Loading -> {
-                            Log.d("Repository", "Loading ............")
-                            hideErrorLayout()
-                            hideSearch()
-                            hideFragmentContainerView()
-                            showLoading()
-                        }
-                        is UiState.Success -> {
-                            Log.d("Repository", "Successful  ............")
-                            hideErrorLayout()
-                            hideLoading()
-                            showSearch()
-                            showFragmentContainerView()
-                        }
-                    }
-                }
+                getAppData()
+                observeAppData()
             } else showFragmentContainerView()
         }
         binding.searchTe.setOnClickListener {
             hideViews()
-            navController.navigate(R.id.searchFragment)
-            supportFragmentManager.primaryNavigationFragment
-            val currentFragment = navHostFragment.childFragmentManager.primaryNavigationFragment
-            Toast.makeText(this, "CurrentFragment: $currentFragment", Toast.LENGTH_SHORT).show()
+            goToSearchFragment()
         }
         binding.darkMode.setOnClickListener {
-            binding.lightMode.visibility = View.VISIBLE
-            binding.darkMode.visibility = View.GONE
-            sharedPreferences = getSharedPreferences("MODE", MODE_PRIVATE)
-            var editor = sharedPreferences.edit()
-            editor.putBoolean("night", true)
-            editor.apply()
-            darkMode = sharedPreferences.getBoolean("night", false)
-            if (darkMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
+            inverseModeVisibility()
+            enableDarkMode()
         }
         binding.lightMode.setOnClickListener {
-            sharedPreferences = getSharedPreferences("MODE", MODE_PRIVATE)
-            var editor = sharedPreferences.edit()
-            editor.putBoolean("night", false)
-            editor.apply()
-            darkMode = sharedPreferences.getBoolean("night", true)
-            if (!darkMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            binding.darkMode.visibility = View.VISIBLE
-            binding.lightMode.visibility = View.GONE
-
+            inverseModeVisibility()
+            enableLightMode()
         }
         binding.cartFab.setOnClickListener {
             hideViews()
@@ -135,47 +94,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             hideViews()
-            when (menuItem.itemId) {
-                R.id.aboutDeveloperFragment -> {
-                    hideViews()
-                    binding.drawerlayout.close()
-                    navController.navigate(R.id.aboutDeveloperFragment)
-                }
-                R.id.aboutRestaurantFragment -> {
-                    hideViews()
-                    binding.drawerlayout.close()
-                    navController.navigate(R.id.aboutRestaurantFragment)
-                }
-                R.id.youtubeFragment -> {
-                    hideViews()
-                    binding.drawerlayout.close()
-                    navController.navigate(R.id.youtubeFragment)
-                }
-                R.id.locationFragment -> {
-                    hideViews()
-                    binding.drawerlayout.close()
-                    navController.navigate(R.id.locationFragment)
-                }
-                R.id.ordersHistoryFragment -> {
-                    hideViews()
-                    binding.drawerlayout.close()
-                    navController.navigate(R.id.ordersHistoryFragment)
-                }
-            }
+            goToSelectedMenuItem(menuItem)
             true
         }
-
-//        mainActivityViewModel._status.observe(this) { isRoomEmpty ->
-//            Log.d("Repository", "is Room Empty ?: ${isRoomEmpty.isNullOrEmpty()}")
-//            if (isRoomEmpty?.isEmpty()) {
-//                showSearch()
-//                showFragmentContainerView()
-//            } else {
-//                hideFragmentContainerView()
-//                hideSearch()
-//            }
-//
-//        }
         binding.mainErrorLayout.refreshButton.setOnClickListener {
             binding.retryingProgressBar.visibility = View.VISIBLE
 //            hideErrorLayout()
@@ -183,6 +104,130 @@ class MainActivity : AppCompatActivity() {
             mainActivityViewModel.getDataFromInternet()
         }
 
+    }
+
+    private fun setUpAppBarConfiguration(): AppBarConfiguration = AppBarConfiguration(
+//            navController.graph
+        setOf(
+            R.id.homeFragment,
+            R.id.favouriteFragment,
+        ), binding.drawerlayout
+    )
+
+    private fun hideLogOutButton() {
+        binding.navigationView.menu.findItem(R.id.logOut).isVisible = false
+    }
+
+    private fun showLogOutButton() {
+        binding.navigationView.menu.findItem(R.id.logOut).isVisible = true
+    }
+
+    private fun checkUserLogin(): Boolean = auth.currentUser != null
+
+
+    private fun goToSelectedMenuItem(menuItem: MenuItem) {
+        when (menuItem.itemId) {
+            R.id.aboutDeveloperFragment -> {
+                hideViews()
+                binding.drawerlayout.close()
+                navController.navigate(R.id.aboutDeveloperFragment)
+            }
+            R.id.aboutRestaurantFragment -> {
+                hideViews()
+                binding.drawerlayout.close()
+                navController.navigate(R.id.aboutRestaurantFragment)
+            }
+            R.id.youtubeFragment -> {
+                hideViews()
+                binding.drawerlayout.close()
+                navController.navigate(R.id.youtubeFragment)
+            }
+            R.id.locationFragment -> {
+                hideViews()
+                binding.drawerlayout.close()
+                navController.navigate(R.id.locationFragment)
+            }
+            R.id.ordersHistoryFragment -> {
+                hideViews()
+                binding.drawerlayout.close()
+                navController.navigate(R.id.ordersHistoryFragment)
+            }
+            R.id.logOut -> {
+                if (checkUserLogin()) {
+                    auth.signOut()
+                    val loginActivityIntent = Intent(this, LoginActivity::class.java)
+                    startActivity(loginActivityIntent)
+                    finish()
+                }
+            }
+        }
+    }
+
+
+    private fun enableLightMode() {
+        sharedPreferences = getSharedPreferences("MODE", MODE_PRIVATE)
+        var editor = sharedPreferences.edit()
+        editor.putBoolean("night", false)
+        editor.apply()
+        darkMode = sharedPreferences.getBoolean("night", true)
+        if (!darkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    private fun enableDarkMode() {
+        sharedPreferences = getSharedPreferences("MODE", MODE_PRIVATE)
+        var editor = sharedPreferences.edit()
+        editor.putBoolean("night", true)
+        editor.apply()
+        darkMode = sharedPreferences.getBoolean("night", false)
+        if (darkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+    }
+
+    private fun inverseModeVisibility() {
+        if (binding.lightMode.visibility == View.VISIBLE) {
+            binding.lightMode.visibility = View.GONE
+            binding.darkMode.visibility = View.VISIBLE
+        } else {
+            binding.lightMode.visibility = View.VISIBLE
+            binding.darkMode.visibility = View.GONE
+        }
+
+    }
+
+    private fun goToSearchFragment() = navController.navigate(R.id.searchFragment)
+
+
+    private fun getAppData() = mainActivityViewModel.getDataFromInternet()
+
+
+    private fun observeAppData() {
+        mainActivityViewModel.status.observe(this) { uiState ->
+            when (uiState) {
+                is UiState.Error -> {
+                    hideLoading()
+                    hideFragmentContainerView()
+                    hideSearch()
+                    showErrorLayout(uiState.errorMessage)
+                }
+                is UiState.Loading -> {
+                    Log.d("Repository", "Loading ............")
+                    hideErrorLayout()
+                    hideSearch()
+                    hideFragmentContainerView()
+                    showLoading()
+                }
+                is UiState.Success -> {
+                    Log.d("Repository", "Successful  ............")
+                    hideErrorLayout()
+                    hideLoading()
+                    showSearch()
+                    showFragmentContainerView()
+                }
+            }
+        }
     }
 
     private fun showSearch() {
@@ -209,7 +254,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        showViews()
+        if (binding.mainLoadingLayout.progressBar.isVisible){}else showViews()
+        Log.d("MAINACTIVITY", "onBackPressed called")
+
         if (binding.drawerlayout.isOpen) {
             binding.drawerlayout.close()
         } else
@@ -236,6 +283,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showViews() {
         binding.apply {
+            Log.d("MAINACTIVITY", "showViews called")
+
             searchTe.visibility = View.VISIBLE
             cartFab.visibility = View.VISIBLE
             bottomNavigation.visibility = View.VISIBLE

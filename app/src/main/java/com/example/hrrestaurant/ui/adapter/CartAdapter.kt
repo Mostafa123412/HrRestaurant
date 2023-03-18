@@ -12,10 +12,10 @@ import com.example.hrrestaurant.data.dataSources.local.Meal
 
 class CartAdapter(
     private val listener: ItemListener,
-    private val context: Context,
-    private var oldList: List<Meal?>
 ) :
     RecyclerView.Adapter<CartAdapter.ItemViewHolder>() {
+
+    private var oldList: List<Meal?> = emptyList()
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = oldList[position]!!

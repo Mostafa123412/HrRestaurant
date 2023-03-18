@@ -1,8 +1,12 @@
 package com.example.hrrestaurant.ui.base
 
+import com.example.hrrestaurant.data.dataSources.local.Order
+
 interface OrderListener {
-    fun orderAgain(orderId:String)
+    fun orderAgain(order: Order)
     fun moreDetails(orderId: String)
     fun cancelOrder(orderId: String)
-    suspend fun getMealTitleByMealId(mealId: Int, onTitleFound: (String) -> Unit)
+    fun addItemsToCartAgain(itemsId:List<Int>)
+    fun removeAllItemsFromCart(itemsId:List<Int>)
+    suspend fun getMealTitleByMealId(mealId: Int):String
 }

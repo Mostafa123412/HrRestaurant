@@ -142,8 +142,17 @@
             android:layout_marginBottom="@dimen/_8sdp"
             app:layout_constraintTop_toBottomOf="@id/orderDateAndTimeValue"
             app:layout_constraintStart_toEndOf="@id/orderAgainBtn"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/addOrderItemsToCart"
             app:layout_constraintBottom_toBottomOf="parent"/>
+        <CheckBox
+            android:id="@+id/addOrderItemsToCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_shopping_cart"
+            app:layout_constraintStart_toEndOf="@id/orderMoreDetails_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderDateAndTimeValue"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

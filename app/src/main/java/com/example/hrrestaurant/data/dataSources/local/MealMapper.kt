@@ -22,7 +22,7 @@ class MealMapper : Mapper<MealDto, Meal> {
             title = input.title,
             description = input.description,
             price = input.price,
-            estimatedTime = input.estimatedTime.toString().trim(' ', 'm', 'i', 'n').toDouble(),
+            estimatedTime = input.estimatedTime.trim(' ', 'm', 'i', 'n'),
             category = input.category,
             topRated = input.topRated,
             //instead of saving null , we save false

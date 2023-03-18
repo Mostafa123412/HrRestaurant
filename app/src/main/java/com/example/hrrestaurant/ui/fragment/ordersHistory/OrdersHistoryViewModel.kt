@@ -1,39 +1,72 @@
 package com.example.hrrestaurant.ui.fragment.ordersHistory
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.*
 import com.example.hrrestaurant.data.dataSources.local.Order
 import com.example.hrrestaurant.data.repositories.Repository
+import com.example.hrrestaurant.domain.AddOrderToCacheUseCase
+import com.example.hrrestaurant.domain.CreateFireStoreOrderUseCase
+import com.example.hrrestaurant.domain.GetUserOrdersIdUseCase
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
-class OrdersHistoryViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class OrdersHistoryViewModel @Inject constructor(
+    private val repository: Repository,
+    private val addOrderToCacheUseCase: AddOrderToCacheUseCase,
+    private val createFireStoreOrderUseCase: CreateFireStoreOrderUseCase,
+    private val getListOfIdOfUsersOrdersUseCase: GetUserOrdersIdUseCase,
+    private val application: Application,
+) : AndroidViewModel(application) {
 
-    val allOrders = repository.getAllOrders().asLiveData()
-    private var _mealTitle: MutableLiveData<String> = MutableLiveData()
-    val mealTitle: LiveData<String>
-        get() = _mealTitle
+    private val context = getApplication<Application>().applicationContext
 
-    fun getMealTitleByMealId(mealId: Int) {
+    private var _orders: MutableLiveData<List<Order>> = MutableLiveData()
+    val orders: LiveData<List<Order>>
+        get() = _orders
+
+    private var _ordersId: MutableLiveData<List<String>?> = MutableLiveData()
+    val ordersId: LiveData<List<String>?>
+        get() = _ordersId
+
+    init {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                _mealTitle.postValue(repository.getMealTitleByMealId(mealId))
+                _ordersId.postValue(getListOfIdOfUsersOrdersUseCase())
             }
         }
     }
+    suspend fun getMealTitleByMealId(mealId: Int): String {
+        return repository.getMealTitleByMealId(mealId)
+    }
 
-    fun updateOrderStatus(orderStatus:String , orderId:String){
+    fun addOrderToCache(order: Order) = addOrderToCacheUseCase(order)
+
+
+    fun getUserOrders(userId: String) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                repository.changeOrderStatus(orderStatus , orderId)
+            repository.getOrdersByUserId(userId).collect {
+                _orders.postValue(it)
             }
         }
     }
 
 
+    fun createNewOrderFromPreviousOrder(
+        order: Order,
+        fireStoreDb: FirebaseFirestore,
+    ) {
+        viewModelScope.launch {
+            val result = createFireStoreOrderUseCase(order, fireStoreDb)
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, result, Toast.LENGTH_LONG).show()
+            }
+        }
     }
+
+
+}

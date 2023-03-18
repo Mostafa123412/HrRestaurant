@@ -29,5 +29,11 @@
             android:checkable="true"
             android:icon="@drawable/ic_baseline_location_on_24"
             android:title="Restaurant Location" />
+        <item
+            android:id="@+id/logOut"
+            android:visible="true"
+            android:checkable="true"
+            android:icon="@drawable/logout"
+            android:title="Sign Out" />
     </group>
 </menu>

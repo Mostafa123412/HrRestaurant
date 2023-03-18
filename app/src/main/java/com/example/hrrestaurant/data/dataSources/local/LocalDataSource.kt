@@ -1,6 +1,7 @@
 package com.example.hrrestaurant.data.dataSources.local
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -38,7 +39,7 @@ class LocalDataSource @Inject constructor(private val dao: Dao) {
 
     fun isRoomEmpty(): Flow<Int?> {
 
-    return dao.getAllItems()
+        return dao.getAllItems()
     }
 
     suspend fun addItemToFavourite(id: Int?) {
@@ -52,7 +53,8 @@ class LocalDataSource @Inject constructor(private val dao: Dao) {
             dao.removeItemFromFavourite(id)
         }
     }
-    suspend fun getMealTitleByMealId(mealId:Int):String = dao.getMealTitleByMealId(mealId)
+
+    suspend fun getMealTitleByMealId(mealId: Int): String = dao.getMealTitleByMealId(mealId)
 
 
     fun getFavouriteItems(): Flow<List<Meal?>> = dao.getFavouriteItems()
@@ -67,6 +69,7 @@ class LocalDataSource @Inject constructor(private val dao: Dao) {
     suspend fun incrementItemCount(id: Int) {
         dao.incrementItemCount(id)
     }
+
     suspend fun decrementItemCount(id: Int) = dao.decrementItemCount(id)
 
     fun getAllCartItems(): Flow<List<Meal?>> = dao.getCartItems()
@@ -74,12 +77,21 @@ class LocalDataSource @Inject constructor(private val dao: Dao) {
         dao.setItemCountToZero(id)
     }
 
-    suspend fun changeOrderStatus(orderStatus:String , orderRemoteId: String) = dao.changeOrderStatus(orderStatus , orderRemoteId)
-    suspend fun insertOrder(order:Order) = dao.insertOrder(order)
-    suspend fun getOrdersByUserId(userId:String):Flow<List<Order>> = dao.getOrdersByUserId(userId)
-    suspend fun getAllOrders():Flow<List<Order>> {
-        return dao.getAllOrders()
+    suspend fun changeOrderStatus(orderStatus: String, orderId: String) {
+        dao.changeOrderStatus(orderStatus, orderId)
+        Log.d("Firebase", "state is $orderStatus in local dataSource")
     }
 
+
+    suspend fun getUsersOrdersId(): List<String> = dao.getUsersOrdersId()
+
+
+    suspend fun insertOrder(order: Order) {
+        coroutineScope { dao.insertOrder(order) }
+    }
+
+    fun getOrdersByUserId(userId: String): Flow<List<Order>> = dao.getOrdersByUserId(userId)
+
+    fun orderTableRowNumbers(): Flow<Int?> = dao.orderTableRowNumbers()
 
 }
