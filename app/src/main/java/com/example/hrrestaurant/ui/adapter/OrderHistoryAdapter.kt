@@ -36,7 +36,6 @@ class OrderHistoryAdapter(private val orderListener: OrderListener) :
             addOrderItemsToCart.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) orderListener.addItemsToCartAgain(orderKeys)
                 else orderListener.removeAllItemsFromCart(orderKeys)
-
             }
             order.orderList.keys.forEach { mealId ->
                 val mealCount = order.orderList[mealId]

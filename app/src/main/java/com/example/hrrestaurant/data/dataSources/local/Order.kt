@@ -12,6 +12,7 @@ data class Order(
     @ColumnInfo("orderRemoteId")
     val orderRemoteId: String,
 //    @PrimaryKey(autoGenerate = false)
+    val orderInfo: HashMap<String, String>,
     val userId: String,
     val orderPrice: Double,
     val orderDateAndTime: String,

@@ -25,12 +25,10 @@ class LoginActivityViewModel @Inject constructor(private val repository: Reposit
     private var user: HashMap<String, java.io.Serializable> = hashMapOf()
     private val fireStoreDb: FirebaseFirestore by lazy { Firebase.firestore }
 
-    fun userLoggedIn(userId: String, userEmail: String, userPhoneNumber: String?) {
+    fun userLoggedIn(userId: String, userEmail: String) {
         user["userId"] = userId
         user["userEmail"] = userEmail
-        userPhoneNumber.let {
-            user["userPrimaryPhoneNumber"] = userPhoneNumber!!
-        }
+
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 fireStoreDb.collection("Users").add(user)

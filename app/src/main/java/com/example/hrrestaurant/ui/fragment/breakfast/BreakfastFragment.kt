@@ -66,23 +66,6 @@ class BreakfastFragment :
         }
         }
 
-    private fun showLoading() {
-        binding.loading.progressBar.visibility = View.VISIBLE
-    }
-
-    private fun hideErrorLayout() {
-        binding.error.errorImg.visibility = View.GONE
-        binding.error.errorText.visibility = View.GONE
-    }
-
-    private fun showErrorLayout() {
-        binding.error.errorImg.visibility = View.VISIBLE
-        binding.error.errorText.visibility = View.VISIBLE
-    }
-
-    private fun hideLoading() {
-        binding.loading.progressBar.visibility = View.GONE
-    }
 
 }
 

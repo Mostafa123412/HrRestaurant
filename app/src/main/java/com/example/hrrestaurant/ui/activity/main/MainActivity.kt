@@ -43,14 +43,19 @@ class MainActivity : AppCompatActivity() {
     // is used by the navigation drive to manage the behaviour of the navigation button in the upper left corner , this changees behavior depending on the destination level
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = Firebase.auth
-        if (!checkUserLogin()) hideLogOutButton() else showLogOutButton()
+        if (!checkUserLogin()) {
+            hideLogOutButton()
+            hideOrdersHistory()
+        } else {
+            showLogOutButton()
+            showOrderHistoryMenuItem()
+        }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
@@ -104,6 +109,14 @@ class MainActivity : AppCompatActivity() {
             mainActivityViewModel.getDataFromInternet()
         }
 
+    }
+
+    private fun showOrderHistoryMenuItem() {
+        binding.navigationView.menu.findItem(R.id.logOut).isVisible = true
+    }
+
+    private fun hideOrdersHistory() {
+        binding.navigationView.menu.findItem(R.id.ordersHistoryFragment).isVisible = false
     }
 
     private fun setUpAppBarConfiguration(): AppBarConfiguration = AppBarConfiguration(

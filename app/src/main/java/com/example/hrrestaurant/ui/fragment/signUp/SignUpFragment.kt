@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.hrrestaurant.data.dataSources.remote.User
 import com.example.hrrestaurant.databinding.FragmentSignUpBinding
 import com.example.hrrestaurant.ui.activity.loginActivity.LoginActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -64,26 +63,12 @@ class SignUpFragment : Fragment() {
 //                Toast.makeText(requireContext(),"Correct email",Toast.LENGTH_LONG).show()
             } else userEmail = text.toString()
         }
-        binding.primaryPhoneNumberEt.addTextChangedListener { text ->
-            if (text.toString().isEmpty()) {
-                binding.password.error = "Invalid Phone Number."
-            } else loginViewModel.addPrimaryPhoneNumber("$text".toInt())
-        }
-        binding.secondaryPhoneNumberEt.addTextChangedListener { text ->
-            if (text.toString().isEmpty()) {
-                binding.password.error = "Optional , used when making order"
-            } else loginViewModel.addSecondaryPhoneNumber("$text".toInt())
-        }
         binding.passwordEt.addTextChangedListener { text ->
             if (text.toString().isEmpty()) {
                 binding.password.error = "Invalid Password."
             } else userPassword = text.toString()
         }
-        binding.userLocationEt.addTextChangedListener { text ->
-            if (text.toString().isEmpty()) {
-                binding.userLocation.error = "Invalid Location."
-            } else loginViewModel.addLocation(text.toString())
-        }
+
         binding.signUpBtn.setOnClickListener {
             registerUser()
         }
@@ -108,8 +93,6 @@ class SignUpFragment : Fragment() {
                             ).show()
                             binding.emailEt.setText("")
                             binding.passwordEt.setText("")
-                            binding.userLocationEt.setText("")
-                            binding.primaryPhoneNumberEt.setText("")
                             binding.nameEt.setText("")
                         }
                             else {

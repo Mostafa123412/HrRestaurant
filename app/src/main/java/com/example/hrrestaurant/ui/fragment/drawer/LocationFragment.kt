@@ -1,127 +1,115 @@
 package com.example.hrrestaurant.ui.fragment.drawer
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.core.app.ActivityCompat
-import com.example.hrrestaurant.R
-import com.example.hrrestaurant.databinding.FragmentLocationBinding
-import com.example.hrrestaurant.ui.base.BaseFragment
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import pub.devrel.easypermissions.AppSettingsDialog
-import pub.devrel.easypermissions.EasyPermissions
+import okhttp3.internal.toImmutableList
+
 @AndroidEntryPoint
-class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationBinding::inflate),
-    EasyPermissions.PermissionCallbacks {
-    private lateinit var currentLocation: Location
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private val permissionCode = 101
-    
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireActivity())
-        getCurrentUserLocation()
-        requestLocationPermission()
-//        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-//        mapFragment?.getMapAsync(callback)
+class LocationFragment : Fragment() {
+
+//    private lateinit var map: GoogleMap
+//    private lateinit var fusedLocationClient: FusedLocationProviderClient
+//    private val LOCATION_PERMISSION_REQUEST_CODE = 1
+//    private var targetLocation: String? = null
+//    private var directionsPolyline: Polyline? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        fusedLocationClient = LocationServices
+//            .getFusedLocationProviderClient(requireActivity())
+//        targetLocation = LatLng(30.05244, 31.33551).toString() // replace with your desired location
     }
 
-    private fun getCurrentUserLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-            &&
-            ActivityCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestLocationPermission()
-            return
-        }
-
-        val getLocation =
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
-                if (location != null) {
-                    currentLocation = location
-                    Toast.makeText(
-                        requireContext(), currentLocation.latitude.toString() + "" +
-                                currentLocation.longitude.toString(), Toast.LENGTH_LONG
-                    ).show()
-                }
-                val mapFragment =
-                    childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-                mapFragment?.getMapAsync(callback)
-            }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View?{
+//        getMapAsync(this)
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    private fun requestLocationPermission() {
-       if ( EasyPermissions.hasPermissions(
-            requireContext(),
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )){
-           return
-       } else {
-            EasyPermissions.requestPermissions(
-                this,
-                "You need to accept this permission to use this feature",
-                0,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        }
-    }
+//    override fun onMapReady(googleMap: GoogleMap) {
+//        map = googleMap
+//        if (ContextCompat.checkSelfPermission(
+//                requireContext(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            enableMyLocation()
+//        } else {
+//            ActivityCompat.requestPermissions(
+//                requireActivity(),
+//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                LOCATION_PERMISSION_REQUEST_CODE
+//            )
+//        }
+//    }
 
-    private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        val myLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 7f))
-        googleMap.addMarker(MarkerOptions().position(myLocation).title("Current Location"))
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String>,
+//        grantResults: IntArray,
+//    ) {
+//        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                enableMyLocation()
+//            }
+//        }
+//    }
 
-    }
+//    @SuppressLint("MissingPermission")
+//    private fun enableMyLocation() {
+//        if (ContextCompat.checkSelfPermission(
+//                requireContext(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            map.isMyLocationEnabled = true
+//            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+//                location?.let {
+//                    val currentLatLng: LatLng = LatLng(location.latitude, location.longitude)
+//                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+//                    map.addMarker(MarkerOptions().position(currentLatLng))
+//
+//                    if (targetLocation != null) {
+//                        val directions = DirectionsApiRequest(getGeoContext())
+//                            .origin(currentLatLng.toString())
+//                            .destination(targetLocation!!)
+//                            .mode(TravelMode.DRIVING)
+//                            .await()
+//
+////                        if (directions.routes.isNotEmpty()) {
+////                            val route = directions.routes[0]
+////                            val overviewPolyline = route.overviewPolyline
+////                            val decodedPath = PolyUtil.decode(overviewPolyline.encodedPath)
+////                            decodedPath.map {
+////                                com.google.maps.model.LatLng(it.lat)
+////                            }
+////                            directionsPolyline?.remove()
+////                            directionsPolyline = map.addPolyline(PolylineOptions()
+////                                .addAll(decodedPath.toMutableList().asIterable()))
+////                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        Toast.makeText(requireContext(), "Granted", Toast.LENGTH_SHORT).show()
-        getCurrentUserLocation()
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this , perms)) {
-            AppSettingsDialog.Builder(this).build().show()
-        }else {
-            requestLocationPermission()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        Toast.makeText(requireContext(), "Granted , Yes", Toast.LENGTH_SHORT).show()
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode , permissions, grantResults)
-    }
+//    private fun getGeoContext(): GeoApiContext {
+//        val context = GeoApiContext.Builder()
+//            .apiKey(Constants.DIRECTION_SDK_KEY)
+//            .build()
+//        return context
+//    }
 }

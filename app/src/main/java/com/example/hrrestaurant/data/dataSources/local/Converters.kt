@@ -38,6 +38,15 @@ class Converters {
     fun mapToString(value: HashMap<String, Int>): String {
         return Gson().toJson(value)
     }
+    @TypeConverter
+    fun stringOrderInfoToMap(value: String): HashMap<String, String> {
+        return Gson().fromJson(value,  object : TypeToken<HashMap<String, String>>() {}.type)
+    }
+
+    @TypeConverter
+    fun mapToOrderInfoString(value: HashMap<String, String>): String {
+        return Gson().toJson(value)
+    }
 
 //    @TypeConverter
 //    fun toCroissantList(value: String): List<Meal> {

@@ -36,7 +36,7 @@ abstract class BaseFragment<VB : ViewBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-
+        fireStoreDb
         _binding = bindingInflater.invoke(inflater, container, false)
         if (_binding == null) {
             throw java.lang.IllegalArgumentException("Binding cannot be null")

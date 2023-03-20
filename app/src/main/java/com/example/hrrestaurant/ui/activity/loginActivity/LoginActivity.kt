@@ -37,12 +37,13 @@ class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginActivityViewModel by viewModels()
 
     //cannot retrieve list of all users , instead add every user to firebase db and retrieve them easily
-    private var auth: FirebaseAuth = Firebase.auth
+    private lateinit var auth: FirebaseAuth
     private lateinit var firebaseDB: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        auth = Firebase.auth
         installSplashScreen().apply {
             Log.d("Mahmoud", "logged In state in splashScreen ${checkLoggedInState()}")
             if (checkLoggedInState()) moveToMainActivity()
@@ -75,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
             false
         } else {
             loginViewModel.changeLoginStatus(true)
-            loginViewModel.userLoggedIn(auth.currentUser!!.uid , auth.currentUser!!.email!! , auth.currentUser!!.phoneNumber)
+//            loginViewModel.userLoggedIn(auth.currentUser!!.uid , auth.currentUser!!.email!! )
             true
         }
     }

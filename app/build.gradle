@@ -4,10 +4,9 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+//    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'com.google.dagger.hilt.android'
     id 'com.google.gms.google-services'
-
 }
 
 android {
@@ -49,10 +48,26 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+//    implementation 'com.google.android.libraries.maps:maps:3.1.0-beta'
+//    // Google Play Services
+////    implementation 'com.google.android.gms:play-services-maps:20.1.0'
+//    implementation 'com.google.android.gms:play-services-location:21.0.1'
+//    // Google Maps Directions API
+//    implementation 'com.google.maps:google-maps-services:2.1.2'
+//
+//    implementation 'com.google.maps.android:android-maps-utils:2.3.0'
+//    implementation 'com.google.maps.android:maps-utils-ktx:3.4.0'
+//
+//
+//    // Google Maps Android SDK
+////    implementation 'com.google.android.gms:play-services-maps:20.1.0'
+//    implementation 'com.google.android.gms:play-services-basement:18.2.0'
+//    implementation 'com.google.android.gms:play-services-nearby:18.5.0'
+//
+
 
     //https://android-arsenal.com/details/1/7693
 //    implementation 'com.github.smarteist:autoimageslider:1.4.0'
@@ -64,6 +79,16 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:8.0.2'
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
+    //Coroutines
+    /***
+     * The kotlinx-coroutines-core-android dependency provides the core coroutine functionality for Android,
+     * including the suspendCoroutine function. The kotlinx-coroutines-android dependency provides additional functionality specifically for Android,
+     * such as the Dispatchers.Main coroutine dispatcher,
+     * which allows you to perform UI-related tasks from a coroutine.
+     */
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0-Beta")
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
 
     implementation "androidx.activity:activity-ktx:1.6.1"
