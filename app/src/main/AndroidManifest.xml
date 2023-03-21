@@ -18,6 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HrRestaurant"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
         <activity
             android:name=".ui.activity.main.MainActivity"
             android:exported="true">
@@ -46,7 +55,13 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBJD_29Jnl4mz1TeZuzGmHyTqMKzvZ7ArE" />
-
+        <service
+            android:name="com.example.hrrestaurant.ui.util.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -33,7 +34,7 @@ class OrderViewModel @Inject constructor(
         fireStoreDb: FirebaseFirestore,
         currentUserId: String,
         orderLocation: String,
-        userName:String,
+        userName: String,
         userPrimaryPhone: String,
         userSecondaryPhone: String,
     ) {
@@ -47,6 +48,7 @@ class OrderViewModel @Inject constructor(
                     userName,
                     userSecondaryPhone
                 )
+                Log.d("Firebase", "order Created = $order ....")
                 addNewOrderToFireStore(order, fireStoreDb)
             }
         }
@@ -56,15 +58,11 @@ class OrderViewModel @Inject constructor(
         order: Order,
         fireStoreDb: FirebaseFirestore,
     ) {
-        fireStoreDb.disableNetwork()
-        viewModelScope.launch {
-            val result = createFireStoreOrderUseCase(order, fireStoreDb)
-            registration = createFireStoreOrderUseCase.registration
-            withContext(Dispatchers.Main) {
-                Log.d("Firebase", "result is $result")
-            }
-        }
+        createFireStoreOrderUseCase(order, fireStoreDb)
+        Log.d("Firebase", "order created")
+        registration = createFireStoreOrderUseCase.registration
     }
+
 
     override fun onCleared() {
         if (registration != null) registration!!.remove()

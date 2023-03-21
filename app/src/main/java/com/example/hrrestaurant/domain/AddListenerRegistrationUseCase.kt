@@ -50,7 +50,7 @@ class AddListenerRegistrationUseCase @Inject constructor(
                     orderList = data.get("orderHashMap") as HashMap<String, Int>,
                     orderStatus = data.get("orderState").toString()
                 )
-                Log.d("Firebase", "order is ${data.get("orderDateAndTime")}")
+                Log.d("Firebase", "order is ${data.get("orderInfo")}")
                 addOrderToCacheUseCase(newOrder)
             }
         }

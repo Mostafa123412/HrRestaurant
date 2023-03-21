@@ -71,7 +71,7 @@ class OrderFragment : Fragment() {
                 )
                 orderViewModel.cartItems.observe(viewLifecycleOwner){ cartItems ->
                 cartItems.let {
-                    Log.d("Repository", "cart Items = $cartItems ....")
+                    Log.d("Firebase", "cart Items = $cartItems ....")
                     orderViewModel.createNewOrder(
                         cartItems!!,
                         fireStoreDb,

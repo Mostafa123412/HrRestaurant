@@ -23,7 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class OrdersHistoryFragment :
     BaseFragment<FragmentOrdersHistoryBinding>(FragmentOrdersHistoryBinding::inflate),
     OrderListener {
-    private val orderHistoryAdapter: OrderHistoryAdapter by lazy { OrderHistoryAdapter(this@OrdersHistoryFragment) }
+    private val orderHistoryAdapter: OrderHistoryAdapter
+                by lazy { OrderHistoryAdapter(this@OrdersHistoryFragment , requireContext()) }
     private val ordersHistoryViewModel: OrdersHistoryViewModel by viewModels()
     private var registration: ListenerRegistration? = null
     private var idRegistration: ListenerRegistration? = null
@@ -76,9 +77,7 @@ class OrdersHistoryFragment :
                 if (snapShot != null) {
                     for (document in snapShot.documents) {
                         Log.d("Firebase", "This user Orders ids are = ${document.id}")
-                        if (document != null) {
                             addListener(document.id)
-                        }
                     }
                 }
             }

@@ -25,20 +25,19 @@ class CreateFireStoreOrderUseCase @Inject constructor(
      *  This function takes a Continuation object as a parameter,
      *  which is used to resume the coroutine with the result or exception when it becomes available
      */
-    suspend operator fun invoke(
+    operator fun invoke(
         order: Order,
-        fireStoreDb: FirebaseFirestore
-    ): String = suspendCoroutine { continuation ->
-        fireStoreDb
-            .collection("Orders")
+        fireStoreDb: FirebaseFirestore,
+    ) {
+        fireStoreDb.collection("Orders")
             .add(createNewHashMapFromOrder(order))
             .addOnSuccessListener { documentReference ->
                 val newOrderId = documentReference.id
+                Log.d("Firebase", "FireStore order created")
                 registration = addListenerRegistrationUseCase(newOrderId, fireStoreDb)
-                continuation.resume("Order Sent Successfully")
             }
             .addOnFailureListener { exception ->
-                continuation.resumeWithException(IOException("No Internet access"))
+                Log.d("Firebase", "FireStore order Failed to create")
             }
     }
 

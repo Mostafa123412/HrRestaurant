@@ -61,10 +61,8 @@ class OrdersHistoryViewModel @Inject constructor(
         fireStoreDb: FirebaseFirestore,
     ) {
         viewModelScope.launch {
-            val result = createFireStoreOrderUseCase(order, fireStoreDb)
-            withContext(Dispatchers.Main) {
-                Toast.makeText(context, result, Toast.LENGTH_LONG).show()
-            }
+            createFireStoreOrderUseCase(order, fireStoreDb)
+
         }
     }
 

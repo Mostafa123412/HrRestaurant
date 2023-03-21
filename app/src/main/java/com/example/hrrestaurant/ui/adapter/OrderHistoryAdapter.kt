@@ -1,16 +1,19 @@
 package com.example.hrrestaurant.ui.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hrrestaurant.R
 import com.example.hrrestaurant.data.dataSources.local.Order
 import com.example.hrrestaurant.databinding.OrderItemBinding
 import com.example.hrrestaurant.ui.base.OrderListener
 import kotlinx.coroutines.*
 
-class OrderHistoryAdapter(private val orderListener: OrderListener) :
+class OrderHistoryAdapter(private val orderListener: OrderListener , private val context: Context) :
     RecyclerView.Adapter<OrderHistoryAdapter.ItemViewHolder>() {
 
     private var oldList = emptyList<Order>()
@@ -24,9 +27,7 @@ class OrderHistoryAdapter(private val orderListener: OrderListener) :
         )
     }
 
-    override fun getItemCount(): Int {
-        return oldList.size
-    }
+    override fun getItemCount(): Int = oldList.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val order = oldList[position]
@@ -48,6 +49,10 @@ class OrderHistoryAdapter(private val orderListener: OrderListener) :
                         orderTitle.text = orderTotalTitle.trim(',')
                     }
                 }
+            }
+            if (order.orderStatus == "Delivered To Delivery"){
+                val greenColor = ContextCompat.getColor(context , R.color.greenColor)
+                orderStatusValue.setTextColor(greenColor)
             }
             orderStatusValue.text = order.orderStatus
             orderTotalPriceValue.text = order.orderPrice.toString().plus(" P")
