@@ -55,6 +55,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBJD_29Jnl4mz1TeZuzGmHyTqMKzvZ7ArE" />
+<!--        <meta-data-->
+<!--            android:name="com.google.firebase.messaging.default_notification_icon"-->
+<!--            android:resource="@drawable/logo" />-->
+<!--        <meta-data-->
+<!--            android:name="com.google.firebase.messaging.default_notification_color"-->
+<!--            android:resource="@color/darkRed" />-->
         <service
             android:name="com.example.hrrestaurant.ui.util.MyFirebaseMessagingService"
             android:exported="false">

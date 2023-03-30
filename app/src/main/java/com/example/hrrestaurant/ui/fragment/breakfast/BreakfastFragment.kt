@@ -31,9 +31,7 @@ class BreakfastFragment :
             )
 
         val listOfHorizentalAdapters = AdaptersCreator.createListOfHorizentalAdapters(
-            tabs.size, this@BreakfastFragment,
-            requireContext()
-        )
+            tabs.size, this@BreakfastFragment,)
         breakfastPagerAdapter = HorizentalPagerAdapter(listOfHorizentalAdapters)
         binding.viewPager.adapter = breakfastPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

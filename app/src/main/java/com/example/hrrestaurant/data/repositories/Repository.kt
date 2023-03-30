@@ -27,6 +27,13 @@ class Repository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val mealMapper: MealMapper,
 ) {
+    fun getOrderStatus(orderId: String):Flow<String?> {
+
+        var orderStatus = localDataSource.getOrderStatus(orderId)
+        Log.d("Firebase", "previous order status is  = $orderStatus")
+        return orderStatus
+
+    }
 
 
     fun orderTableRowNumbers(): Flow<Int?> = localDataSource.orderTableRowNumbers()
@@ -92,7 +99,7 @@ class Repository @Inject constructor(
 //    suspend fun <T> getDataFromInternetAndCacheIt(): NetworkResponse<T> {
 //        try {
 
-//            withContext(Dispatchers.IO) {
+    //            withContext(Dispatchers.IO) {
 //                val result = remoteDataSource.getDataFromNetwork()
 //                result?.forEach { meal ->
 //                    localDataSource.addItem(meal)
@@ -105,6 +112,8 @@ class Repository @Inject constructor(
 //        }
 //        return false
 //    }
+    suspend fun getMealDetails(mealId: Array<Int>): List<Meal?> = localDataSource.getMealDetails(mealId)
+
 
     //Home page
     fun getTopRated(): Flow<List<Meal?>?> =

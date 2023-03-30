@@ -11,6 +11,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DomainModule {
 
+
+    @Singleton
+    @Provides
+    fun provideMealDetailsUseCase(repository: Repository): GetMealDetailsUseCase =
+        GetMealDetailsUseCase(repository)
+ @Singleton
+    @Provides
+    fun provideGetOrderStatusUseCase(repository: Repository): GetOrderStatusUseCase =
+     GetOrderStatusUseCase(repository)
+
     @Singleton
     @Provides
     fun provideAddOrderToCacheUseCase(repository: Repository): AddOrderToCacheUseCase =

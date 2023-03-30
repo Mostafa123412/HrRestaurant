@@ -1,11 +1,10 @@
 package com.example.hrrestaurant.ui.fragment.favourite
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.hrrestaurant.databinding.FragmentFavouriteBinding
-import com.example.hrrestaurant.ui.adapter.HorizentalAdapter
+import com.example.hrrestaurant.ui.adapter.HorizontalAdapter
 import com.example.hrrestaurant.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,8 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class FavouriteFragment :
     BaseFragment<FragmentFavouriteBinding>(FragmentFavouriteBinding::inflate) {
     private val favouriteViewModel: FavouriteViewModel by viewModels()
-    private val favouriteAdapter: HorizentalAdapter by lazy {
-        HorizentalAdapter(this, requireContext(), emptyList())
+    private val favouriteAdapter: HorizontalAdapter by lazy {
+        HorizontalAdapter(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

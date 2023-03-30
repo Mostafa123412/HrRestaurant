@@ -1,9 +1,12 @@
 package com.example.hrrestaurant.domain
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.viewModelScope
 import com.example.hrrestaurant.data.dataSources.local.Order
 import com.example.hrrestaurant.data.repositories.Repository
+import com.example.hrrestaurant.ui.util.Constants
 import com.google.firebase.firestore.*
 import java.io.IOException
 import java.io.Serializable
@@ -28,6 +31,7 @@ class CreateFireStoreOrderUseCase @Inject constructor(
     operator fun invoke(
         order: Order,
         fireStoreDb: FirebaseFirestore,
+        context: Context
     ) {
         fireStoreDb.collection("Orders")
             .add(createNewHashMapFromOrder(order))
@@ -35,9 +39,14 @@ class CreateFireStoreOrderUseCase @Inject constructor(
                 val newOrderId = documentReference.id
                 Log.d("Firebase", "FireStore order created")
                 registration = addListenerRegistrationUseCase(newOrderId, fireStoreDb)
+                Toast.makeText(context,"Order Created Successfully", Toast.LENGTH_SHORT).show()
+
             }
             .addOnFailureListener { exception ->
+                var msg = ""
                 Log.d("Firebase", "FireStore order Failed to create")
+                Toast.makeText(context, "order Failed to create", Toast.LENGTH_SHORT).show()
+
             }
     }
 
@@ -51,7 +60,8 @@ class CreateFireStoreOrderUseCase @Inject constructor(
             "orderDateAndTime" to getDateAndTime(),
             "orderEstimatedTime" to order.orderTotalEstimatedTime,
             "orderHashMap" to order.orderList,
-            "orderState" to "Delivered to restaurant"
+            "orderState" to "Delivered to restaurant",
+            "token" to Constants.TOKEN
         )
 
     private fun getDateAndTime(): String {

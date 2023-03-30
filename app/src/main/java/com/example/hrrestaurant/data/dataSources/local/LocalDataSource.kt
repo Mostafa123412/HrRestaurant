@@ -12,6 +12,8 @@ import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(private val dao: Dao) {
 
+     fun getOrderStatus(orderId: String):Flow<String?> = dao.getOrderStatus(orderId)
+
     //    private val dao = db.daoInstance()
     fun getItemByCategory(category: String): Flow<List<Meal?>?> {
         return dao.fetchItemsByCategory(category)
@@ -82,12 +84,15 @@ class LocalDataSource @Inject constructor(private val dao: Dao) {
         Log.d("Firebase", "state is $orderStatus in local dataSource")
     }
 
-
     suspend fun getUsersOrdersId(): List<String> = dao.getUsersOrdersId()
-
 
     suspend fun insertOrder(order: Order) {
         coroutineScope { dao.insertOrder(order) }
+    }
+
+    suspend fun getMealDetails(mealId: Array<Int>):List<Meal?> {
+        Log.d("Firebase", "Dao returned ${dao.getMealDetails(mealId)}")
+        return dao.getMealDetails(mealId)
     }
 
     fun getOrdersByUserId(userId: String): Flow<List<Order>> = dao.getOrdersByUserId(userId)

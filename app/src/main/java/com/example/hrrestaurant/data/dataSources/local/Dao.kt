@@ -12,6 +12,11 @@ interface Dao {
     )
     suspend fun changeOrderStatus(orderStatus: String, orderId: String)
 
+    @Query("SELECT * FROM meal WHERE id IN (:mealId) ")
+    suspend fun getMealDetails(mealId: Array<Int>):List<Meal?>
+
+    @Query("Select orderStatus From orderTable Where orderRemoteId = :orderId")
+    fun getOrderStatus(orderId: String):Flow<String?>
     //    @Query("ALTER TABLE orderIdTable ADD orderId :orderId")
 
     @Query("SELECT orderRemoteId From orderTable")

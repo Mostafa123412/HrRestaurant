@@ -11,9 +11,13 @@ import com.example.hrrestaurant.R
 import com.example.hrrestaurant.data.dataSources.local.Order
 import com.example.hrrestaurant.databinding.OrderItemBinding
 import com.example.hrrestaurant.ui.base.OrderListener
+import com.example.hrrestaurant.ui.util.OrderStateNotification
 import kotlinx.coroutines.*
 
-class OrderHistoryAdapter(private val orderListener: OrderListener , private val context: Context) :
+class OrderHistoryAdapter(
+    private val orderListener: OrderListener,
+    private val context: Context,
+) :
     RecyclerView.Adapter<OrderHistoryAdapter.ItemViewHolder>() {
 
     private var oldList = emptyList<Order>()
@@ -50,8 +54,8 @@ class OrderHistoryAdapter(private val orderListener: OrderListener , private val
                     }
                 }
             }
-            if (order.orderStatus == "Delivered To Delivery"){
-                val greenColor = ContextCompat.getColor(context , R.color.greenColor)
+            if (order.orderStatus == "Delivered To Delivery") {
+                val greenColor = ContextCompat.getColor(context, R.color.greenColor)
                 orderStatusValue.setTextColor(greenColor)
             }
             orderStatusValue.text = order.orderStatus
@@ -60,7 +64,10 @@ class OrderHistoryAdapter(private val orderListener: OrderListener , private val
             orderDateAndTimeValue.text = order.orderDateAndTime
             cancelOrderBtn.setOnClickListener { orderListener.cancelOrder(order.orderRemoteId) }
             orderAgainBtn.setOnClickListener { orderListener.orderAgain(order) }
-            orderMoreDetailsBtn.setOnClickListener { orderListener.moreDetails(order.orderRemoteId) }
+            orderMoreDetailsBtn.setOnClickListener {
+                orderListener.moreDetails(orderKeys)
+                Log.d("Firebase", "order Keys = $orderKeys")
+            }
         }
     }
 

@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hrrestaurant.R
 import com.example.hrrestaurant.databinding.FragmentHomeBinding
-import com.example.hrrestaurant.ui.adapter.HorizentalAdapter
+import com.example.hrrestaurant.ui.adapter.HorizontalAdapter
 import com.example.hrrestaurant.ui.adapter.ItemListener
 import com.example.hrrestaurant.ui.adapter.VerticalAdapter
 import com.example.hrrestaurant.ui.base.BaseFragment
@@ -20,12 +20,8 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate), ItemListener {
     private val homeViewModel: HomeViewModel by viewModels<HomeViewModel>()
 
-    private val offersAdapter: HorizentalAdapter by lazy {
-        HorizentalAdapter(
-            this,
-            requireContext(),
-            emptyList()
-        )
+    private val offersAdapter: HorizontalAdapter by lazy {
+        HorizontalAdapter(this)
     }
     private val mostPopularAdapter: VerticalAdapter by lazy {
         VerticalAdapter(this, requireContext(), emptyList())

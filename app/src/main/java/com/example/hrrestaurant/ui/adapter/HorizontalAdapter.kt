@@ -1,6 +1,5 @@
 package com.example.hrrestaurant.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,12 +9,11 @@ import com.example.hrrestaurant.data.dataSources.local.Meal
 import com.example.hrrestaurant.databinding.HorizentalItemBinding
 import com.example.hrrestaurant.ui.base.PolyMorphism
 
-class HorizentalAdapter(
+class HorizontalAdapter(
     private val listener: ItemListener,
-    private val context: Context,
-    var oldList: List<Meal?>
 ) :
-    RecyclerView.Adapter<HorizentalAdapter.ItemViewHolder>(), PolyMorphism {
+    RecyclerView.Adapter<HorizontalAdapter.ItemViewHolder>(), PolyMorphism {
+    private var oldList: List<Meal?> = emptyList()
 
     override var adapter: RecyclerView.Adapter<*> = this
 

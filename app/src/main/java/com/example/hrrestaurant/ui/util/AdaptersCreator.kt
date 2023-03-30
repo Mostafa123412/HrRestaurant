@@ -1,7 +1,7 @@
 package com.example.hrrestaurant.ui.util
 
 import android.content.Context
-import com.example.hrrestaurant.ui.adapter.HorizentalAdapter
+import com.example.hrrestaurant.ui.adapter.HorizontalAdapter
 import com.example.hrrestaurant.ui.adapter.ItemListener
 import com.example.hrrestaurant.ui.adapter.VerticalAdapter
 
@@ -11,11 +11,10 @@ class AdaptersCreator {
         fun createListOfHorizentalAdapters(
             numberOfAdapters: Int,
             listener: ItemListener,
-            context: Context
-        ): List<HorizentalAdapter> {
-            val listOfAdapters = mutableListOf<HorizentalAdapter>()
+        ): List<HorizontalAdapter> {
+            val listOfAdapters = mutableListOf<HorizontalAdapter>()
             for (i in 0 until numberOfAdapters) {
-                listOfAdapters.add(HorizentalAdapter(listener, context, emptyList()))
+                listOfAdapters.add(HorizontalAdapter(listener))
             }
             return listOfAdapters.toList()
         }

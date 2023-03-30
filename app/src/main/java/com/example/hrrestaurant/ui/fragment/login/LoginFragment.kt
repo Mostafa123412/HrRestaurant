@@ -57,7 +57,7 @@ class LoginFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         auth = Firebase.auth
@@ -75,17 +75,16 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.emailEt.addTextChangedListener { userEmail ->
-            if (userEmail!!.isEmpty()) binding.email.error = "Enter email address"
-            else email = userEmail.toString()
-        }
-        binding.passwordEt.addTextChangedListener { userPassword ->
-            if (userPassword!!.isEmpty()) binding.password.error = "Enter Password"
-            else password = userPassword.toString()
-        }
         binding.loginBtn.setOnClickListener {
-//            showProgressBar()
-            checkLogin()
+            if (binding.passwordEt.text!!.isEmpty() || binding.passwordEt.text.toString().length <= 6)
+                binding.password.error = "Enter a Valid Password"
+            else if (binding.emailEt.text.toString().isEmpty()) {
+                binding.email.error = "Enter a valid email address"
+            } else {
+                email = binding.emailEt.text.toString()
+                password = binding.passwordEt.text.toString()
+                checkLogin(email, password)
+            }
         }
         binding.googleImg.setOnClickListener {
             showProgressBar()
@@ -110,11 +109,12 @@ class LoginFragment : Fragment() {
             Firebase.auth.sendPasswordResetEmail(emailAddress)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(requireContext(),"Check Your Inbox",Toast.LENGTH_LONG)
+                        Toast.makeText(requireContext(), "Check Your Inbox", Toast.LENGTH_LONG)
                             .show()
-                    }else {
-                        Toast.makeText(requireContext(),"Failed to send Password reset"
-                            ,Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(), "Failed to send Password reset", Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
         }
@@ -206,7 +206,7 @@ class LoginFragment : Fragment() {
     }
 
 
-    private fun checkLogin() {
+    private fun checkLogin(email: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {

@@ -6,31 +6,14 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.hrrestaurant.R
-import com.example.hrrestaurant.data.dataSources.local.Meal
-import com.example.hrrestaurant.data.dataSources.local.Order
 import com.example.hrrestaurant.databinding.FragmentCartBinding
 import com.example.hrrestaurant.ui.activity.loginActivity.LoginActivity
 import com.example.hrrestaurant.ui.adapter.CartAdapter
 import com.example.hrrestaurant.ui.base.BaseFragment
 import com.example.hrrestaurant.ui.util.NetworkStatus
-import com.google.firebase.firestore.FieldPath
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.Serializable
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.HashMap
 
 @AndroidEntryPoint
 class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::inflate) {

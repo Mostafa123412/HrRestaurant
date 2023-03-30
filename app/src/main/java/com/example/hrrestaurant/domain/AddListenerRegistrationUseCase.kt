@@ -40,6 +40,8 @@ class AddListenerRegistrationUseCase @Inject constructor(
                 val data: DocumentSnapshot = snapshot
                 // Do something with each order document
                 val orderState = data.get("orderState").toString()
+//                val order = data.toObject(Order::class.java)
+
                 val newOrder = Order(
                     orderRemoteId = data.id,
                     userId = data.get("userId").toString(),
@@ -50,7 +52,7 @@ class AddListenerRegistrationUseCase @Inject constructor(
                     orderList = data.get("orderHashMap") as HashMap<String, Int>,
                     orderStatus = data.get("orderState").toString()
                 )
-                Log.d("Firebase", "order is ${data.get("orderInfo")}")
+//                Log.d("Firebase", "order is ${order}")
                 addOrderToCacheUseCase(newOrder)
             }
         }

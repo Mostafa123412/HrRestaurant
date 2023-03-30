@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import com.example.hrrestaurant.databinding.FragmentSearchBinding
-import com.example.hrrestaurant.ui.adapter.HorizentalAdapter
+import com.example.hrrestaurant.ui.adapter.HorizontalAdapter
 import com.example.hrrestaurant.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
     private val searchViewModel: SearchViewModel by viewModels()
-    private val searchAdapter: HorizentalAdapter by lazy {
-        HorizentalAdapter(this@SearchFragment, requireContext(), emptyList())
+    private val searchAdapter: HorizontalAdapter by lazy {
+        HorizontalAdapter(this@SearchFragment)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,7 +24,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         searchViewModel.foundItems.observe(viewLifecycleOwner) {
             Log.d("Repository", "search fragment recieved $it")
             it.let {
-                searchAdapter.oldList = it
+                searchAdapter.setNewData(it)
                 searchAdapter.notifyDataSetChanged()
             }
         }

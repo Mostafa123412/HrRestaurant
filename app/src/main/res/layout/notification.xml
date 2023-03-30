@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:backgroundTint="@color/darkRed"
     android:layout_height="wrap_content">
 
     <RelativeLayout
@@ -14,13 +15,13 @@
             android:id="@+id/mainLogo"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             android:src="@drawable/hr_logo"/>
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
+            android:textColor="@color/white"
             android:layout_toRightOf="@id/mainLogo"
             android:textSize="@dimen/_20ssp"
             android:layout_marginLeft="@dimen/_20sdp"
@@ -30,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
+            android:textColor="@color/white"
             android:layout_below="@id/title"
             android:maxLines="2"
             android:layout_toRightOf="@id/mainLogo"

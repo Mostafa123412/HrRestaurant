@@ -38,8 +38,8 @@ class LunchFragment : BaseFragment<FragmentLunchBinding>(FragmentLunchBinding::i
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val context = requireContext()
-        val listOfHorizentalAdapter = AdaptersCreator.createListOfHorizentalAdapters(tabs.size,this@LunchFragment , context)
+        val listOfHorizentalAdapter = AdaptersCreator.createListOfHorizentalAdapters(tabs.size,
+            this@LunchFragment )
         pagerAdapter = HorizentalPagerAdapter(
             listOfHorizentalAdapter
         )

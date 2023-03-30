@@ -8,6 +8,8 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withCreated
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -26,8 +28,12 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
@@ -38,24 +44,33 @@ class LoginActivity : AppCompatActivity() {
 
     //cannot retrieve list of all users , instead add every user to firebase db and retrieve them easily
     private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseDB: DatabaseReference
+    private lateinit var firebaseDB: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         auth = Firebase.auth
+        firebaseDB = FirebaseFirestore.getInstance()
         installSplashScreen().apply {
             Log.d("Mahmoud", "logged In state in splashScreen ${checkLoggedInState()}")
-            if (checkLoggedInState()) moveToMainActivity()
+            if (checkLoggedInState()) {
+                createUserIfNotExists(auth.currentUser!!.uid, firebaseDB)
+                moveToMainActivity()
+            }
         }
         setContentView(binding.root)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.findNavController()
         loginViewModel.loggedInStatus.observe(this) { status ->
-            if (status == true) {
+            if (status) {
                 binding.progressBar.visibility = View.VISIBLE
                 Log.d("Mahmoud", "logged In state in viewModel ${status}")
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        createUserIfNotExists(auth.currentUser!!.uid, firebaseDB)
+                    }
+                }
                 moveToMainActivity()
             }
         }
@@ -80,6 +95,30 @@ class LoginActivity : AppCompatActivity() {
             true
         }
     }
+
+    fun createUserIfNotExists(userId: String, fireStoreDB: FirebaseFirestore) {
+        val usersCollection = fireStoreDB.collection("Users")
+
+        usersCollection.document(userId).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                if (document.exists()) {
+                    // User already exists, do nothing
+                } else {
+                    // User does not exist, create a new document
+                    usersCollection.document(userId).set(
+                        mapOf(
+                            "userPoints" to 0,
+                            // add additional fields as needed
+                        )
+                    )
+                }
+            } else {
+                // Handle errors
+            }
+        }
+    }
+
 
     // [START onactivityresult]
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

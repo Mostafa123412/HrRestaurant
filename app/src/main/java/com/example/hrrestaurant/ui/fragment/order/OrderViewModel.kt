@@ -1,5 +1,6 @@
 package com.example.hrrestaurant.ui.fragment.order
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -37,6 +38,7 @@ class OrderViewModel @Inject constructor(
         userName: String,
         userPrimaryPhone: String,
         userSecondaryPhone: String,
+        context:Context
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -49,7 +51,7 @@ class OrderViewModel @Inject constructor(
                     userSecondaryPhone
                 )
                 Log.d("Firebase", "order Created = $order ....")
-                addNewOrderToFireStore(order, fireStoreDb)
+                addNewOrderToFireStore(order, fireStoreDb , context)
             }
         }
     }
@@ -57,8 +59,9 @@ class OrderViewModel @Inject constructor(
     private fun addNewOrderToFireStore(
         order: Order,
         fireStoreDb: FirebaseFirestore,
+        context:Context
     ) {
-        createFireStoreOrderUseCase(order, fireStoreDb)
+        createFireStoreOrderUseCase(order, fireStoreDb ,context)
         Log.d("Firebase", "order created")
         registration = createFireStoreOrderUseCase.registration
     }

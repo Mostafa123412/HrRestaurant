@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.example.hrrestaurant.R
 import com.example.hrrestaurant.data.dataSources.local.Order
 import com.example.hrrestaurant.databinding.FragmentOrdersHistoryBinding
@@ -13,8 +14,10 @@ import com.example.hrrestaurant.ui.adapter.OrderHistoryAdapter
 import com.example.hrrestaurant.ui.base.BaseFragment
 import com.example.hrrestaurant.ui.base.OrderListener
 import com.example.hrrestaurant.ui.util.NetworkStatus
+import com.example.hrrestaurant.ui.util.OrderStateNotification
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +27,7 @@ class OrdersHistoryFragment :
     BaseFragment<FragmentOrdersHistoryBinding>(FragmentOrdersHistoryBinding::inflate),
     OrderListener {
     private val orderHistoryAdapter: OrderHistoryAdapter
-                by lazy { OrderHistoryAdapter(this@OrdersHistoryFragment , requireContext()) }
+            by lazy { OrderHistoryAdapter(this@OrdersHistoryFragment, requireContext()) }
     private val ordersHistoryViewModel: OrdersHistoryViewModel by viewModels()
     private var registration: ListenerRegistration? = null
     private var idRegistration: ListenerRegistration? = null
@@ -77,7 +80,7 @@ class OrdersHistoryFragment :
                 if (snapShot != null) {
                     for (document in snapShot.documents) {
                         Log.d("Firebase", "This user Orders ids are = ${document.id}")
-                            addListener(document.id)
+                        addListener(document.id)
                     }
                 }
             }
@@ -106,8 +109,26 @@ class OrdersHistoryFragment :
                     orderList = data.get("orderHashMap") as HashMap<String, Int>,
                     orderStatus = data.get("orderState").toString()
                 )
-                Log.d("Firebase", "order is ${data.get("orderDateAndTime")}")
                 ordersHistoryViewModel.addOrderToCache(oldOrder)
+            }
+        }
+    }
+
+    fun updatePoints(newPointsToAdd: Int, userId: String, firebaseDB: FirebaseFirestore) {
+        firebaseDB.collection("Users").document(userId).get().addOnCompleteListener {
+            if (it.isSuccessful) {
+                val oldPointValue = it.result.get("points") as Int
+                val newPointValue = oldPointValue + newPointsToAdd
+                firebaseDB.collection("Users").
+                document(userId).update("points", newPointValue).addOnSuccessListener {
+                    Toast.makeText(requireContext(),"You got new points",Toast.LENGTH_LONG).show()
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to add new order points",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
     }
@@ -117,7 +138,6 @@ class OrdersHistoryFragment :
         if (orderIds.isEmpty()) {
         } else {
             val ordersRef = fireStoreDb.collection("Orders")
-
             // Create a query for the specified order IDs
             val query: Query = ordersRef.whereIn(FieldPath.documentId(), orderIds)
             // Add a snapshot listener to the query
@@ -157,22 +177,44 @@ class OrdersHistoryFragment :
         ordersHistoryViewModel.createNewOrderFromPreviousOrder(order, fireStoreDb)
     }
 
-    override fun moreDetails(orderId: String) {
-        TODO("Not yet implemented")
+    override fun moreDetails(mealsId: List<Int>) {
+        val itemsId = mealsId.toString()
+        var string = ""
+        Log.d("Firebase", "items id  = $itemsId")
+        mealsId.forEach {
+            string += "$it"
+        }
+
+        val action =
+            OrdersHistoryFragmentDirections.actionOrdersHistoryFragmentToMoreDetailsFragment(string)
+        findNavController().navigate(action)
     }
 
     override fun cancelOrder(orderId: String) {
-        if (NetworkStatus.isNetworkAvailable(requireContext())) {
+        if (!NetworkStatus.isNetworkAvailable(requireContext())) {
             Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_LONG).show()
         } else {
             activity?.findViewById<View>(R.id.retrying_progressBar)?.visibility = View.VISIBLE
-            fireStoreDb.collection("Orders").document(orderId).update("orderState", "Cancelled")
+            fireStoreDb
+                .collection("Orders")
+                .document(orderId)
+                .update("orderState", "Cancelled")
                 .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Order Cancelled", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Order Cancelled Successfully",
+                        Toast.LENGTH_LONG
+                    ).show()
                     activity?.findViewById<View>(R.id.retrying_progressBar)?.visibility = View.GONE
+                }.addOnFailureListener {
+                    Toast.makeText(requireContext(), "Failed To Cancel Order", Toast.LENGTH_LONG)
+                        .show()
                 }
+            activity?.findViewById<View>(R.id.retrying_progressBar)?.visibility = View.GONE
+
         }
     }
+
 
     override fun addItemsToCartAgain(itemsId: List<Int>) {
         itemsId.forEach {

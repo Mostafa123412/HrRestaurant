@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hrrestaurant.R
-import com.example.hrrestaurant.data.dataSources.local.Meal
 import com.example.hrrestaurant.databinding.FragmentOrderBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -79,9 +78,10 @@ class OrderFragment : Fragment() {
                         userName,
                         orderLocation,
                         userPrimaryPhone,
-                        userSecondaryPhone
+                        userSecondaryPhone,
+                        requireContext()
                     )
-                    Toast.makeText(requireContext(), "Successful", Toast.LENGTH_LONG).show()
+
                     hideBottomNav()
                     findNavController().navigate(R.id.ordersHistoryFragment)
                 }
