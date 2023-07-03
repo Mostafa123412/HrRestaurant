@@ -46,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider"
-            tools:text="Ice Cream" />
+            tools:text="@string/ice_cream" />
 
         <TextView
             android:id="@+id/description"
@@ -59,7 +59,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_title"
             app:layout_constraintBottom_toTopOf="@id/estimated_time"
-            tools:text="Ice Cream Description" />
+            tools:text="@string/ice_cream_description" />
 
         <TextView
             android:id="@+id/estimated_time"
@@ -71,7 +71,7 @@
             app:layout_constraintEnd_toStartOf="@id/estimated_time_value"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description"
-            android:text="Time : " />
+            android:text="@string/_time " />
 
         <TextView
             android:id="@+id/estimated_time_value"
@@ -82,7 +82,7 @@
             app:layout_constraintEnd_toStartOf="@id/fav_checkBox"
             app:layout_constraintTop_toBottomOf="@id/description"
             app:layout_constraintBottom_toTopOf="@id/price_value"
-            tools:text="12 M" />
+            tools:text="@string/_12_m" />
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
             app:layout_constraintEnd_toStartOf="@+id/price_value"
             app:layout_constraintTop_toBottomOf="@id/estimated_time"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Price : " />
+            android:text="@string/price " />
 
         <TextView
             android:id="@+id/price_value"

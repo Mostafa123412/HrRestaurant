@@ -12,6 +12,11 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/horizental_item"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"/>
+        android:orientation="vertical"
+
+
+
+
+        />
 
 </FrameLayout>

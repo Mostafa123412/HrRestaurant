@@ -10,6 +10,7 @@
     android:orientation="vertical"
     tools:listitem="@layout/horizental_item"
     android:backgroundTint="@color/background"
+
     >
 
 </androidx.recyclerview.widget.RecyclerView>

@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.fragment.signUp.SignUpFragment">
+    tools:context=".ui.fragment.signUp.SignUpFragment"
+    android:layout_marginTop="@dimen/_40sdp"
+
+    >
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name"
@@ -15,7 +18,7 @@
         android:layout_marginStart="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_35sdp"
         android:layout_marginEnd="@dimen/_4sdp"
-        android:hint="Name"
+        android:hint="@string/name"
         app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
         app:boxCornerRadiusBottomStart="@dimen/_16sdp"
         app:boxCornerRadiusTopEnd="@dimen/_16sdp"
@@ -31,7 +34,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:inputType="text"
-            android:textSize="@dimen/_14ssp" />
+            android:textSize="@dimen/_16ssp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -45,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_4sdp"
         android:layout_marginEnd="@dimen/_4sdp"
-        android:hint="Email Address"
+        android:hint="@string/email_address"
         app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
         app:boxCornerRadiusBottomStart="@dimen/_16sdp"
         app:boxCornerRadiusTopEnd="@dimen/_16sdp"
@@ -69,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_4sdp"
         android:layout_marginEnd="@dimen/_4sdp"
-        android:hint="Password"
+        android:hint="@string/password"
         app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
         app:boxCornerRadiusBottomStart="@dimen/_16sdp"
         app:boxCornerRadiusTopEnd="@dimen/_16sdp"
@@ -85,13 +88,14 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:inputType="textPassword"
-            android:textSize="@dimen/_14ssp" />
+            android:textSize="@dimen/_16ssp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:layout_marginTop="@dimen/_20sdp"
         android:id="@+id/signUp_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up" />
+        android:text="@string/sign_up" />
 
 </LinearLayout>

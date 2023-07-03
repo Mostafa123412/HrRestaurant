@@ -6,6 +6,7 @@
     android:elevation="@dimen/_8sdp"
     android:background="@color/teal_700"
     android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+
     >
 
 </androidx.appcompat.widget.Toolbar>

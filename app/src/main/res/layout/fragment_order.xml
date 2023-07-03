@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:hint="Name"
+        android:hint="@string/name"
         app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
         app:boxCornerRadiusBottomStart="@dimen/_16sdp"
         app:boxCornerRadiusTopEnd="@dimen/_16sdp"
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:hint="Location (city - state - country)"
+        android:hint="@string/location_city_state_country"
         app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
         app:boxCornerRadiusBottomStart="@dimen/_16sdp"
         app:boxCornerRadiusTopEnd="@dimen/_16sdp"
@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:hint="Primary Phone Number"
+        android:hint="@string/primary_phone_number"
         app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
         app:boxCornerRadiusBottomStart="@dimen/_16sdp"
         app:boxCornerRadiusTopEnd="@dimen/_16sdp"
@@ -86,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:hint="Secondary Phone Number"
+        android:hint="@string/secondary_phone_number"
         app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
         app:boxCornerRadiusBottomStart="@dimen/_16sdp"
         app:boxCornerRadiusTopEnd="@dimen/_16sdp"
@@ -109,7 +109,7 @@
         android:id="@+id/orderNow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Order Now"
+        android:text="@string/order_now"
         />
 
 

@@ -8,10 +8,10 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.hrrestaurant.ui.fragment.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="@string/loginfragment" />
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.hrrestaurant.ui.fragment.signUp.SignUpFragment"
-        android:label="fragment_sign_up"
+        android:label="@string/fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />
 </navigation>

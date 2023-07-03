@@ -44,7 +44,7 @@ android:layout_margin="@dimen/_2sdp">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:text="Ice Cream" />
+        tools:text="@string/ice_cream" />
 
     <TextView
         android:id="@+id/description"
@@ -57,7 +57,7 @@ android:layout_margin="@dimen/_2sdp">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_title"
         app:layout_constraintBottom_toTopOf="@id/estimated_time"
-        tools:text="Ice Cream Description" />
+        tools:text="@string/ice_cream_description" />
 
     <TextView
         android:id="@+id/estimated_time"
@@ -69,7 +69,7 @@ android:layout_margin="@dimen/_2sdp">
         app:layout_constraintEnd_toStartOf="@id/estimated_time_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description"
-        android:text="Time : " />
+        android:text="@string/time" />
 
     <TextView
         android:id="@+id/estimated_time_value"
@@ -80,7 +80,7 @@ android:layout_margin="@dimen/_2sdp">
         app:layout_constraintEnd_toStartOf="@id/fav_checkBox"
         app:layout_constraintTop_toBottomOf="@id/description"
         app:layout_constraintBottom_toTopOf="@id/price_value"
-        tools:text="12 M" />
+        tools:text="@string/_12_m" />
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
@@ -91,7 +91,7 @@ android:layout_margin="@dimen/_2sdp">
         app:layout_constraintEnd_toStartOf="@+id/price_value"
         app:layout_constraintTop_toBottomOf="@id/estimated_time"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Price : " />
+        android:text="@string/price" />
     <TextView
         android:id="@+id/price_value"
         android:layout_width="wrap_content"
@@ -101,7 +101,7 @@ android:layout_margin="@dimen/_2sdp">
         app:layout_constraintEnd_toStartOf="@+id/shopping_cart"
         app:layout_constraintTop_toBottomOf="@id/estimated_time_value"
         app:layout_constraintStart_toEndOf="@id/price"
-        tools:text="12 $" />
+        tools:text="@string/_12" />
     <CheckBox
         android:id="@+id/fav_checkBox"
         android:layout_width="0dp"
@@ -139,7 +139,7 @@ android:layout_margin="@dimen/_2sdp">
         android:id="@+id/currentCount"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_30sdp"
-        android:text="1"
+        android:text="@string/_1"
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@id/increase"
         app:layout_constraintStart_toEndOf="@id/decrease"

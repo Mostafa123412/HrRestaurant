@@ -27,7 +27,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Served with your vhoice of two Basmati rice, sauteed vegetables,Puree Potatoes, French fries, Wedgrs, Gratin Potatoes.\n \n Or one type of Pasta (Benna - Spaghetti , Fettuccine) \n \n Or Green Salad"
+            android:text="@string/served_with_your_vhoice_of_two_basmati_rice_sauteed_vegetables_puree_potatoes_french_fries_wedgrs_gratin_potatoes_n_n_or_one_type_of_pasta_benna_spaghetti_fettuccine_n_n_or_green_salad"
             android:textSize="@dimen/_15sdp" />
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -12,13 +12,13 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="@dimen/_245sdp"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/email"
         app:errorEnabled="true"
         app:boxStrokeColor="#FA0E0E"
         app:endIconMode="clear_text"
         app:boxCornerRadiusTopEnd="@dimen/_20sdp"
         app:boxCornerRadiusBottomStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_70sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="@dimen/_245sdp"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/password"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/darkYellow"
-        android:text="Send Password Reset To Email Above"
+        android:text="@string/send_password_reset_to_email_above"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         app:layout_constraintTop_toBottomOf="@id/password"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,20 +73,21 @@
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="@dimen/_180sdp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_40sdp"
-        android:text="Login"
+        android:text="@string/_login"
+        android:layout_marginTop="@dimen/_20sdp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:cornerRadius="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordResetBtn" />
+        app:layout_constraintTop_toBottomOf="@id/passwordResetBtn"
+        app:layout_constraintBottom_toTopOf="@+id/continueAsGuest_btn"/>
 
     <Button
         android:id="@+id/continueAsGuest_btn"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="@dimen/_180sdp"
         android:layout_height="wrap_content"
-        android:text="Continue As a Guest"
+        android:text="@string/continue_as_a_guest"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:cornerRadius="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_20sdp"
@@ -99,10 +100,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/goggle"
-        android:layout_marginTop="@dimen/_30sdp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/continueAsGuest_btn" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/continueAsGuest_btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

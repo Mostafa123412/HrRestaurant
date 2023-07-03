@@ -8,32 +8,32 @@
             android:id="@+id/aboutRestaurantFragment"
             android:checkable="true"
             android:icon="@drawable/about"
-            android:title="About Restaurant" />
+            android:title="@string/about_restaurant" />
         <item
             android:id="@+id/ordersHistoryFragment"
             android:checkable="true"
             android:icon="@drawable/about"
-            android:title="Orders" />
+            android:title="@string/orders" />
         <item
             android:id="@+id/aboutDeveloperFragment"
             android:checkable="true"
             android:icon="@drawable/about"
-            android:title="About Developers" />
+            android:title="@string/about_developers" />
         <item
             android:id="@+id/youtubeFragment"
             android:checkable="true"
             android:icon="@drawable/video"
-            android:title="Restaurant Video" />
+            android:title="@string/restaurant_video" />
         <item
             android:id="@+id/locationFragment"
             android:checkable="true"
             android:icon="@drawable/ic_baseline_location_on_24"
-            android:title="Restaurant Location" />
+            android:title="@string/restaurant_location" />
         <item
             android:id="@+id/logOut"
             android:visible="true"
             android:checkable="true"
             android:icon="@drawable/logout"
-            android:title="Sign Out" />
+            android:title="@string/sign_out" />
     </group>
 </menu>

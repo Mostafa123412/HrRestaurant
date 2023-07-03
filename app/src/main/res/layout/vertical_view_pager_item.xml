@@ -11,6 +11,7 @@
     app:spanCount="2"
     tools:listitem="@layout/vertical_item"
     android:backgroundTint="@color/background"
+
     >
 
 </androidx.recyclerview.widget.RecyclerView>

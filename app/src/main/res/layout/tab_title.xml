@@ -5,10 +5,11 @@
     android:id="@+id/text1"
     android:padding="@dimen/_8sdp"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:text="Title"
+    tools:text="@string/title"
     android:gravity="center"
     android:background="@drawable/tab_selected_background"
     android:textColor="@color/teb_text_selector"
+
     >
 
 

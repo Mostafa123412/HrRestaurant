@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:videoId="Buvk8wmFAh0"
-        app:autoPlay="true"/>
+        app:autoPlay="true"
+        />
 
 </FrameLayout>

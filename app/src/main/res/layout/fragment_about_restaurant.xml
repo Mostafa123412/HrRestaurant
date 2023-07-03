@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:text="Open : 9 AM"
+        android:text="@string/open_9_am"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:text="Close : 12 PM"
+        android:text="@string/close_12_pm"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:text="Location : benha"
+        android:text="@string/location_benha"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 </LinearLayout>

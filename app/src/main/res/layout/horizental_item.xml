@@ -33,7 +33,7 @@
             app:layout_constraintBottom_toTopOf="@id/divider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Egg and Toast" />
+            tools:text="@string/egg_and_toast" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider"
@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toStartOf="@id/meal_img"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider"
-            tools:text="Egg and Toast ddfdfggfgdfnsd" />
+            tools:text="@string/egg_and_toast_ddfdfggfgdfnsd" />
 
         <TextView
             android:id="@+id/estimated_time"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="@dimen/_8sdp"
-            android:text="Time : "
+            android:text="@string/_time"
             android:textSize="@dimen/_13ssp"
             app:layout_constraintEnd_toStartOf="@id/estimated_time_value"
             app:layout_constraintStart_toStartOf="parent"

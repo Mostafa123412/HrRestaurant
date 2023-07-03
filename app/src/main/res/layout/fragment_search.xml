@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Search"
+        android:hint="@string/search"
         app:boxStrokeColor="#FA0E0E"
         app:endIconMode="clear_text"
         app:boxCornerRadiusTopEnd="@dimen/_20sdp"

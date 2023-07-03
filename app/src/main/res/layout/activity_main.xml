@@ -112,7 +112,7 @@
                 android:drawableStart="@drawable/ic_baseline_search_24"
                 android:drawablePadding="@dimen/_8sdp"
                 android:gravity="center"
-                android:text="Search"
+                android:text="@string/search"
                 android:textSize="@dimen/_20sdp" />
         </com.google.android.material.textfield.TextInputLayout>
 
