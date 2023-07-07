@@ -1,13 +1,11 @@
 package com.example.hrrestaurant.domain
 
 import android.util.Log
-import com.example.hrrestaurant.data.dataSources.local.Order
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import java.io.IOException
 import javax.inject.Inject
-import kotlin.coroutines.suspendCoroutine
 
 class AddListenerRegistrationUseCase @Inject constructor(
     private val addOrderToCacheUseCase: AddOrderToCacheUseCase,

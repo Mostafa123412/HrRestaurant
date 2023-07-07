@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.hrrestaurant.data.dataSources.local.Meal
+import com.example.hrrestaurant.data.dataSources.localDataSource.Meal
 import com.example.hrrestaurant.databinding.HorizentalItemBinding
 import com.example.hrrestaurant.ui.base.PolyMorphism
 
@@ -20,31 +20,40 @@ class HorizontalAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = oldList[position]!!
-        holder.binding.favCheckBox.isChecked = item.isChecked
-        holder.binding.shoppingCart.isChecked = item.isAddedToChart
+//        holder.binding.favCheckBox.isChecked = item.isChecked
+//        holder.binding.shoppingCart.isChecked = item.isAddedToChart
 
         holder.binding.apply {
+            item.apply {
+                favCheckBox.isChecked = isChecked
+                shoppingCart.isChecked = isAddedToChart
+            }
+
             favCheckBox.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
+                    favCheckBox.isChecked = true
                     listener.addItemToFavourite(item.id)
                 } else {
+                    favCheckBox.isChecked = false
                     listener.removeItemFromFavourite(item.id)
                 }
             }
             shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
+                    shoppingCart.isChecked = true
                     listener.addItemToCart(item.id)
-                    item.count = 1
+                    listener.incrementItemCount(item.id)
                 } else {
+                    shoppingCart.isChecked = false
                     listener.removeItemFromCart(item.id)
+                    listener.setItemCountToZero(item.id)
                 }
             }
-            mealImg.load(item.itemImage)
-            mealTitle.text = item.title
+            itemImg.load(item.itemImage)
+            itemTitle.text = item.title
             description.text = item.description
-            estimatedTimeValue.text = item.estimatedTime.toString()
-            priceValue.text = item.price.toInt().toString()
-            ratingBar.rating = item.rate!!
+            estimatedTimeValue.text = item.estimatedTime.toString().plus("Min")
+            priceValue.text = item.price.toString().plus("EGP")
 
         }
     }

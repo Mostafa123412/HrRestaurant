@@ -1,24 +1,20 @@
 package com.example.hrrestaurant.ui.fragment.ordersHistory
 
 import android.app.Application
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.hrrestaurant.data.dataSources.local.Order
-import com.example.hrrestaurant.data.repositories.Repository
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
+import com.example.hrrestaurant.data.repositories.MealRepository
 import com.example.hrrestaurant.domain.AddOrderToCacheUseCase
 import com.example.hrrestaurant.domain.CreateFireStoreOrderUseCase
-import com.example.hrrestaurant.domain.GetOrderStatusUseCase
 import com.example.hrrestaurant.domain.GetUserOrdersIdUseCase
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @HiltViewModel
 class OrdersHistoryViewModel @Inject constructor(
-    private val repository: Repository,
+    private val mealRepository: MealRepository,
     private val addOrderToCacheUseCase: AddOrderToCacheUseCase,
     private val createFireStoreOrderUseCase: CreateFireStoreOrderUseCase,
     private val getListOfIdOfUsersOrdersUseCase: GetUserOrdersIdUseCase,
@@ -50,7 +46,7 @@ class OrdersHistoryViewModel @Inject constructor(
     }
 
     suspend fun getMealTitleByMealId(mealId: Int): String {
-        return repository.getMealTitleByMealId(mealId)
+        return mealRepository.getMealTitleByMealId(mealId)
     }
 
     fun addOrderToCache(order: Order) = addOrderToCacheUseCase(order)
@@ -58,7 +54,7 @@ class OrdersHistoryViewModel @Inject constructor(
 
     fun getUserOrders(userId: String) {
         viewModelScope.launch {
-            repository.getOrdersByUserId(userId).collect {
+            mealRepository.getOrdersByUserId(userId).collect {
                 _orders.postValue(it)
             }
         }

@@ -1,4 +1,4 @@
-package com.example.hrrestaurant.data.dataSources.local
+package com.example.hrrestaurant.data.dataSources.localDataSource
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -6,8 +6,8 @@ import android.graphics.drawable.BitmapDrawable
 import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
-import com.example.hrrestaurant.data.dataSources.Mapper
-import com.example.hrrestaurant.data.dataSources.remote.MealDto
+import com.example.hrrestaurant.data.dataSources.mapRemoteToLocal.Mapper
+import com.example.hrrestaurant.data.dataSources.remoteDataSource.MealDto
 import java.text.DecimalFormat
 
 class MealMapper : Mapper<MealDto, Meal> {

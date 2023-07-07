@@ -5,13 +5,17 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/home" />
+        android:title="Home" />
 
 
     <item
         android:id="@+id/favouriteFragment"
         android:icon="@drawable/favourite"
-        android:title="@string/favourite" />
+        android:title="Favourite" />
+    <item
+        android:id="@+id/videoFragment"
+        android:icon="@drawable/videoicon"
+        android:title="Reels"/>
 <!--    <item-->
 <!--        android:id="@+id/userProfileFragment"-->
 <!--        android:icon="@drawable/profile_user"-->

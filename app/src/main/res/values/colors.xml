@@ -8,6 +8,7 @@
     <color name="greenColor">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="yellow">#FFEB3B</color>
+    <color name="gray">#f5f5f5</color>
     <color name="yellow_white">#BFB988</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#E40C0C</color>
@@ -16,4 +17,5 @@
     <color name="darkYellow">#ea900d</color>
     <color name="teb_text_selector">#AC9E56</color>
     <color name="darkRed">#5e090c</color>
+    <color name="cartbackground">#E69999</color>
 </resources>

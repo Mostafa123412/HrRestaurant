@@ -1,7 +1,7 @@
 package com.example.hrrestaurant.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.hrrestaurant.data.dataSources.local.Order
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 
 class OrderDiffUtil(private val newList: List<Order>, private val oldList: List<Order>) :
     DiffUtil.Callback() {

@@ -8,13 +8,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.hrrestaurant.R
-import com.example.hrrestaurant.data.dataSources.local.Order
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 import com.example.hrrestaurant.databinding.FragmentOrdersHistoryBinding
 import com.example.hrrestaurant.ui.adapter.OrderHistoryAdapter
 import com.example.hrrestaurant.ui.base.BaseFragment
 import com.example.hrrestaurant.ui.base.OrderListener
 import com.example.hrrestaurant.ui.util.NetworkStatus
-import com.example.hrrestaurant.ui.util.OrderStateNotification
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore

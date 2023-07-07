@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_16sdp"
+    android:background="@color/gray"
     tools:context=".ui.activity.loginActivity.LoginActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -13,12 +14,13 @@
         android:layout_width="@dimen/_245sdp"
         android:layout_height="wrap_content"
         android:hint="@string/email"
+        app:hintTextColor="@color/black"
         app:errorEnabled="true"
-        app:boxStrokeColor="#FA0E0E"
         app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/cartbackground"
         app:boxCornerRadiusTopEnd="@dimen/_20sdp"
         app:boxCornerRadiusBottomStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_110sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +31,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_15sdp"
-            android:drawablePadding="@dimen/_8sdp" />
+            android:paddingStart="@dimen/_10sdp"
+            android:drawablePadding="@dimen/_8sdp"
+            android:drawableStart="@drawable/email"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:fontFamily="@font/abeezee"
+             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -39,8 +47,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/password"
         app:endIconMode="password_toggle"
+        app:boxBackgroundColor="#DDA2B6"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_20sdp"
         app:boxCornerRadiusTopEnd="@dimen/_20sdp"
         app:boxCornerRadiusBottomStart="@dimen/_20sdp"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,14 +60,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_15sdp"
+
             android:drawablePadding="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/abeezee"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/passwordResetBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/darkYellow"
+        android:textColor="@color/black"
+        android:fontFamily="@font/abeezee"
         android:text="@string/send_password_reset_to_email_above"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         app:layout_constraintTop_toBottomOf="@id/password"
@@ -70,11 +82,11 @@
 
     <Button
         android:id="@+id/login_btn"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="@dimen/_180sdp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_login"
         android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/aclonica"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:cornerRadius="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,15 +94,17 @@
         app:layout_constraintTop_toBottomOf="@id/passwordResetBtn"
         app:layout_constraintBottom_toTopOf="@+id/continueAsGuest_btn"/>
 
+<!--        style="?attr/materialButtonOutlinedStyle"-->
     <Button
         android:id="@+id/continueAsGuest_btn"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="@dimen/_180sdp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/continue_as_a_guest"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:cornerRadius="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/aclonica"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintBottom_toTopOf="@id/google_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_btn" />
@@ -100,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/goggle"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/continueAsGuest_btn" />

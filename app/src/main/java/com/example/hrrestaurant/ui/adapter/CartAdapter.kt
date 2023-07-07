@@ -1,14 +1,14 @@
 package com.example.hrrestaurant.ui.adapter
 
 import com.example.hrrestaurant.databinding.CartItemBinding
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hrrestaurant.data.dataSources.local.Meal
+import coil.load
+import com.example.hrrestaurant.data.dataSources.localDataSource.Meal
 
 class CartAdapter(
     private val listener: ItemListener,
@@ -20,7 +20,7 @@ class CartAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = oldList[position]!!
         holder.binding.apply {
-            if (item.isChecked) favCheckBox.isChecked = true
+            favCheckBox.isChecked = item.isChecked
             if (item.isAddedToChart) {
                 currentCount.text = item.count.toString()
                 shoppingCart.isChecked = true
@@ -28,11 +28,11 @@ class CartAdapter(
                 currentCount.visibility = View.VISIBLE
                 decrease.visibility = View.VISIBLE
             }
+            itemImg.load(item.itemImage)
             itemTitle.text = item.title
             description.text = item.description
-            estimatedTimeValue.text = item.estimatedTime.toString()
-            priceValue.text = item.price.toString()
-//            ratingBar.rating = item.rate!!
+            estimatedTimeValue.text = item.estimatedTime.toString().plus("Min")
+            priceValue.text = item.price.toString().plus("EGP")
 
             shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
@@ -53,18 +53,13 @@ class CartAdapter(
             decrease.setOnClickListener {
                 if (item.count == 1) {
                     listener.decrementItemCount(item.id)
-                    currentCount.text = item.count.toString()
                     listener.removeItemFromCart(item.id)
                 } else {
                     listener.decrementItemCount(item.id)
-                    currentCount.text = item.count.toString()
                 }
             }
             increase.setOnClickListener {
                 listener.incrementItemCount(item.id)
-                notifyDataSetChanged()
-                currentCount.text = item.count.toString()
-
             }
         }
     }

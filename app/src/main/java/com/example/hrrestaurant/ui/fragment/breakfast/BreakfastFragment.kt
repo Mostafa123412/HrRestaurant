@@ -22,13 +22,13 @@ class BreakfastFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val icons =
-            listOf(
-                ResourcesCompat.getDrawable(resources, R.drawable.drinks, null),
-                ResourcesCompat.getDrawable(resources, R.drawable.dessert, null),
-                ResourcesCompat.getDrawable(resources, R.drawable.eggs_and_toast, null),
-                ResourcesCompat.getDrawable(resources, R.drawable.facebook, null),
-            )
+//        val icons =
+//            listOf(
+//                ResourcesCompat.getDrawable(resources, R.drawable.drinks, null),
+//                ResourcesCompat.getDrawable(resources, R.drawable.dessert, null),
+//                ResourcesCompat.getDrawable(resources, R.drawable.eggs_and_toast, null),
+//                ResourcesCompat.getDrawable(resources, R.drawable.facebook, null),
+//            )
 
         val listOfHorizentalAdapters = AdaptersCreator.createListOfHorizentalAdapters(
             tabs.size, this@BreakfastFragment,)
@@ -36,8 +36,9 @@ class BreakfastFragment :
         binding.viewPager.adapter = breakfastPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabs[position]
-            tab.icon = icons[position]
+//            tab.icon = icons[position]
         }.attach()
+
         breakfastViewModel.croissant.observe(viewLifecycleOwner) {
             it.let {
                 if (it != null) {

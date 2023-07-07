@@ -1,7 +1,7 @@
 package com.example.hrrestaurant.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.hrrestaurant.data.dataSources.local.Meal
+import com.example.hrrestaurant.data.dataSources.localDataSource.Meal
 
 class MyDiffUtil(private val newList: List<Meal?>, private val oldList: List<Meal?>) :
     DiffUtil.Callback() {
@@ -19,6 +19,7 @@ class MyDiffUtil(private val newList: List<Meal?>, private val oldList: List<Mea
                 &&
                 oldList[oldItemPosition]?.isAddedToChart == newList[newItemPosition]?.isAddedToChart &&
                 oldList[oldItemPosition]?.isChecked == newList[newItemPosition]?.isChecked
+                && oldList[oldItemPosition]?.count == newList[newItemPosition]?.count
 
 
 }

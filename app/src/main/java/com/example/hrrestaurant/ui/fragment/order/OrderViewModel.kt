@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.hrrestaurant.data.dataSources.local.Meal
-import com.example.hrrestaurant.data.dataSources.local.Order
+import com.example.hrrestaurant.data.dataSources.localDataSource.Meal
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 import com.example.hrrestaurant.domain.CreateFireStoreOrderUseCase
 import com.example.hrrestaurant.domain.CreateOrderUseCase
 import com.example.hrrestaurant.domain.GetCartItemsUseCase
@@ -14,7 +14,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

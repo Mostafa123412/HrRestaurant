@@ -32,7 +32,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                 Log.d("Repository", "Cart Fragment Recieved ${it}")
                 cartAdapter.apply {
                     setNewData(it)
-                    notifyDataSetChanged()
+//                    notifyDataSetChanged()
                 }
 //                }
             }

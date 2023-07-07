@@ -1,9 +1,9 @@
-package com.example.hrrestaurant.data.dataSources.local
+package com.example.hrrestaurant.data.dataSources.localDataSource
 
 import android.content.Context
 import androidx.room.Room
-import com.example.hrrestaurant.data.dataSources.remote.RemoteDataSource
-import com.example.hrrestaurant.data.repositories.Repository
+import com.example.hrrestaurant.data.dataSources.remoteDataSource.RemoteDataSource
+import com.example.hrrestaurant.data.repositories.MealRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,8 +44,8 @@ object LocalModule {
         localDataSource: LocalDataSource,
         remoteDataSource: RemoteDataSource,
         mealMapper: MealMapper
-    ): Repository {
-        return Repository(localDataSource, remoteDataSource,mealMapper)
+    ): MealRepository {
+        return MealRepository(localDataSource, remoteDataSource,mealMapper)
     }
 
     @Provides

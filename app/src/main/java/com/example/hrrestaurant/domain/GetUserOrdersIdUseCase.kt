@@ -1,11 +1,9 @@
 package com.example.hrrestaurant.domain
 
-import androidx.lifecycle.LiveData
-import com.example.hrrestaurant.data.repositories.Repository
-import kotlinx.coroutines.flow.Flow
+import com.example.hrrestaurant.data.repositories.MealRepository
 
-class GetUserOrdersIdUseCase (private val repository:Repository) {
+class GetUserOrdersIdUseCase (private val mealRepository:MealRepository) {
 
-    suspend operator fun invoke(): List<String> = repository.getUsersOrdersId()
+    suspend operator fun invoke(): List<String> = mealRepository.getUsersOrdersId()
 
 }

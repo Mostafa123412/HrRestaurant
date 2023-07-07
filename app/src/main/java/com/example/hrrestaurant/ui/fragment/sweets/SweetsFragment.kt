@@ -39,7 +39,7 @@ class SweetsFragment : BaseFragment<FragmentSweetsBinding>(FragmentSweetsBinding
             it.let {
                 listOfVerticalAdapter[2].apply {
                     setNewData(it!!)
-                    notifyDataSetChanged()
+//                    notifyDataSetChanged()
                 }
 
             }

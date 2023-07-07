@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="@color/background"
+    android:backgroundTint="@color/gray"
     tools:context=".ui.fragment.breakfast.BreakfastFragment">
 
     <include
@@ -22,6 +22,8 @@
         android:layout_height="wrap_content"
         app:tabGravity="center"
         app:tabInlineLabel="true"
+        app:tabTextColor="@color/black"
+
         app:tabIndicatorHeight="0dp"
         android:elevation="@dimen/_8sdp"
         app:tabRippleColor="@null"
@@ -32,7 +34,6 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         />
 
 

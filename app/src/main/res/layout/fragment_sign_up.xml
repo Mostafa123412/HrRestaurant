@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/gray"
     tools:context=".ui.fragment.signUp.SignUpFragment"
-    android:layout_marginTop="@dimen/_40sdp"
-
     >
 
     <com.google.android.material.textfield.TextInputLayout

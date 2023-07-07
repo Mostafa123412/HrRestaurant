@@ -1,6 +1,6 @@
 package com.example.hrrestaurant.domain
 
-import com.example.hrrestaurant.data.repositories.Repository
+import com.example.hrrestaurant.data.repositories.MealRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,17 +14,17 @@ object DomainModule {
 
     @Singleton
     @Provides
-    fun provideMealDetailsUseCase(repository: Repository): GetMealDetailsUseCase =
-        GetMealDetailsUseCase(repository)
+    fun provideMealDetailsUseCase(mealRepository: MealRepository): GetMealDetailsUseCase =
+        GetMealDetailsUseCase(mealRepository)
  @Singleton
     @Provides
-    fun provideGetOrderStatusUseCase(repository: Repository): GetOrderStatusUseCase =
+    fun provideGetOrderStatusUseCase(repository: MealRepository): GetOrderStatusUseCase =
      GetOrderStatusUseCase(repository)
 
     @Singleton
     @Provides
-    fun provideAddOrderToCacheUseCase(repository: Repository): AddOrderToCacheUseCase =
-        AddOrderToCacheUseCase(repository)
+    fun provideAddOrderToCacheUseCase(mealRepository: MealRepository): AddOrderToCacheUseCase =
+        AddOrderToCacheUseCase(mealRepository)
 
     @Singleton
     @Provides
@@ -44,16 +44,16 @@ object DomainModule {
 
     @Singleton
     @Provides
-    fun provideGetCartItemsUseCase(repository: Repository): GetCartItemsUseCase =
-        GetCartItemsUseCase(repository)
+    fun provideGetCartItemsUseCase(mealRepository: MealRepository): GetCartItemsUseCase =
+        GetCartItemsUseCase(mealRepository)
 
     @Singleton
     @Provides
-    fun provideGetOrderTableRowNumbers(repository: Repository): GetOrderTableRowNumbers =
-        GetOrderTableRowNumbers(repository)
+    fun provideGetOrderTableRowNumbers(mealRepository: MealRepository): GetOrderTableRowNumbers =
+        GetOrderTableRowNumbers(mealRepository)
 
     @Singleton
     @Provides
-    fun provideGetUserOrdersIdUseCase(repository: Repository): GetUserOrdersIdUseCase =
-        GetUserOrdersIdUseCase(repository)
+    fun provideGetUserOrdersIdUseCase(mealRepository: MealRepository): GetUserOrdersIdUseCase =
+        GetUserOrdersIdUseCase(mealRepository)
 }

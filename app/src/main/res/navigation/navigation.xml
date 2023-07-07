@@ -71,6 +71,9 @@
         <action
             android:id="@+id/action_homeFragment_to_sweetsFragment2"
             app:destination="@id/sweetsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_videoFragment"
+            app:destination="@id/videoFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -124,5 +127,10 @@
             android:name="orderId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.example.hrrestaurant.ui.fragment.video.VideoFragment"
+        android:label="Reels"
+        tools:layout="@layout/fragment_video" />
 
 </navigation>

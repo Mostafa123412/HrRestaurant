@@ -1,6 +1,6 @@
 package com.example.hrrestaurant.ui.base
 
-import com.example.hrrestaurant.data.dataSources.local.Order
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 
 interface OrderListener {
     fun orderAgain(order: Order)

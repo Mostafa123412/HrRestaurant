@@ -1,5 +1,6 @@
-package com.example.hrrestaurant.data.dataSources.remote
+package com.example.hrrestaurant.data.dataSources.remoteDataSource
 
+import android.util.Log
 import com.example.hrrestaurant.ui.util.NetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -50,8 +51,10 @@ class RemoteDataSource @Inject constructor(private val api: HrApi) {
                 // Here we are calling api lambda
                 // function that will return response
                 // wrapped in Retrofit's Response class
-                val response: Response<T> = apiToBeCalled()
+                Log.d("Repository", " Remote DataSource Trying to get data from internet ")
 
+                val response: Response<T> = apiToBeCalled()
+                Log.d("Repository", " Remote DataSource data is here  ")
                 if (response.isSuccessful) {
                     // In case of success response we
                     // are returning Resource.Success object
@@ -59,22 +62,22 @@ class RemoteDataSource @Inject constructor(private val api: HrApi) {
                     NetworkResponse.Success(data = response.body()!!)
                 } else {
                     NetworkResponse.Error(
-                        errorMessage = response.errorBody()?.toString() ?: "Something went wrong"
+                        errorMessage = "Error response is not successufl \n "+response.errorBody()?.toString().plus(response.message()) ?: "Something went wrong"
                     )
                 }
 
             } catch (e: HttpException) {
                 // Returning HttpException's message
                 // wrapped in Resource.Error
-                NetworkResponse.Error(errorMessage = e.message ?: "Something went wrong")
+                NetworkResponse.Error("Http Exception "+ e.message ?: "Something went wrong")
             } catch (e: IOException) {
                 // Returning no internet message
                 // wrapped in Resource.Error
-                NetworkResponse.Error("Please check your network connection")
+                NetworkResponse.Error( "IO Exception \n  ${e.message}")
             } catch (e: Exception) {
                 // Returning 'Something went wrong' in case
                 // of unknown error wrapped in Resource.Error
-                NetworkResponse.Error(errorMessage = "Something went wrong")
+                NetworkResponse.Error(errorMessage = "Exception")
             }
         }
     }

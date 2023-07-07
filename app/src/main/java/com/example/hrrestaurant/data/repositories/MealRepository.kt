@@ -4,25 +4,23 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
-import androidx.lifecycle.LiveData
 import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
-import com.example.hrrestaurant.data.dataSources.local.Meal
-import com.example.hrrestaurant.data.dataSources.local.LocalDataSource
-import com.example.hrrestaurant.data.dataSources.local.MealMapper
-import com.example.hrrestaurant.data.dataSources.local.Order
-import com.example.hrrestaurant.data.dataSources.remote.RemoteDataSource
-import com.example.hrrestaurant.data.dataSources.remote.User
+import com.example.hrrestaurant.data.dataSources.localDataSource.Meal
+import com.example.hrrestaurant.data.dataSources.localDataSource.LocalDataSource
+import com.example.hrrestaurant.data.dataSources.localDataSource.MealMapper
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
+import com.example.hrrestaurant.data.dataSources.remoteDataSource.RemoteDataSource
+import com.example.hrrestaurant.data.dataSources.remoteDataSource.User
 import com.example.hrrestaurant.ui.util.NetworkResponse
 import com.example.hrrestaurant.ui.util.UiState
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import okhttp3.internal.cache.CacheInterceptor
 import javax.inject.Inject
 
-class Repository @Inject constructor(
+class MealRepository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
     private val mealMapper: MealMapper,

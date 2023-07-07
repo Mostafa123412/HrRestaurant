@@ -5,22 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/error_img"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:src="@drawable/internet_off"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/error_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"/>
-    <Button
         android:id="@+id/refreshButton"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_60sdp"
-        android:text="@string/retry"
-        android:drawablePadding="@dimen/_8sdp"
-        android:drawableStart="@drawable/refresh"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:src="@drawable/refresh"
         app:layout_constraintTop_toBottomOf="@id/error_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,10 +20,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/error"
+        android:fontFamily="@font/abeezee"
+        android:textColor="@color/black"
         android:gravity="center"
-        android:textSize="@dimen/_16ssp"
+        android:textSize="@dimen/_25ssp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/error_img"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/refreshButton"/>

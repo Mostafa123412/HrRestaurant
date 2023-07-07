@@ -43,6 +43,7 @@ class LunchFragment : BaseFragment<FragmentLunchBinding>(FragmentLunchBinding::i
         pagerAdapter = HorizentalPagerAdapter(
             listOfHorizentalAdapter
         )
+
         binding.viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabs[position]

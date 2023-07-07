@@ -8,10 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hrrestaurant.R
-import com.example.hrrestaurant.data.dataSources.local.Order
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 import com.example.hrrestaurant.databinding.OrderItemBinding
 import com.example.hrrestaurant.ui.base.OrderListener
-import com.example.hrrestaurant.ui.util.OrderStateNotification
 import kotlinx.coroutines.*
 
 class OrderHistoryAdapter(

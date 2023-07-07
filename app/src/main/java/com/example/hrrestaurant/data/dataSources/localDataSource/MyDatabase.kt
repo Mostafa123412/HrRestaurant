@@ -1,11 +1,10 @@
-package com.example.hrrestaurant.data.dataSources.local
+package com.example.hrrestaurant.data.dataSources.localDataSource
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 
-@Database(entities = [Meal::class, Order::class], version = 2)
+@Database(entities = [Meal::class, Order::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class MyDatabase : RoomDatabase() {
     abstract fun dao(): Dao

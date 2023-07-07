@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavouriteFragment :
     BaseFragment<FragmentFavouriteBinding>(FragmentFavouriteBinding::inflate) {
+
     private val favouriteViewModel: FavouriteViewModel by viewModels()
     private val favouriteAdapter: HorizontalAdapter by lazy {
         HorizontalAdapter(this)
@@ -18,7 +19,7 @@ class FavouriteFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.favouriteRecyclar.adapter = favouriteAdapter
+            binding.favouriteRecyclar.adapter = favouriteAdapter
 
         favouriteViewModel.favouriteItems.observe(viewLifecycleOwner) {
             it.let {

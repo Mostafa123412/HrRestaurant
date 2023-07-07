@@ -1,4 +1,4 @@
-package com.example.hrrestaurant.data.dataSources.remote
+package com.example.hrrestaurant.data.dataSources.remoteDataSource
 
 import com.example.hrrestaurant.ui.util.Constants.BASE_URL
 import dagger.Module

@@ -50,7 +50,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     testImplementation 'com.google.truth:truth:1.0.1'
@@ -75,14 +74,18 @@ dependencies {
     //https://android-arsenal.com/details/1/7693
 //    implementation 'com.github.smarteist:autoimageslider:1.4.0'
     //Firebase
-    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation 'com.firebaseui:firebase-ui-auth:8.0.2'
+    implementation 'com.firebaseui:firebase-ui-database:8.0.0' // for firebase ui components
+    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.google.firebase:firebase-database:20.2.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.2.1'
+
+//    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation platform('com.google.firebase:firebase-bom:32.1.1')
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
-    implementation 'com.google.firebase:firebase-database-ktx'
-    implementation 'com.firebaseui:firebase-ui-auth:8.0.2'
-    implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx'
-    implementation 'com.google.firebase:firebase-analytics'
 
 
     //Coroutines
@@ -92,8 +95,8 @@ dependencies {
      * such as the Dispatchers.Main coroutine dispatcher,
      * which allows you to perform UI-related tasks from a coroutine.
      */
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
 //    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0-Beta")
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
 
@@ -113,9 +116,9 @@ dependencies {
     implementation 'androidx.core:core-splashscreen:1.0.0'
     // LiveData
     def lifecycle = "2.3.1"
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.5.1'
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.6.1'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.3"

@@ -1,8 +1,8 @@
 package com.example.hrrestaurant.domain
 
 import android.util.Log
-import com.example.hrrestaurant.data.dataSources.local.Meal
-import com.example.hrrestaurant.data.dataSources.local.Order
+import com.example.hrrestaurant.data.dataSources.localDataSource.Meal
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap

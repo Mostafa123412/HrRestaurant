@@ -1,17 +1,16 @@
 package com.example.hrrestaurant.ui.base
 
 import androidx.lifecycle.*
-import com.example.hrrestaurant.data.repositories.Repository
+import com.example.hrrestaurant.data.repositories.MealRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
 @HiltViewModel
-open class SharedViewModel @Inject constructor(private val repository: Repository) :
+open class SharedViewModel @Inject constructor(private val mealRepository: MealRepository) :
     ViewModel() {
 //    private var _isAddedToCart:MutableLiveData<Boolean> = MutableLiveData(false)
 //    val isAddedToCart:LiveData<Boolean>
@@ -23,13 +22,13 @@ open class SharedViewModel @Inject constructor(private val repository: Repositor
 
     fun addItemToFavorite(id: Int) {
         viewModelScope.launch {
-            repository.addItemToFavourite(id)
+            mealRepository.addItemToFavourite(id)
         }
     }
 
     fun removeItemFromFavorite(id: Int) {
         viewModelScope.launch {
-            repository.removeItemFromFavourite(id)
+            mealRepository.removeItemFromFavourite(id)
         }
     }
 
@@ -49,20 +48,20 @@ open class SharedViewModel @Inject constructor(private val repository: Repositor
 //    }
 
     fun addItemToCart(id: Int) = viewModelScope.launch {
-        repository.addItemToCart(id)
+        mealRepository.addItemToCart(id)
         // does we need to change to MAIN thread to access this ?
 //        _isAddedToCart.postValue(true)
     }
 
     fun removeItemFromCart(id: Int) = viewModelScope.launch {
-        repository.removeItemFromCart(id)
+        mealRepository.removeItemFromCart(id)
 //        _isAddedToCart.postValue(false)
     }
 
     fun incrementItemCount(id: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                repository.incrementItemCount(id)
+                mealRepository.incrementItemCount(id)
             }
         }
     }
@@ -70,7 +69,7 @@ open class SharedViewModel @Inject constructor(private val repository: Repositor
     fun decrementItemCount(id: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                repository.decrementItemCount(id)
+                mealRepository.decrementItemCount(id)
             }
         }
     }
@@ -78,7 +77,7 @@ open class SharedViewModel @Inject constructor(private val repository: Repositor
     fun setItemCountToZero(id: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                repository.setItemCountToZero(id)
+                mealRepository.setItemCountToZero(id)
             }
         }
     }

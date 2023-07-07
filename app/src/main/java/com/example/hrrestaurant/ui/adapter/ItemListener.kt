@@ -1,6 +1,6 @@
 package com.example.hrrestaurant.ui.adapter
 
-interface ItemListener {
+interface ItemListener{
     fun addItemToFavourite(id: Int)
     fun removeItemFromFavourite(id: Int)
     fun addItemToCart(id:Int)

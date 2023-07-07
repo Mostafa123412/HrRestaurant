@@ -3,19 +3,13 @@ package com.example.hrrestaurant.domain
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.viewModelScope
-import com.example.hrrestaurant.data.dataSources.local.Order
-import com.example.hrrestaurant.data.repositories.Repository
+import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 import com.example.hrrestaurant.ui.util.Constants
 import com.google.firebase.firestore.*
-import java.io.IOException
 import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 class CreateFireStoreOrderUseCase @Inject constructor(
     private val addListenerRegistrationUseCase: AddListenerRegistrationUseCase,

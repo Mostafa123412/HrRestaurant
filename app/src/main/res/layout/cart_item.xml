@@ -1,166 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="@dimen/_165sdp"
-android:layout_height="wrap_content"
-android:elevation="@dimen/_18ssp"
-app:cardCornerRadius="@dimen/_18ssp"
-app:strokeColor="@color/teal_200"
-app:strokeWidth="@dimen/_2sdp"
-android:layout_margin="@dimen/_2sdp">
-
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/_205sdp"
+    android:layout_margin="@dimen/_3sdp"
+    android:layout_marginBottom="@dimen/_16sdp"
+    android:backgroundTint="@color/cartbackground"
+    android:elevation="@dimen/_18ssp"
+    app:cardCornerRadius="@dimen/_18ssp"
     >
-    <ImageView
-        android:id="@+id/item_img"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
-        android:src="@drawable/dessert"
-        app:layout_constraintBottom_toTopOf="@id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_img"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        app:layout_constraintBottom_toTopOf="@id/item_title"/>
+        android:layout_height="match_parent"
+        android:padding="@dimen/_3sdp">
 
-    <TextView
-        android:id="@+id/item_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="@dimen/_18ssp"
-        app:layout_constraintBottom_toTopOf="@id/description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:text="@string/ice_cream" />
+        <ImageView
+            android:id="@+id/item_img"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_title"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/eggs_and_toast" />
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_8sdp"
-        android:textSize="@dimen/_13ssp"
-        android:maxLines="2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_title"
-        app:layout_constraintBottom_toTopOf="@id/estimated_time"
-        tools:text="@string/ice_cream_description" />
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15ssp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:fontFamily="@font/abeezee"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="@dimen/_16ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/egg_and_toast" />
 
-    <TextView
-        android:id="@+id/estimated_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintBottom_toTopOf="@id/price"
-        app:layout_constraintEnd_toStartOf="@id/estimated_time_value"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description"
-        android:text="@string/time" />
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:dividerColor="@color/black"
+            app:dividerThickness="@dimen/_1sdp"
 
-    <TextView
-        android:id="@+id/estimated_time_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintStart_toEndOf="@id/estimated_time"
-        app:layout_constraintEnd_toStartOf="@id/fav_checkBox"
-        app:layout_constraintTop_toBottomOf="@id/description"
-        app:layout_constraintBottom_toTopOf="@id/price_value"
-        tools:text="@string/_12_m" />
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/price_value"
-        app:layout_constraintTop_toBottomOf="@id/estimated_time"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/price" />
-    <TextView
-        android:id="@+id/price_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/shopping_cart"
-        app:layout_constraintTop_toBottomOf="@id/estimated_time_value"
-        app:layout_constraintStart_toEndOf="@id/price"
-        tools:text="@string/_12" />
-    <CheckBox
-        android:id="@+id/fav_checkBox"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_30sdp"
-        android:button="@drawable/selector_wishlist_item"
-        android:layout_marginBottom="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/price_value"
-        app:layout_constraintTop_toBottomOf="@id/shopping_cart"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <CheckBox
-        android:id="@+id/shopping_cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/shopping_cart"
-        app:layout_constraintBottom_toTopOf="@id/fav_checkBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/_35sdp"
-        app:layout_constraintStart_toEndOf="@id/estimated_time_value"
-        app:layout_constraintTop_toBottomOf="@id/description" />
-    <!--            app:useMaterialThemeColor="false"-->
-    <Button
-        android:id="@+id/decrease"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:text="-"
-        app:layout_constraintStart_toEndOf="@id/estimated_time_value"
-        app:layout_constraintBottom_toTopOf="@id/fav_checkBox"
-        app:layout_constraintEnd_toStartOf="@id/currentCount"
-        app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintBottom_toTopOf="@id/description"
+            app:layout_constraintEnd_toStartOf="@id/item_img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_title" />
 
-        />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="monospace"
+            android:maxLines="3"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/estimated_time_value"
+            app:layout_constraintEnd_toStartOf="@id/item_img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:text="@string/egg_and_toast_ddfdfggfgdfnsd" />
 
-    <TextView
-        android:id="@+id/currentCount"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:text="@string/_1"
-        android:gravity="center"
-        app:layout_constraintEnd_toStartOf="@id/increase"
-        app:layout_constraintStart_toEndOf="@id/decrease"
-        app:layout_constraintBottom_toTopOf="@id/fav_checkBox"
-        app:layout_constraintTop_toBottomOf="@id/description"
-        />
+        <TextView
+            android:id="@+id/estimated_time_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="casual"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/background"
+            android:textStyle="bold"
 
-    <Button
-        android:id="@+id/increase"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:text="+"
-        android:layout_marginEnd="@dimen/_6sdp"
-        app:layout_constraintStart_toEndOf="@+id/currentCount"
-        app:layout_constraintBottom_toTopOf="@id/fav_checkBox"
-        app:layout_constraintTop_toBottomOf="@id/description"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+            app:layout_constraintEnd_toStartOf="@id/price_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            tools:text="20 Min" />
 
+        <TextView
+            android:id="@+id/price_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:fontFamily="casual"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/estimated_time_value"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            tools:text="12 $" />
 
+        <CheckBox
+            android:id="@+id/fav_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:button="@drawable/selector_wishlist_item"
+            app:layout_constraintTop_toBottomOf="@id/price_value"
+            app:layout_constraintBottom_toTopOf="@id/decrease"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+<!--                    app:useMaterialThemeColor="false"-->
+        <CheckBox
+            android:id="@+id/shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_shopping_cart"
+            app:layout_constraintBottom_toTopOf="@id/increase"
+            app:layout_constraintStart_toStartOf="@id/price_value"
+            app:layout_constraintTop_toBottomOf="@id/price_value" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/decrease"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_33sdp"
+            android:text="-"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginStart="@dimen/_16sdp"
+            app:layout_constraintTop_toBottomOf="@id/fav_checkBox"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/currentCount"
+            />
+
+        <TextView
+            android:id="@+id/currentCount"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:gravity="center"
+            android:text="11"
+            android:textColor="@color/black"
+            android:fontFamily="@font/abril_fatface"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintTop_toBottomOf="@id/fav_checkBox"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/decrease"
+            app:layout_constraintEnd_toStartOf="@id/increase"
+            />
+
+        <Button
+            android:id="@+id/increase"
+            android:layout_width="@dimen/_40sdp"
+            android:text="+"
+            android:layout_height="@dimen/_33sdp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintTop_toBottomOf="@id/shopping_cart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/currentCount"
+            />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

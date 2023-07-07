@@ -1,4 +1,4 @@
-package com.example.hrrestaurant.data.dataSources.remote
+package com.example.hrrestaurant.data.dataSources.remoteDataSource
 
 class User() {
     var userId: String = ""

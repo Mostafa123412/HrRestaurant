@@ -1,10 +1,10 @@
 package com.example.hrrestaurant.domain
 
-import com.example.hrrestaurant.data.dataSources.local.Meal
-import com.example.hrrestaurant.data.repositories.Repository
+import com.example.hrrestaurant.data.dataSources.localDataSource.Meal
+import com.example.hrrestaurant.data.repositories.MealRepository
 import javax.inject.Inject
 
-class GetMealDetailsUseCase @Inject constructor(private val repository: Repository) {
+class GetMealDetailsUseCase @Inject constructor(private val mealRepository: MealRepository) {
 
-    suspend operator fun invoke(mealId: Array<Int>): List<Meal?> = repository.getMealDetails(mealId)
+    suspend operator fun invoke(mealId: Array<Int>): List<Meal?> = mealRepository.getMealDetails(mealId)
 }

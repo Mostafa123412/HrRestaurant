@@ -5,6 +5,7 @@
     android:id="@+id/drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:fitsSystemWindows="true">
     <!--    tools:openDrawer="start"-->
 
@@ -94,48 +95,26 @@
             android:id="@+id/search_te"
             android:layout_width="0dp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            app:boxCornerRadiusBottomEnd="@dimen/_16sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_16sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_16sdp"
-            app:boxCornerRadiusTopStart="@dimen/_16sdp"
-            app:boxStrokeColor="#FA0E0E"
+            android:layout_margin="@dimen/_8sdp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/appBar"
             app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
-            app:layout_constraintEnd_toStartOf="@id/darkMode"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appBar">
+            app:layout_constraintEnd_toEndOf="parent"
+            >
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableStart="@drawable/ic_baseline_search_24"
-                android:drawablePadding="@dimen/_8sdp"
                 android:gravity="center"
+                android:paddingStart="@dimen/_8sdp"
                 android:text="@string/search"
-                android:textSize="@dimen/_20sdp" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"
+                app:drawableTint="@color/darkYellow"
+                app:fontFamily="@font/aclonica" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/darkMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/darkmode"
-            app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/search_te"
-            app:layout_constraintTop_toBottomOf="@id/appBar" />
-
-        <ImageView
-            android:id="@+id/lightMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/brightness"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/search_te"
-            app:layout_constraintTop_toBottomOf="@id/appBar" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
@@ -143,6 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:visibility="invisible"
+            android:background="@color/gray"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             app:layout_constraintEnd_toEndOf="parent"

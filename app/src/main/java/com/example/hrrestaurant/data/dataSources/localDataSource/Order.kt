@@ -1,4 +1,4 @@
-package com.example.hrrestaurant.data.dataSources.local
+package com.example.hrrestaurant.data.dataSources.localDataSource
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

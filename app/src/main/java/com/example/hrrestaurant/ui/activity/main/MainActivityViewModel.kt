@@ -3,17 +3,16 @@ package com.example.hrrestaurant.ui.activity.main
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.hrrestaurant.data.repositories.Repository
+import com.example.hrrestaurant.data.repositories.MealRepository
 import com.example.hrrestaurant.ui.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val repository: Repository,
+    private val mealRepository: MealRepository,
     application: Application
 ) :
     AndroidViewModel(application) {
@@ -29,7 +28,7 @@ class MainActivityViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             async {
-                repository.isRoomEmpty().collect{
+                mealRepository.isRoomEmpty().collect{
                     isRoomEmpty.postValue(it)
                     Log.d("Repository", "isRoom Empty = $isRoomEmpty")
 
@@ -39,9 +38,9 @@ class MainActivityViewModel @Inject constructor(
     }
 
     fun getDataFromInternet() {
-        Log.d("Repository", "ViewModel called ............")
+        Log.d("Repository", "Main Activity ViewModel.getDataFrom Internet called ..........")
         viewModelScope.launch {
-            repository.getDataFromNetworkAndCacheIt(context).collect {
+            mealRepository.getDataFromNetworkAndCacheIt(context).collect {
                 _status.postValue(it)
             }
         }

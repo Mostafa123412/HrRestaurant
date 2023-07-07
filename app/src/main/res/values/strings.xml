@@ -42,7 +42,7 @@
     <string name="order_now">Order Now</string>
     <string name="email_address">Email Address</string>
     <string name="egg_and_toast">Egg and Toast</string>
-    <string name="egg_and_toast_ddfdfggfgdfnsd">Egg and Toast ddfdfggfgdfnsd</string>
+    <string name="egg_and_toast_ddfdfggfgdfnsd">Egg and Toast ddfdfggfgdfns</string>
     <string name="_time">Time :</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
@@ -65,8 +65,8 @@
     <string name="sign_out">Sign Out</string>
     <string name="home">Home</string>
     <string name="favourite">Favourite</string>
-    <string name="loginfragment">LoginFragment</string>
-    <string name="fragment_sign_up">fragment_sign_up</string>
+    <string name="loginfragment">Login</string>
+    <string name="fragment_sign_up">SignUp</string>
     <string name="aboutrestaurantfragment">AboutRestaurantFragment</string>
     <string name="aboutdeveloperfragment">AboutDeveloperFragment</string>
     <string name="fragment_location">fragment_location</string>

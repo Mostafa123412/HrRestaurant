@@ -1,4 +1,4 @@
-package com.example.hrrestaurant.data.dataSources
+package com.example.hrrestaurant.data.dataSources.mapRemoteToLocal
 
 import android.content.Context
 

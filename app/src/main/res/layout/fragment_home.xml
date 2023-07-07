@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context=".ui.fragment.home.HomeFragment">
 
     <ScrollView
@@ -21,11 +22,12 @@
 
             <ImageView
                 android:id="@+id/breakfast_img"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/eggs_and_toast"
-                app:layout_constraintEnd_toStartOf="@id/lunch_img"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/breakfast_txt"
+                app:layout_constraintBottom_toTopOf="@id/breakfast_txt"
+                app:layout_constraintStart_toStartOf="@id/breakfast_txt"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:id="@+id/breakfast_txt"
@@ -33,16 +35,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/breakfast"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintEnd_toStartOf="@id/lunch_txt"
+                android:textColor="@color/black"
+                android:fontFamily="monospace"
+                android:layout_marginStart="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="@id/breakfast_img"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/breakfast_img" />
             <ImageView
                 android:id="@+id/lunch_img"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/lunchbox"
-                app:layout_constraintEnd_toStartOf="@id/dessert_img"
-                app:layout_constraintStart_toEndOf="@id/breakfast_img"
+                app:layout_constraintEnd_toEndOf="@id/lunch_txt"
+                app:layout_constraintStart_toStartOf="@id/lunch_txt"
+                app:layout_constraintBottom_toTopOf="@id/lunch_txt"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:id="@+id/lunch_txt"
@@ -50,16 +56,19 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lunch"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                android:fontFamily="monospace"
                 app:layout_constraintEnd_toStartOf="@id/dessert_txt"
                 app:layout_constraintStart_toEndOf="@id/breakfast_txt"
                 app:layout_constraintTop_toBottomOf="@id/lunch_img" />
             <ImageView
                 android:id="@+id/dessert_img"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/dessert"
-                app:layout_constraintEnd_toStartOf="@id/drinks_img"
-                app:layout_constraintStart_toEndOf="@id/lunch_img"
+                app:layout_constraintEnd_toEndOf="@id/dessert_txt"
+                app:layout_constraintBottom_toTopOf="@id/dessert_txt"
+                app:layout_constraintStart_toStartOf="@id/dessert_txt"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:id="@+id/dessert_txt"
@@ -67,6 +76,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dessert"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                android:fontFamily="monospace"
                 app:layout_constraintEnd_toStartOf="@id/drinks_txt"
                 app:layout_constraintStart_toEndOf="@id/lunch_txt"
                 app:layout_constraintTop_toBottomOf="@id/dessert_img" />
@@ -75,8 +86,9 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/drinks"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/dessert_img"
+                app:layout_constraintEnd_toEndOf="@id/drinks_txt"
+                app:layout_constraintStart_toStartOf="@id/drinks_txt"
+                app:layout_constraintBottom_toTopOf="@+id/drinks_txt"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:id="@+id/drinks_txt"
@@ -84,6 +96,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/drinks"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                android:fontFamily="monospace"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/dessert_txt"
                 app:layout_constraintTop_toBottomOf="@id/drinks_img" />
@@ -93,17 +107,22 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:text="@string/most_popular"
+                android:fontFamily="@font/aclonica"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/breakfast_txt"
                 app:layout_constraintBottom_toTopOf="@id/recyclarView_mostPopular"
                 android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"/>
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclarView_mostPopular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:spanCount="1"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/offers_txt"
@@ -118,18 +137,23 @@
                 app:layout_constraintTop_toBottomOf="@id/recyclarView_mostPopular"
                 app:layout_constraintBottom_toTopOf="@id/recyclarView_offers"
                 android:text="@string/offers"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"/>
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:fontFamily="@font/aclonica"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclarView_offers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:spanCount="1"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/offers_txt"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:listitem="@layout/horizental_item"
                 android:orientation="horizontal" />
 

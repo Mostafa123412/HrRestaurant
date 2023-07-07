@@ -3,12 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_signup_graph"
+    android:label="@string/_login"
     app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.hrrestaurant.ui.fragment.login.LoginFragment"
-        android:label="@string/loginfragment" />
+        android:label="@string/loginfragment">
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.hrrestaurant.ui.fragment.signUp.SignUpFragment"

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.hrrestaurant.data.dataSources.local.Meal
 import com.example.hrrestaurant.databinding.FragmentMoreDetailsBinding
 import com.example.hrrestaurant.ui.adapter.HorizontalAdapter
 import com.example.hrrestaurant.ui.base.BaseFragment
