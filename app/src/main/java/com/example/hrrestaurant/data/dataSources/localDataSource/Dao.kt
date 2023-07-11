@@ -6,9 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface Dao {
-    @Query(
-        "UPDATE orderTable SET orderStatus = :orderStatus WHERE orderRemoteId = :orderId"
-    )
+    @Query("UPDATE orderTable SET orderStatus = :orderStatus WHERE orderRemoteId = :orderId")
     suspend fun changeOrderStatus(orderStatus: String, orderId: String)
 
     @Query("SELECT * FROM meal WHERE id IN (:mealId) ")
@@ -32,7 +30,7 @@ interface Dao {
     @Query("SELECT title FROM meal WHERE id = :mealId")
     fun getMealTitleByMealId(mealId: Int): String
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.NONE)
     suspend fun insertItem(item: Meal?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

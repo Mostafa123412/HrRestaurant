@@ -19,12 +19,7 @@ class BreakfastViewModel @Inject constructor(
     var pancake = baseMealRepository.getPancake().asLiveData()
     var omelette = baseMealRepository.getOmelette().asLiveData()
 
-    init {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-            }
-        }
-    }
+
 
 
 }

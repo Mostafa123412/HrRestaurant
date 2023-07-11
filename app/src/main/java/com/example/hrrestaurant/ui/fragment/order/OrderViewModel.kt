@@ -41,7 +41,7 @@ class OrderViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val order = createOrderUseCase(
+                val order: Order = createOrderUseCase(
                     cartItems,
                     currentUserId,
                     orderLocation,
@@ -50,12 +50,12 @@ class OrderViewModel @Inject constructor(
                     userSecondaryPhone
                 )
                 Log.d("Firebase", "order Created = $order ....")
-                addNewOrderToFireStore(order, fireStoreDb , context)
+                addNewOrderToFireStoreUseCase(order, fireStoreDb , context)
             }
         }
     }
 
-    private fun addNewOrderToFireStore(
+    private fun addNewOrderToFireStoreUseCase(
         order: Order,
         fireStoreDb: FirebaseFirestore,
         context:Context

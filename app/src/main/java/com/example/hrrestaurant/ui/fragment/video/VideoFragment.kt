@@ -30,8 +30,6 @@ class VideoFragment : BaseFragment<FragmentVideoBinding>(FragmentVideoBinding::i
                 .setQuery(firebaseDatabaseRef, VideoItem::class.java)
                 .build()
 
-        Log.d("Videos", "Options Created at video Fragments")
-
         videoAdapter = VideoAdapter(options, this)
         binding.videoViewPager.adapter = videoAdapter
 

@@ -7,9 +7,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SweetsViewModel @Inject constructor (private val baseMealRepository: MealRepository): SharedViewModel(baseMealRepository) {
+class SweetsViewModel @Inject constructor(private val baseMealRepository: MealRepository) :
+    SharedViewModel(baseMealRepository) {
 
     var iceCream = baseMealRepository.getIceCream().asLiveData()
-
+    val hotDesserts = baseMealRepository.getHotDrinks().asLiveData()
+    val waffles = baseMealRepository.getwaddeles().asLiveData()
 
 }

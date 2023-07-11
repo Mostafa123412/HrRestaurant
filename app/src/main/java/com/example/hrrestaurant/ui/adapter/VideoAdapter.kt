@@ -38,7 +38,6 @@ class VideoAdapter(
                     true
                 }
                 videoTitle.text = videoItem.mealTitle
-                textVideoDescription.text = videoItem.mealDescription ?: ""
                 videoView.setVideoPath(videoItem.url)
                 videoView.setOnPreparedListener { mediaPlayer ->
                     videoProgressBar.visibility = View.GONE
@@ -48,7 +47,6 @@ class VideoAdapter(
                     val screenRatio = videoView.width / videoView.height.toFloat()
                     val scale = videoRatio / screenRatio
                     if (scale >= 1f) videoView.scaleX = scale else videoView.scaleY = 1f / scale
-
                 }
                 videoView.setOnCompletionListener { mp ->
                     mp.start()

@@ -11,34 +11,39 @@ import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(private val api: HrApi) {
 
-//    suspend fun postItemRate(id: Int?, rate: Float?): NetworkResponse<Double> {
-//        return safeApiCall { api.pushRate(id!!, rate!!) }
-//    }
 
-    //    suspend fun fetchData(): NetworkResponse<List<Meal?>?> {
-//        return withContext(Dispatchers.IO) {
-//            try {
-//                var result = api.fetchBreakfast()
-//                if (result.isSuccessful) {
-//                    Log.d("Repository ", "Data ${result.body()}")
-//                    NetworkResponse.Success(result.body()?.items)
-//                } else {
-//                    NetworkResponse.Error(
-//                        errorMessage = result.errorBody()?.toString() ?: "Something went Wrong"
-//                    )
-//                }
-//            } catch (e: HttpException) {
-//                NetworkResponse.Error(errorMessage = e.message ?: "Something went wrong")
-//            } catch (e: IOException) {
-//                NetworkResponse.Error("Please check your network connection")
-//            } catch (e: Exception) {
-//                NetworkResponse.Error(errorMessage = "UnKnown Error")
-//            }
-//        }
-//    }
-    suspend fun getDataFromNetwork(): NetworkResponse<ApiResponse> {
-        return safeApiCall { api.fetchBreakfast() }
+
+    suspend fun getDataFromNetwork(): NetworkResponse<ApiResponse?> {
+        Log.d("Repository", "Now Entering RemoteDataSource ............")
+//        val gson = GsonBuilder()
+//            .setLenient()
+//            .create()
+        return withContext(Dispatchers.IO) {
+            try {
+                Log.d("Repository ", "api Instance  ${api.toString()}")
+                var result = api.fetchBreakfast()
+                Log.d("Repository", "Result is here $result")
+
+                if (result.isSuccessful) {
+                    Log.d("Repository ", "Data ${result.body()?.items}")
+                    NetworkResponse.Success(result.body())
+                } else {
+                    NetworkResponse.Error(
+                        errorMessage ="result is back but not successful"+ result.errorBody()?.toString() ?: "Something went Wrong"
+                    )
+                }
+            } catch (e: HttpException) {
+                NetworkResponse.Error(errorMessage = "Http Exception \n ${e.message} ")
+            } catch (e: IOException) {
+                NetworkResponse.Error("IO Exception \n${e.message}")
+            } catch (e: Exception) {
+                NetworkResponse.Error(errorMessage = "Exception  \n ${e.message} ")
+            }
+        }
     }
+//    suspend fun getDataFromNetwork(): NetworkResponse<ApiResponse> {
+//        return safeApiCall { api.fetchBreakfast() }
+//    }
 
 
     // we'll use this function in all
@@ -73,7 +78,7 @@ class RemoteDataSource @Inject constructor(private val api: HrApi) {
             } catch (e: IOException) {
                 // Returning no internet message
                 // wrapped in Resource.Error
-                NetworkResponse.Error( "IO Exception \n  ${e.message}")
+                NetworkResponse.Error( "IO Exception \n  ${e.message} \n ${e.localizedMessage}")
             } catch (e: Exception) {
                 // Returning 'Something went wrong' in case
                 // of unknown error wrapped in Resource.Error
@@ -82,7 +87,4 @@ class RemoteDataSource @Inject constructor(private val api: HrApi) {
         }
     }
 
-    suspend fun notifyServerWithUserLogin(user: User) {
-        TODO("Not yet implemented")
-    }
 }

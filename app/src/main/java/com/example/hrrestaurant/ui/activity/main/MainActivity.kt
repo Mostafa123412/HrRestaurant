@@ -3,12 +3,17 @@ package com.example.hrrestaurant.ui.activity.main
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -38,7 +43,11 @@ class MainActivity : AppCompatActivity() {
         if (isGranted) {
             // FCM SDK (and your app) can post notifications.
         } else {
-            // TODO: Inform user that that your app will not show notifications.
+            Toast.makeText(
+                this,
+                "You must accept notification permission to tracking your order details",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
     private lateinit var binding: ActivityMainBinding
@@ -73,7 +82,8 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewModel
 
         toggle = ActionBarDrawerToggle(
-            this, binding.drawerlayout, binding.myToolar, R.string.open, R.string.close)
+            this, binding.drawerlayout, binding.myToolar, R.string.open, R.string.close
+        )
         binding.drawerlayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -116,13 +126,16 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.videoFragment -> {
                     hideSearch()
-                    navController.navigate(R.id.videoFragment   )
+                    navController.navigate(R.id.videoFragment)
                 }
-                R.id.favouriteFragment -> { showSearch()
+                R.id.favouriteFragment -> {
+                    showSearch()
                     navController.navigate(R.id.favouriteFragment)
                 }
-                R.id.homeFragment -> { showSearch()
-                navController.navigate(R.id.homeFragment)}
+                R.id.homeFragment -> {
+                    showSearch()
+                    navController.navigate(R.id.homeFragment)
+                }
                 else -> showSearch()
             }
             true
@@ -131,24 +144,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     private fun askNotificationPermission() {
-            // This is only necessary for API level >= 33 (TIRAMISU)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
-                    PackageManager.PERMISSION_GRANTED
-                ) {
-                    // FCM SDK (and your app) can post notifications.
-                } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-                    // TODO: display an educational UI explaining to the user the features that will be enabled
-                    //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
-                    //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
-                    //       If the user selects "No thanks," allow the user to continue without notifications.
-                } else {
-                    // Directly ask for the permission
-                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                }
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                // FCM SDK (and your app) can post notifications.
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                // TODO: display an educational UI explaining to the user the features that will be enabled
+                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+                //       If the user selects "No thanks," allow the user to continue without notifications.
+            } else {
+                // Directly ask for the permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
+    }
 
     private fun showOrderHistoryMenuItem() {
         binding.navigationView.menu.findItem(R.id.logOut).isVisible = true
@@ -194,11 +208,11 @@ class MainActivity : AppCompatActivity() {
                 binding.drawerlayout.close()
                 navController.navigate(R.id.youtubeFragment)
             }
-            R.id.locationFragment -> {
-                hideViews()
-                binding.drawerlayout.close()
-                navController.navigate(R.id.locationFragment)
-            }
+//            R.id.locationFragment -> {
+//                hideViews()
+//                binding.drawerlayout.close()
+//                navController.navigate(R.id.locationFragment)
+//            }
             R.id.ordersHistoryFragment -> {
                 hideViews()
                 binding.drawerlayout.close()
@@ -212,8 +226,34 @@ class MainActivity : AppCompatActivity() {
                     finish()
                 }
             }
+            R.id.restaurantPhone -> {
+                val checkWhatsappInstalled = checkWhatsappInstalled(packageManager, "com.whatsapp")
+                if (checkWhatsappInstalled) {
+                    val phoneNumber = "+201008573090"
+                    val url = "https://api.whatsapp.com/send?phone=${phoneNumber}"
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(url)
+                    }
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "Whatsapp isn't installed", Toast.LENGTH_SHORT).show()
+                    intent.data =
+                        Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp")
+                    startActivity(intent)
+                }
+            }
         }
     }
+
+    private fun checkWhatsappInstalled(pm: PackageManager, packageName: String): Boolean =
+        try {
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        } catch (e: java.lang.Exception) {
+            false
+        }
 
     private fun goToSearchFragment() = navController.navigate(R.id.searchFragment)
 
@@ -267,7 +307,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (binding.mainLoadingLayout.progressBar.isVisible){}else showViews()
+        if (binding.mainLoadingLayout.progressBar.isVisible) {
+        } else showViews()
         Log.d("MAINACTIVITY", "onBackPressed called")
 
         if (binding.drawerlayout.isOpen) {

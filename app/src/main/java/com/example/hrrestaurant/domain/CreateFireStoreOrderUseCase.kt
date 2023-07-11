@@ -31,16 +31,12 @@ class CreateFireStoreOrderUseCase @Inject constructor(
             .add(createNewHashMapFromOrder(order))
             .addOnSuccessListener { documentReference ->
                 val newOrderId = documentReference.id
-                Log.d("Firebase", "FireStore order created")
                 registration = addListenerRegistrationUseCase(newOrderId, fireStoreDb)
                 Toast.makeText(context,"Order Created Successfully", Toast.LENGTH_SHORT).show()
 
             }
             .addOnFailureListener { exception ->
-                var msg = ""
-                Log.d("Firebase", "FireStore order Failed to create")
                 Toast.makeText(context, "order Failed to create", Toast.LENGTH_SHORT).show()
-
             }
     }
 

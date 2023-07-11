@@ -15,8 +15,6 @@ class MealMapper : Mapper<MealDto, Meal> {
     override suspend fun map(input: MealDto?, context: Context): Meal? {
 
         val bitmap = getBitmap(input!!.itemImage, context)
-        val decimalFormat = DecimalFormat("#.##")
-        val price = decimalFormat.format(input.price)
         return Meal(
             id = input.id,
             title = input.title,
@@ -25,7 +23,7 @@ class MealMapper : Mapper<MealDto, Meal> {
             estimatedTime = input.estimatedTime.trim(' ', 'm', 'i', 'n'),
             category = input.category,
             topRated = input.topRated,
-            //instead of saving null , we save false
+//            instead of saving null , we save false
             isChecked = false,
             isAddedToChart = false,
             rate = 1F,

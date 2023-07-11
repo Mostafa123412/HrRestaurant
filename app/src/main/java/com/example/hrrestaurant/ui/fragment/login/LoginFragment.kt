@@ -131,7 +131,6 @@ class LoginFragment : Fragment() {
     // [START onactivityresult]
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -170,12 +169,10 @@ class LoginFragment : Fragment() {
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success")
                             val user = auth.currentUser
                             loginViewModel.changeLoginStatus(true)
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.exception)
                             loginViewModel.changeLoginStatus(false)
                         }
                     }
@@ -212,18 +209,14 @@ class LoginFragment : Fragment() {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                     if (it.isSuccessful) {
                         val currentUser = auth.currentUser
-                        Log.d("Mahmoud", "Current User = $currentUser")
                         if (currentUser != null) {
                             if (auth.currentUser!!.isEmailVerified) {
-                                Log.d("Mahmoud", "Email Verified")
                                 loginViewModel.apply {
                                     changeLoginStatus(true)
                                 }
                             } else {
-                                Log.d("Mahmoud", "Email Not Verified")
                                 Toast.makeText(
-                                    requireContext(),
-                                    "Login Failed, Please Verify Your Email and try again",
+                                    requireContext(),"Login Failed, Please Verify Your Email and try again",
                                     Toast.LENGTH_LONG
                                 ).show()
                             }

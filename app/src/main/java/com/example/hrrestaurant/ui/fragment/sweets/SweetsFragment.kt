@@ -35,17 +35,19 @@ class SweetsFragment : BaseFragment<FragmentSweetsBinding>(FragmentSweetsBinding
             tab.text = tabs[position]
         }.attach()
 
-        sweetsViewModel.iceCream.observe(viewLifecycleOwner) {
-            it.let {
-                listOfVerticalAdapter[2].apply {
-                    setNewData(it!!)
+        sweetsViewModel.apply {
+            iceCream.observe(viewLifecycleOwner) {
+                it?.let {
+                    listOfVerticalAdapter[2].apply {
+                        setNewData(it)
 //                    notifyDataSetChanged()
-                }
+                    }
 
+                }
             }
+            hotDesserts.observe(viewLifecycleOwner){it?.let { listOfVerticalAdapter[0].setNewData(it) }}
+
         }
 
     }
-
-
 }

@@ -11,8 +11,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 object LocalModule {
 
     @Provides
@@ -35,7 +35,7 @@ object LocalModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSourceInstance(dao:Dao): LocalDataSource =
+    fun provideLocalDataSourceInstance(dao: Dao): LocalDataSource =
         LocalDataSource(dao)
 
     @Provides
@@ -43,12 +43,14 @@ object LocalModule {
     fun getBaseRepositoryInstance(
         localDataSource: LocalDataSource,
         remoteDataSource: RemoteDataSource,
-        mealMapper: MealMapper
+        mealMapper: MealMapper,
     ): MealRepository {
-        return MealRepository(localDataSource, remoteDataSource,mealMapper)
+        return MealRepository(localDataSource, remoteDataSource, mealMapper)
     }
 
     @Provides
     fun provideMealDtoMapper(): MealMapper = MealMapper()
+
+
 
 }

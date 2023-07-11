@@ -49,20 +49,5 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_25ssp"
             android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/textVideoDescription"
-            android:text="شاورما عربى لذيذة جدا "
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_5sdp"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingEnd="@dimen/_5sdp"
-            android:shadowColor="@color/black"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="15"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp"
-            android:textStyle="bold"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

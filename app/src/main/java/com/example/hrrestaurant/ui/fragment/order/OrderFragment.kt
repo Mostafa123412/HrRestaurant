@@ -48,10 +48,10 @@ class OrderFragment : Fragment() {
             binding.secondaryPhoneNumberEt.setText(userInfo[3])
         }
         binding.orderNow.setOnClickListener {
-            var userName = binding.userNameEt.text.toString()
-            var orderLocation = binding.userLocationEt.text.toString()
-            var userPrimaryPhone = binding.primaryPhoneNumberEt.text.toString()
-            var userSecondaryPhone = binding.secondaryPhoneNumberEt.text.toString()
+            val userName = binding.userNameEt.text.toString()
+            val orderLocation = binding.userLocationEt.text.toString()
+            val userPrimaryPhone = binding.primaryPhoneNumberEt.text.toString()
+            val userSecondaryPhone = binding.secondaryPhoneNumberEt.text.toString()
             if (orderLocation.isEmpty()) {
                 binding.userLocation.error = "Please Enter Location"
             } else if (userName.isEmpty()) {
@@ -70,7 +70,6 @@ class OrderFragment : Fragment() {
                 )
                 orderViewModel.cartItems.observe(viewLifecycleOwner){ cartItems ->
                 cartItems.let {
-                    Log.d("Firebase", "cart Items = $cartItems ....")
                     orderViewModel.createNewOrder(
                         cartItems!!,
                         fireStoreDb,

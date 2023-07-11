@@ -38,6 +38,7 @@ class HorizontalAdapter(
                     listener.removeItemFromFavourite(item.id)
                 }
             }
+
             shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
                     shoppingCart.isChecked = true

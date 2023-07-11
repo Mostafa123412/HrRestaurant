@@ -35,11 +35,12 @@ class LunchFragment : BaseFragment<FragmentLunchBinding>(FragmentLunchBinding::i
             "Sauces"
         )
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val listOfHorizentalAdapter = AdaptersCreator.createListOfHorizentalAdapters(tabs.size,
-            this@LunchFragment )
+        val listOfHorizentalAdapter = AdaptersCreator.createListOfHorizentalAdapters(
+            tabs.size,
+            this@LunchFragment
+        )
         pagerAdapter = HorizentalPagerAdapter(
             listOfHorizentalAdapter
         )
@@ -49,11 +50,61 @@ class LunchFragment : BaseFragment<FragmentLunchBinding>(FragmentLunchBinding::i
             tab.text = tabs[position]
         }.attach()
 
+        lunchViewModel.apply {
+            soup.observe(viewLifecycleOwner) {
+                it?.let {
+                    listOfHorizentalAdapter[0].setNewData(it)
+                }
+            }
+            appetizers.observe(viewLifecycleOwner) {
+                it?.let {
+                    listOfHorizentalAdapter[1].setNewData(
+                        it
+                    )
+                }
+            }
+            salade.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[2].setNewData(it) } }
+            burger.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[3].setNewData(it) } }
+            sandwiches.observe(viewLifecycleOwner) {
+                it?.let {
+                    listOfHorizentalAdapter[4].setNewData(
+                        it
+                    )
+                }
+            }
+            pasta.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[5].setNewData(it) } }
+            pizza.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[6].setNewData(it) } }
+            chicken.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[7].setNewData(it) } }
+            beef.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[8].setNewData(it) } }
+            mixDishes.observe(viewLifecycleOwner) {
+                it?.let {
+                    listOfHorizentalAdapter[9].setNewData(
+                        it
+                    )
+                }
+            }
+            steek.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[10].setNewData(it) } }
+            seafood.observe(viewLifecycleOwner) {
+                it?.let {
+                    listOfHorizentalAdapter[11].setNewData(
+                        it
+                    )
+                }
+            }
+            fajita.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[12].setNewData(it) } }
+            sideDishes.observe(viewLifecycleOwner) {
+                it?.let {
+                    listOfHorizentalAdapter[13].setNewData(
+                        it
+                    )
+                }
+            }
+            sauces.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[14].setNewData(it) } }
+
+        }
 
 
     }
-
-
 
 
 }

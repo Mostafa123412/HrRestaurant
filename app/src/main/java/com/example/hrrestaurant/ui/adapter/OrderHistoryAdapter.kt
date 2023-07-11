@@ -3,11 +3,10 @@ package com.example.hrrestaurant.ui.adapter
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hrrestaurant.R
 import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 import com.example.hrrestaurant.databinding.OrderItemBinding
 import com.example.hrrestaurant.ui.base.OrderListener
@@ -33,14 +32,18 @@ class OrderHistoryAdapter(
     override fun getItemCount(): Int = oldList.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+
         val order = oldList[position]
         val orderKeys = order.orderList.keys.map { it.toInt() }.toList()
+
         holder.binding.apply {
             var orderTotalTitle = ""
+
             addOrderItemsToCart.setOnCheckedChangeListener { checkBox, isChecked ->
-                if (isChecked) orderListener.addItemsToCartAgain(orderKeys)
-                else orderListener.removeAllItemsFromCart(orderKeys)
+                if (isChecked) orderListener.addThisOrderItemsToCartAgain(orderKeys)
+                else orderListener.removeOrderItemsFromCart(orderKeys)
             }
+
             order.orderList.keys.forEach { mealId ->
                 val mealCount = order.orderList[mealId]
                 CoroutineScope(Dispatchers.IO).launch {
@@ -53,16 +56,19 @@ class OrderHistoryAdapter(
                     }
                 }
             }
-            if (order.orderStatus == "Delivered To Delivery") {
-                val greenColor = ContextCompat.getColor(context, R.color.greenColor)
-                orderStatusValue.setTextColor(greenColor)
+
+            if (order.orderStatus == "Delivered to Client" || order.orderStatus == "Cancelled" || order.orderStatus == "Delivered To Delivery"){
+                cancelOrderBtn.visibility = View.GONE
             }
+
             orderStatusValue.text = order.orderStatus
             orderTotalPriceValue.text = order.orderPrice.toString().plus(" P")
             orderTotalTimeValue.text = order.orderTotalEstimatedTime.toString().plus(" Min")
             orderDateAndTimeValue.text = order.orderDateAndTime
+
+
             cancelOrderBtn.setOnClickListener { orderListener.cancelOrder(order.orderRemoteId) }
-            orderAgainBtn.setOnClickListener { orderListener.orderAgain(order) }
+            orderAgainBtn.setOnClickListener { orderListener.orderSameOrderAgain(order) }
             orderMoreDetailsBtn.setOnClickListener {
                 orderListener.moreDetails(orderKeys)
                 Log.d("Firebase", "order Keys = $orderKeys")

@@ -74,8 +74,8 @@ class MealRepository @Inject constructor(
         when (val dataFromNetwork = remoteDataSource.getDataFromNetwork()) {
             is NetworkResponse.Success -> {
                 withContext(Dispatchers.IO) {
-                    val data = dataFromNetwork.data?.items!!
-                    val listOfMeals = mealMapper.mapList(data, context = context)
+                    val data = dataFromNetwork.data!!
+                    val listOfMeals = mealMapper.mapList(data.items, context = context)
                     localDataSource.insertItemsIntoLocalStorage(listOfMeals)
                     Log.d("Repository", "Success getDataFromInternetAndCacheIt")
                 }
@@ -203,11 +203,10 @@ class MealRepository @Inject constructor(
     fun getCocktails(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("cocktails")
     fun getSmoothies(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("smoothies")
     fun getYogurt(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("yogurt")
-    suspend fun notifyServerByUserLogin(user: User) {
-        remoteDataSource.notifyServerWithUserLogin(user)
-    }
+
 
     fun getIceCream(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("iceCream")
+    fun getwaddeles(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("waffeles")
 
     //should i here change the scope to IO ?
     suspend fun setItemCountToZero(id: Int) {
