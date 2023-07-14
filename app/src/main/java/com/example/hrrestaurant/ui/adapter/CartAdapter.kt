@@ -37,7 +37,7 @@ class CartAdapter(
             shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
                 } else {
-                    listener.setItemCountToZero(item.id)
+                    listener.setItemCountToOne(item.id)
                     listener.removeItemFromCart(item.id)
                 }
             }

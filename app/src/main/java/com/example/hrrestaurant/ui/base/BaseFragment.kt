@@ -39,9 +39,9 @@ abstract class BaseFragment<VB : ViewBinding>(
         }
     }
 
-    override fun setItemCountToZero(id: Int) {
+    override fun setItemCountToOne(id: Int) {
         lifecycleScope.launch {
-            sharedViewModel.setItemCountToZero(id)
+            sharedViewModel.setItemCountToOne(id)
         }
     }
     override fun addItemToFavourite(id: Int) {

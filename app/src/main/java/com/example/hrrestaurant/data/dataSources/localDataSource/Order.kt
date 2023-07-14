@@ -20,4 +20,5 @@ data class Order(
     // (<ItemId,ItemCount> , <Burger,3> , ... )
     val orderList: HashMap<String, Int>,
     var orderStatus: String,
+
 )

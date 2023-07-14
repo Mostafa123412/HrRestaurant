@@ -7,7 +7,7 @@
     app:cardElevation="@dimen/_32sdp"
     app:cardCornerRadius="@dimen/_16sdp"
     android:layout_margin="@dimen/_4sdp"
-    app:cardBackgroundColor="#EAC984"
+    app:cardBackgroundColor="#85C8C2"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +32,7 @@
             android:id="@+id/orderTotalPrice"
             android:padding="@dimen/_8sdp"
             android:layout_width="wrap_content"
+            android:textColor="@color/darkRed"
             android:layout_height="wrap_content"
             android:fontFamily="@font/aclonica"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -57,6 +58,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/_8sdp"
             android:fontFamily="@font/aclonica"
+            android:textColor="@color/darkRed"
 
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:text="@string/total_estimated_time"
@@ -72,7 +74,7 @@
             android:text="@string/_40_min"
             android:fontFamily="@font/aclonica"
             app:layout_constraintBottom_toTopOf="@id/orderStatusValue"
-            app:layout_constraintStart_toEndOf="@id/orderTotalPrice"
+            app:layout_constraintStart_toEndOf="@id/orderEstimatedTime_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/orderTotalPriceValue"/>
         <TextView
@@ -83,9 +85,11 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:text="@string/order_status"
             android:fontFamily="@font/aclonica"
-
+            android:textColor="@color/darkRed"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/orderStatusValue"
             app:layout_constraintTop_toBottomOf="@id/orderEstimatedTime_tv"
+            app:layout_constraintBottom_toTopOf="@id/orderDateAndTime_tv"
            />
         <TextView
             android:id="@+id/orderStatusValue"
@@ -93,6 +97,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:text="@string/deliverd_to_restaurant"
+            android:textStyle="bold"
             android:fontFamily="@font/aclonica"
             app:layout_constraintStart_toEndOf="@id/orderStatus_tv"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,11 +108,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/_8sdp"
+            android:textColor="@color/darkRed"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:text="@string/order_date_and_time"
             app:layout_constraintStart_toStartOf="parent"
             android:fontFamily="@font/aclonica"
-
             app:layout_constraintTop_toBottomOf="@id/orderStatus_tv"
             app:layout_constraintBottom_toTopOf="@id/cancelOrderBtn"
            />
@@ -129,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
+            android:textColor="@color/darkYellow"
             app:layout_constraintTop_toBottomOf="@id/orderDateAndTime_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/orderAgainBtn"
@@ -150,6 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/details"
+            android:textColor="@color/darkYellow"
             app:layout_constraintTop_toBottomOf="@id/orderDateAndTime_tv"
             app:layout_constraintStart_toEndOf="@id/orderAgainBtn"
             app:layout_constraintEnd_toStartOf="@id/addOrderItemsToCart"
@@ -159,6 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/selector_shopping_cart"
+            app:useMaterialThemeColors= "false"
             app:layout_constraintStart_toEndOf="@id/orderMoreDetails_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

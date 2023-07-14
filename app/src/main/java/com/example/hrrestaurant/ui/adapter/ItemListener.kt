@@ -5,7 +5,7 @@ interface ItemListener{
     fun removeItemFromCart(id:Int)
     fun incrementItemCount(id:Int)
     fun decrementItemCount(id:Int)
-    fun setItemCountToZero(id: Int)
+    fun setItemCountToOne(id: Int)
     fun addItemToFavourite(id: Int)
     fun removeItemFromFavourite(id: Int)
 

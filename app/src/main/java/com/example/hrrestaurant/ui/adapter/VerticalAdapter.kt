@@ -35,6 +35,12 @@ class VerticalAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = oldList[position]!!
+        if (item.title == "salmon chowder "){
+            val width = holder.binding.itemImg.drawable.intrinsicWidth
+            val height = holder.binding.itemImg.drawable.intrinsicHeight
+            Log.d("Khairy", "width =  $width , height = $height")
+
+        }
         item.let {
             holder.binding.apply {
                 item.apply {
@@ -53,19 +59,17 @@ class VerticalAdapter(
                 shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                     if (isChecked) {
                         listener.addItemToCart(item.id)
-                        listener.incrementItemCount(item.id)
                         Log.d("Repository", "Adding ${item.id} to Cart....")
-
                     } else {
                         listener.removeItemFromCart(item.id)
-                        listener.setItemCountToZero(item.id)
+                        listener.setItemCountToOne(item.id)
                     }
                 }
                 itemImg.load(item.itemImage)
                 itemTitle.text = item.title
                 description.text = item.description
-                estimatedTimeValue.text = item.estimatedTime.toString().plus("Min")
-                priceValue.text = item.price.toString().plus("EGP")
+                estimatedTimeValue.text = item.estimatedTime.toString().plus(" Min")
+                priceValue.text = item.price.toString().plus(" EGP")
 
             }
         }

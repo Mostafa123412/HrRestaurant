@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gray"
         tools:context=".ui.activity.main.MainActivity">
 
         <include
@@ -47,6 +48,7 @@
             android:layout_marginEnd="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_16sdp"
             android:src="@drawable/shopping_cart"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -93,10 +95,14 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_te"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_margin="@dimen/_8sdp"
-            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_18sdp"
+            android:background="#B53C3C"
+            app:boxCornerRadiusBottomStart="@dimen/_200sdp"
+            app:boxCornerRadiusTopEnd="@dimen/_200sdp"
+            app:boxCornerRadiusBottomEnd="@dimen/_200sdp"
+            app:boxCornerRadiusTopStart="@dimen/_200sdp"
             app:layout_constraintTop_toBottomOf="@id/appBar"
             app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
             app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +116,7 @@
                 android:gravity="center"
                 android:paddingStart="@dimen/_8sdp"
                 android:text="@string/search"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_20sdp"
                 app:drawableTint="@color/darkYellow"
                 app:fontFamily="@font/aclonica" />
@@ -134,9 +140,14 @@
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_56sdp"
+            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
             android:isScrollContainer="true"
+            app:itemTextColor="@color/white"
+            app:itemIconTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:useMaterialThemeColors="false"
+            android:background="#7E1B1B"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragmentContainerView"
             app:menu="@menu/menu" />

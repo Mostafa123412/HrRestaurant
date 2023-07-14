@@ -35,7 +35,6 @@ class SignUpFragment : Fragment() {
     val loginViewModel: LoginActivityViewModel by activityViewModels()
     private lateinit var userEmail: String
     private lateinit var userPassword: String
-    private var emailPattern = Regex("[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+")
     private lateinit var fireStoreDb: FirebaseFirestore
 
     override fun onCreateView(
@@ -51,11 +50,7 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = Firebase.auth
-        binding.nameEt.addTextChangedListener { text ->
-            if (text.toString().isEmpty()) {
-                binding.name.error = "Invalid Name."
-            } else loginViewModel.addUserName(text.toString())
-        }
+
         binding.emailEt.addTextChangedListener { text ->
             if (text.toString().isEmpty()) {
                 binding.email.error = "Invalid Email Address."
@@ -93,7 +88,6 @@ class SignUpFragment : Fragment() {
                             ).show()
                             binding.emailEt.setText("")
                             binding.passwordEt.setText("")
-                            binding.nameEt.setText("")
                         }
                             else {
                                 Log.d("Firebase", "Email Verified Failed to sent")

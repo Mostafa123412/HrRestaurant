@@ -70,8 +70,8 @@ class LocalDataSource @Inject constructor(private val dao: Dao) {
     suspend fun decrementItemCount(id: Int) = dao.decrementItemCount(id)
 
     fun getAllCartItems(): Flow<List<Meal?>> = dao.getCartItems()
-    suspend fun setItemCountToZero(id: Int) {
-        dao.setItemCountToZero(id)
+    suspend fun setItemCountToOne(id: Int) {
+        dao.setItemCountToOne(id)
     }
 
     suspend fun changeOrderStatus(orderStatus: String, orderId: String) {

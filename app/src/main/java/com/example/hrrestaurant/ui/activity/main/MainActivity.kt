@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -99,7 +100,10 @@ class MainActivity : AppCompatActivity() {
             if (it) {
                 getAppData()
                 observeAppData()
-            } else showFragmentContainerView()
+            } else {
+                showFragmentContainerView()
+                binding.cartFab.visibility = View.VISIBLE
+            }
         }
         binding.searchTe.setOnClickListener {
             hideViews()
@@ -129,19 +133,27 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.videoFragment)
                 }
                 R.id.favouriteFragment -> {
-                    showSearch()
-                    navController.navigate(R.id.favouriteFragment)
+                    if (checkLoading()) {
+                        hideSearch()
+                        navController.navigate(R.id.favouriteFragment)
+                    } else {
+                        showSearch()
+                        navController.navigate(R.id.favouriteFragment)
+                    }
                 }
                 R.id.homeFragment -> {
-                    showSearch()
-                    navController.navigate(R.id.homeFragment)
+                    if (checkLoading()) {
+                        hideSearch()
+                        navController.navigate(R.id.favouriteFragment)
+                    } else {
+                        showSearch()
+                        navController.navigate(R.id.homeFragment)
+                    }
                 }
                 else -> showSearch()
             }
             true
-
         }
-
     }
 
 
@@ -290,7 +302,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun showSearch() {
         binding.searchTe.visibility = View.VISIBLE
-
     }
 
     private fun hideSearch() {
@@ -298,16 +309,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     /*
-    This method is called whenever the user chooses to navigate Up within your application's activity hierarchy from the action bar.
+    This method is called whenever the user chooses to navigate Up within your application's activity hierarchy
+    from the action bar.
     true if Up navigation completed successfully and this Activity was finished, false otherwise
      */
     override fun onSupportNavigateUp(): Boolean {
-        showViews()
+        if (checkLoading()) {
+        } else showViews()
         return navController.navigateUp(appBarConfiguration)
     }
 
     override fun onBackPressed() {
-        if (binding.mainLoadingLayout.progressBar.isVisible) {
+        if (checkLoading()) {
         } else showViews()
         Log.d("MAINACTIVITY", "onBackPressed called")
 
@@ -316,6 +329,10 @@ class MainActivity : AppCompatActivity() {
         } else
             super.onBackPressed()
     }
+
+    private fun checkLoading() =
+        binding.mainLoadingLayout.progressBar.isVisible || binding.retryingProgressBar.isVisible
+                || binding.mainErrorLayout.refreshButton.isVisible || binding.retryingProgressBar.isVisible
 
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager

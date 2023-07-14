@@ -35,7 +35,7 @@ class RemoteDataSource @Inject constructor(private val api: HrApi) {
             } catch (e: HttpException) {
                 NetworkResponse.Error(errorMessage = "Http Exception \n ${e.message} ")
             } catch (e: IOException) {
-                NetworkResponse.Error("IO Exception \n${e.message}")
+                NetworkResponse.Error("IO Exception \n Check Your Internet Connection")
             } catch (e: Exception) {
                 NetworkResponse.Error(errorMessage = "Exception  \n ${e.message} ")
             }

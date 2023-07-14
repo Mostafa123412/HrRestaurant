@@ -1,6 +1,7 @@
 package com.example.hrrestaurant.ui.fragment.lunch
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.hrrestaurant.databinding.FragmentLunchBinding
@@ -50,61 +51,115 @@ class LunchFragment : BaseFragment<FragmentLunchBinding>(FragmentLunchBinding::i
             tab.text = tabs[position]
         }.attach()
 
-        lunchViewModel.apply {
-            soup.observe(viewLifecycleOwner) {
-                it?.let {
+
+        lunchViewModel.soup.observe(viewLifecycleOwner) {
+            it.let {
+                if (it != null) {
                     listOfHorizentalAdapter[0].setNewData(it)
+                    Log.d("Repository", "Recieved ${it}")
                 }
             }
-            appetizers.observe(viewLifecycleOwner) {
-                it?.let {
+        }
+        lunchViewModel.appetizers.observe(viewLifecycleOwner) {
+            it.let {
+                if (it != null) {
                     listOfHorizentalAdapter[1].setNewData(
                         it
                     )
                 }
             }
-            salade.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[2].setNewData(it) } }
-            burger.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[3].setNewData(it) } }
-            sandwiches.observe(viewLifecycleOwner) {
-                it?.let {
-                    listOfHorizentalAdapter[4].setNewData(
-                        it
-                    )
-                }
+        }
+        lunchViewModel.salade.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[2].setNewData(
+                    it
+                )
             }
-            pasta.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[5].setNewData(it) } }
-            pizza.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[6].setNewData(it) } }
-            chicken.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[7].setNewData(it) } }
-            beef.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[8].setNewData(it) } }
-            mixDishes.observe(viewLifecycleOwner) {
-                it?.let {
-                    listOfHorizentalAdapter[9].setNewData(
-                        it
-                    )
-                }
+        }
+        lunchViewModel.burger.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[3].setNewData(
+                    it
+                )
             }
-            steek.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[10].setNewData(it) } }
-            seafood.observe(viewLifecycleOwner) {
-                it?.let {
-                    listOfHorizentalAdapter[11].setNewData(
-                        it
-                    )
-                }
+        }
+        lunchViewModel.sandwiches.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[4].setNewData(
+                    it
+                )
             }
-            fajita.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[12].setNewData(it) } }
-            sideDishes.observe(viewLifecycleOwner) {
-                it?.let {
-                    listOfHorizentalAdapter[13].setNewData(
-                        it
-                    )
-                }
+        }
+        lunchViewModel.pasta.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[5].setNewData(
+                    it
+                )
             }
-            sauces.observe(viewLifecycleOwner) { it?.let { listOfHorizentalAdapter[14].setNewData(it) } }
-
+        }
+        lunchViewModel.pizza.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[6].setNewData(
+                    it
+                )
+            }
+        }
+        lunchViewModel.chicken.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[7].setNewData(
+                    it
+                )
+            }
+        }
+        lunchViewModel.beef.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[8].setNewData(
+                    it
+                )
+            }
+        }
+        lunchViewModel.mixDishes.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[9].setNewData(
+                    it
+                )
+            }
+        }
+        lunchViewModel.steek.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[10].setNewData(
+                    it
+                )
+            }
+        }
+        lunchViewModel.seafood.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[11].setNewData(
+                    it
+                )
+            }
+        }
+        lunchViewModel.fajita.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[12].setNewData(
+                    it
+                )
+            }
+        }
+        lunchViewModel.sideDishes.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[13].setNewData(
+                    it
+                )
+            }
+        }
+        lunchViewModel.sauces.observe(viewLifecycleOwner) {
+            it?.let {
+                listOfHorizentalAdapter[14].setNewData(
+                    it
+                )
+            }
         }
 
-
     }
-
-
 }

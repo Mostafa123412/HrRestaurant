@@ -14,6 +14,9 @@
         android:layout_height="wrap_content"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
+        app:tabSelectedTextAppearance="@style/TextAppearance.AppCompat.Large"
+        app:tabSelectedTextColor="@color/red"
+
         android:elevation="@dimen/_8sdp"
         app:tabRippleColor="@null"
         android:layout_margin="@dimen/_8sdp"

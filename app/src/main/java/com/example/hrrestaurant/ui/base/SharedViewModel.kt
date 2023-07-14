@@ -74,10 +74,10 @@ open class SharedViewModel @Inject constructor(private val mealRepository: MealR
         }
     }
 
-    fun setItemCountToZero(id: Int) {
+    fun setItemCountToOne(id: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                mealRepository.setItemCountToZero(id)
+                mealRepository.setItemCountToOne(id)
             }
         }
     }

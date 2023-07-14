@@ -12,7 +12,6 @@ import com.example.hrrestaurant.data.dataSources.localDataSource.LocalDataSource
 import com.example.hrrestaurant.data.dataSources.localDataSource.MealMapper
 import com.example.hrrestaurant.data.dataSources.localDataSource.Order
 import com.example.hrrestaurant.data.dataSources.remoteDataSource.RemoteDataSource
-import com.example.hrrestaurant.data.dataSources.remoteDataSource.User
 import com.example.hrrestaurant.ui.util.NetworkResponse
 import com.example.hrrestaurant.ui.util.UiState
 import kotlinx.coroutines.*
@@ -124,7 +123,7 @@ class MealRepository @Inject constructor(
 
     // Breakfast
     fun getCroissant(): Flow<List<Meal?>?> {
-        return localDataSource.getItemByCategory("croissant ")
+        return localDataSource.getItemByCategory("Croissant ")
     }
 
     fun getGeneral(): Flow<List<Meal?>?> {
@@ -133,14 +132,14 @@ class MealRepository @Inject constructor(
 
     //
     fun getOmelette(): Flow<List<Meal?>?> {
-        return localDataSource.getItemByCategory("omelette")
+        return localDataSource.getItemByCategory("Omelette")
     }
 
     fun getPancake(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("pancake")
 
     //Lunch Fragment
-    fun getSoup(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("soup")
-    fun getAppetizers(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("appetizers")
+    fun getSoup(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("Soup")
+    fun getAppetizers(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("Appetizers")
     fun getSalades(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("salade")
     fun getBurger(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("burger")
     fun getSandwiches(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("sandwiches")
@@ -209,8 +208,8 @@ class MealRepository @Inject constructor(
     fun getwaddeles(): Flow<List<Meal?>?> = localDataSource.getItemByCategory("waffeles")
 
     //should i here change the scope to IO ?
-    suspend fun setItemCountToZero(id: Int) {
-        coroutineScope { localDataSource.setItemCountToZero(id) }
+    suspend fun setItemCountToOne(id: Int) {
+        coroutineScope { localDataSource.setItemCountToOne(id) }
     }
 
 //    suspend fun postItemRate(id: Int?, rate: Float?): String {

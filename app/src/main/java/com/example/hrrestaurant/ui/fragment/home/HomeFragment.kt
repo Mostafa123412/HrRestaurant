@@ -1,6 +1,7 @@
 package com.example.hrrestaurant.ui.fragment.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -35,10 +36,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         navController = NavHostFragment.findNavController(this)
         binding.recyclarViewOffers.adapter = offersAdapter
         binding.recyclarViewMostPopular.adapter = mostPopularAdapter
+
         setOnClickViews()
         homeViewModel.topRated.observe(viewLifecycleOwner) {
             it.let {
-                topRatedAdapter.setNewData(it!!)
+                Log.d("Repository", "Top Rated $it")
+                offersAdapter.setNewData(it!!)
             }
         }
         homeViewModel.mostPopular.observe(viewLifecycleOwner) {

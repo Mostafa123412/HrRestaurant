@@ -69,8 +69,8 @@ interface Dao {
     @Query("UPDATE meal SET count = count - 1 WHERE id = :id")
     suspend fun decrementItemCount(id: Int)
 
-    @Query("UPDATE meal SET count = 0 WHERE id = :id")
-    fun setItemCountToZero(id: Int)
+    @Query("UPDATE meal SET count = 1 WHERE id = :id")
+    fun setItemCountToOne(id: Int)
 
     @Query("SELECT * FROM meal WHERE isChecked = 1")
     fun getFavouriteItems(): Flow<List<Meal?>>

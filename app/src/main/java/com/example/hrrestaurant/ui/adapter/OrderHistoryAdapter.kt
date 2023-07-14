@@ -40,7 +40,9 @@ class OrderHistoryAdapter(
             var orderTotalTitle = ""
 
             addOrderItemsToCart.setOnCheckedChangeListener { checkBox, isChecked ->
-                if (isChecked) orderListener.addThisOrderItemsToCartAgain(orderKeys)
+                if (isChecked) {
+                    orderListener.addThisOrderItemsToCartAgain(orderKeys)
+                }
                 else orderListener.removeOrderItemsFromCart(orderKeys)
             }
 
@@ -51,7 +53,7 @@ class OrderHistoryAdapter(
                         orderListener.getMealTitleByMealId(mealId.toInt())
                     }
                     withContext(Dispatchers.Main) {
-                        orderTotalTitle += " $mealCount -> ${oneMealTitle.await()} ,"
+                        orderTotalTitle += " $mealCount  ${oneMealTitle.await()} ,"
                         orderTitle.text = orderTotalTitle.trim(',')
                     }
                 }

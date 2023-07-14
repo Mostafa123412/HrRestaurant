@@ -20,41 +20,31 @@ class HorizontalAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = oldList[position]!!
-//        holder.binding.favCheckBox.isChecked = item.isChecked
-//        holder.binding.shoppingCart.isChecked = item.isAddedToChart
+        holder.binding.favCheckBox.isChecked = item.isChecked
+        holder.binding.shoppingCart.isChecked = item.isAddedToChart
 
         holder.binding.apply {
-            item.apply {
-                favCheckBox.isChecked = isChecked
-                shoppingCart.isChecked = isAddedToChart
-            }
-
             favCheckBox.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
-                    favCheckBox.isChecked = true
                     listener.addItemToFavourite(item.id)
                 } else {
-                    favCheckBox.isChecked = false
                     listener.removeItemFromFavourite(item.id)
                 }
             }
 
             shoppingCart.setOnCheckedChangeListener { checkBox, isChecked ->
                 if (isChecked) {
-                    shoppingCart.isChecked = true
                     listener.addItemToCart(item.id)
-                    listener.incrementItemCount(item.id)
                 } else {
-                    shoppingCart.isChecked = false
                     listener.removeItemFromCart(item.id)
-                    listener.setItemCountToZero(item.id)
+                    listener.setItemCountToOne(item.id)
                 }
             }
             itemImg.load(item.itemImage)
             itemTitle.text = item.title
             description.text = item.description
-            estimatedTimeValue.text = item.estimatedTime.toString().plus("Min")
-            priceValue.text = item.price.toString().plus("EGP")
+            estimatedTimeValue.text = item.estimatedTime.toString().plus(" Min")
+            priceValue.text = item.price.toString().plus(" EGP")
 
         }
     }

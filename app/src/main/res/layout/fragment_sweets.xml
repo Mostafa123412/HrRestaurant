@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="center"
+        app:tabSelectedTextAppearance="@style/TextAppearance.AppCompat.Large"
+        app:tabSelectedTextColor="@color/red"
         app:tabIndicatorHeight="0dp"
         android:elevation="@dimen/_8sdp"
         app:tabRippleColor="@null"

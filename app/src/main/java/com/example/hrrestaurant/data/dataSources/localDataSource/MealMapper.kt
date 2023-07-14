@@ -26,7 +26,6 @@ class MealMapper : Mapper<MealDto, Meal> {
 //            instead of saving null , we save false
             isChecked = false,
             isAddedToChart = false,
-            rate = 1F,
             itemImage = bitmap
         )
     }
@@ -34,7 +33,7 @@ class MealMapper : Mapper<MealDto, Meal> {
     private suspend fun getBitmap(imgUrl: String, context: Context): Bitmap {
         val loading = ImageLoader(context)
         val request = ImageRequest.Builder(context)
-            .data(imgUrl).build()
+            .data(imgUrl).size(1000 , 1000).build()
         val result = (loading.execute(request = request) as SuccessResult).drawable
         return (result as BitmapDrawable).bitmap
     }

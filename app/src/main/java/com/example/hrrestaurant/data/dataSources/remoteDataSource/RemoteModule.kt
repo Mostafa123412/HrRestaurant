@@ -23,7 +23,7 @@ object RemoteModule {
     @Singleton
     @Provides
     fun provideRetrofitInstance(): Retrofit = Retrofit.Builder()
-        .baseUrl("https://a947d433-4ea2-49ad-b982-0d03e0d461f4.mock.pstmn.io/")
+        .baseUrl("https://00346f7c-976e-410f-a1e3-dbc130e71bb9.mock.pstmn.io")
         .addConverterFactory(provideGsonConverterFactory())
         .client(provideClient())
         .build()

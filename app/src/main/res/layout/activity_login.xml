@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/black"
     tools:context=".ui.activity.loginActivity.LoginActivity">
 
     <ProgressBar
@@ -20,8 +20,11 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/login_activity_btnNavigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_46sdp"
         app:menu="@menu/loginmenu"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/black"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

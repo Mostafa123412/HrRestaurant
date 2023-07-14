@@ -18,7 +18,7 @@ class BreakfastFragment :
     BaseFragment<FragmentBreakfastBinding>(FragmentBreakfastBinding::inflate) {
     private lateinit var breakfastPagerAdapter: HorizentalPagerAdapter
     private val breakfastViewModel: BreakfastViewModel by viewModels()
-    private val tabs = listOf("general", "Croissant", "Omelette", "Pancake")
+    private val tabs = listOf("General", "Croissant", "Omelette", "Pancake")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

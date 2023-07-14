@@ -121,8 +121,8 @@
     <fragment
         android:id="@+id/moreDetailsFragment"
         android:name="com.example.hrrestaurant.ui.fragment.moreDetails.MoreDetailsFragment"
-        android:label="fragment_more_details"
-        tools:layout="@layout/fragment_more_details" >
+        android:label="Order Details"
+        tools:layout="@layout/fragment_more_details">
         <argument
             android:name="orderId"
             app:argType="string" />

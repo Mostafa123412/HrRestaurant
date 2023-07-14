@@ -12,12 +12,17 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:elevation="@dimen/_8sdp"
         app:tabGravity="center"
+        app:tabInlineLabel="true"
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextAppearance="@style/TextAppearance.AppCompat.Large"
+        app:tabSelectedTextColor="@color/red"
         app:tabIndicatorHeight="0dp"
-        app:tabMode="scrollable"
-        app:tabRippleColor="@null" />
+        android:elevation="@dimen/_8sdp"
+        app:tabRippleColor="@null"
+        android:layout_margin="@dimen/_8sdp"
+        app:tabMode="scrollable"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Beef_tv"
         android:visibility="gone"

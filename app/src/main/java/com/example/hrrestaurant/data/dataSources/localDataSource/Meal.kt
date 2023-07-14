@@ -1,7 +1,9 @@
 package com.example.hrrestaurant.data.dataSources.localDataSource
 
 import android.graphics.Bitmap
+import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity
@@ -9,6 +11,7 @@ data class Meal(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val title: String?,
+//    @Ignore
     val description: String?,
     var itemImage: Bitmap?,
     val estimatedTime: String,
@@ -17,6 +20,5 @@ data class Meal(
     val topRated: Int?,
     var isChecked: Boolean,
     var isAddedToChart: Boolean,
-    var rate:Float? = 0F,
-    var count:Int = 0,
+    var count:Int = 1,
 )
